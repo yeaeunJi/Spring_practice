@@ -21,6 +21,8 @@
 	</servlet-mapping>
 
 
+<!-- 리스너 설정 -->
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
