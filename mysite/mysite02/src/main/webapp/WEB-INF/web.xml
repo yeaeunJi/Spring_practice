@@ -73,4 +73,7 @@
     <url-pattern>*.ico</url-pattern>
     <url-pattern>*.swf</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.saltlux.mysite.web.ContextLoadListener</listener-class>
+  </listener>
 </web-app>
