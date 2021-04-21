@@ -10,6 +10,9 @@
 	<artifactId>mysite02</artifactId>
 	<packaging>war</packaging>
 
+  
+
+
 	<dependencies>
 	<!--  MongoDB에서 json과 vo를 쉽게 변환하기 위해 사용하는 라이브러리(ObjectMapper) -->
 	<dependency>
