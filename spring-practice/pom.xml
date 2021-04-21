@@ -34,5 +34,6 @@
    	<modules>
    		<module>hellospring03</module>
    		<module>emaillist03</module>
+   		<module>guestbook03</module>
    	</modules>
 </project>
