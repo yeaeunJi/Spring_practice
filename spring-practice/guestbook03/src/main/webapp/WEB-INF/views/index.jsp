@@ -44,7 +44,7 @@ pageContext.setAttribute("newline", "\n");
 				<td>${vo.name}</td>
 				<td>${vo.regDate}</td>
 				<td align=center><a
-					href="${pageContext.request.contextPath }/deleteform?no=${vo.no}">삭제</a></td>
+					href="${pageContext.request.contextPath }/delete?no=${vo.no}">삭제</a></td>
 			</tr>
 			<tr>
 				<th>내용</th>
