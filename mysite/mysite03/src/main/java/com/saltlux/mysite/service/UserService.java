@@ -25,7 +25,7 @@ public class UserService { // 비즈니스(서비스) 관련 용어로 메서드
 	}
 
 	public boolean update(UserVo vo) {
-		return userRepository.updateAll(vo);
+		return userRepository.update(vo);
 	}
 	
 	

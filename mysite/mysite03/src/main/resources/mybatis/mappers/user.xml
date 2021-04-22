@@ -2,27 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="user">
-<!-- 
-<resultMap type="com.saltlux.mysite.vo.UserVo" id="resultMapList">
-	<result column="no" property="no"/>
-	<result column="name" property="name"/>
-	<result column="password" property="password"/>
-	<result column="email" property="email"/>
-</resultMap>
-
-<select id="list" resultMap="resultMapList">
-	select no,
-	       name,
-	       password,
-	       email
-    from user
-    order by no desc
+ 
+<select id="findByNo"  resultType="uservo" parameterType="long">
+<![CDATA[
+	 select no, name, email, gender from user where no = #{no}
+]]>
 </select>
- -->
+ 
+<select id="findByEmailAndPassword"  resultType="uservo" parameterType="uservo">
+<![CDATA[
+	 select no, name from user where email= #{email} and password=#{password}
+]]>
+</select> 
+ 
+<!-- mysql에는 last_insert_id()로 방금 insert된 pk를 얻을 수 있음 --> 
 <insert id="insert" parameterType="uservo">
+<![CDATA[
    insert  
    into user  ( no, name, email, password, gender, join_date) 
    values (null,  #{name}, #{email}, #{password}, #{gender}, now() )
+]]>
+<selectKey keyProperty="no" order="AFTER" resultType="long"> <!-- 트랜잭션 보장해줌 : 쿼리 실행 후 -->
+	<![CDATA[
+	select last_insert_id()
+	]]>
+</selectKey>
 </insert>
+
+
+<update id="update" parameterType="uservo">
+<choose>
+	<when test ='password!=""'>
+		<![CDATA[
+	update user set name = #{name}, gender=#{gender}, password=#{password} where no = #{no}
+	]]>
+	</when>
+	
+	<otherwise>
+			<![CDATA[
+	update user set name = #{name}, gender=#{gender} where no = #{no}
+	]]>
+	</otherwise>
+</choose>
+
+</update>
 
 </mapper>
