@@ -25,7 +25,7 @@ background-color: #777799;;
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				
+				<h6>상담 용어 사전</h6>
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>

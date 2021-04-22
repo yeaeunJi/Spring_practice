@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.saltlux.mysite.exception.UserRepositoryException;
@@ -16,6 +18,9 @@ public class UserRepository {
 	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	private SqlSession sqlSession;
+	
 	public UserVo findByNo(Long no ) {
 		UserVo userVo = null ;
 		Connection conn = null;
@@ -129,11 +134,9 @@ public class UserRepository {
 
 		try {
 			conn = dataSource.getConnection();
-
 			String sql = "update user set name = ?, gender=?, password=? where no = ?;";
 
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getGender());
 			pstmt.setString(3, vo.getPassword());
@@ -156,34 +159,6 @@ public class UserRepository {
 	}
 
 	public boolean insert(UserVo vo) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "insert into user ( no, name, email, password, gender, join_date) " +
-					"values (null, ?, ?, ?, ?,now());";
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getEmail());
-			pstmt.setString(3, vo.getPassword());
-			pstmt.setString(4, vo.getGender());
-
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-			return result;
-		} catch(SQLException e) {
-			throw new UserRepositoryException(e.toString()); 
-		} finally {
-			try {
-				if(conn!=null) conn.close();
-				if(pstmt != null) pstmt.close();
-			} catch (SQLException e) {
-				throw new UserRepositoryException(e.toString()); 
-			}
-		}
+		return sqlSession.insert("user.insert",vo)>0?true:false;
 	}
 }
