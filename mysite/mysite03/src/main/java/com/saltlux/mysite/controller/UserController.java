@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,15 +15,15 @@ import com.saltlux.mysite.vo.UserVo;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService ;
-	
+
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
 		return "user/join";
 	}
-	
+
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(UserVo vo) {
 		// service를 불러서 회원가입 비즈니스 로직을 처리
@@ -31,19 +32,19 @@ public class UserController {
 		userService.join(vo);
 		return "redirect:/user/joinsuccess";
 	}
-	
+
 	@RequestMapping("/joinsuccess")
 	public String joinsuccess() {
 		return "user/joinsuccess";
 	}
-	
+
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "user/login";
 	}
-	
+
 	// 근데 mysite03에서는 스프링 시큐리티 안쓸 것이므로 아래의 방법을 사용
-//	@Auth(role="ADMIN") // 이거를 보고 체크해주는 식으로 사용할 수 있음 : 내가 만든 어노테이션으로 체크
+	//	@Auth(role="ADMIN") // 이거를 보고 체크해주는 식으로 사용할 수 있음 : 내가 만든 어노테이션으로 체크
 	// 인터셉터 : 서블릿이 controller를 호출 할때 할지 말지를 가운데서 결정해주는 역할(스프링에서 제공.)
 	//             --> 서블릿에서 확인한 세션 정보로 인터셉터가 결정해줌
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -54,24 +55,24 @@ public class UserController {
 		// 로그인은 인증(Authentication) :  로그인 정보를 확인해보는 것 --> 이렇게 들어와있는 코드를 밖으로 빼는 것이 좋음
 		// 인증 : 기존 mysite02에서 if authUser == null ~ 로 만들었던 코드
 		// 권한 : if (vo.getRole() == "ADMIN") ~ 
-//		userService.login(vo); // <--- 서비스에게는 이 기능을 안주는 것이 좋음
+		//		userService.login(vo); // <--- 서비스에게는 이 기능을 안주는 것이 좋음
 		UserVo authUser = userService.getUser(vo);		
 		if(authUser == null) {
 			return "redirect:/user/login?result=fail";
 		}
-		
+
 		/* 로그인 처리*/
 		session.setAttribute("authUser",  authUser);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("authUser");
 		session.invalidate();
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(HttpSession session, Model model) {
 		// 접근 제어
@@ -79,15 +80,15 @@ public class UserController {
 		if(authUser == null) {
 			return "redirect:/user/login?result=fail";
 		}
-		
+
 		Long no = authUser.getNo();
 		UserVo userVo = userService.getUser(no);
 
 		model.addAttribute("userVo", userVo);
-		
+
 		return "user/update";
 	}
-	
+
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(UserVo vo, HttpSession session) {
 		// 접근 제어
@@ -95,14 +96,19 @@ public class UserController {
 		if(authUser == null) {
 			return "redirect:/user/login?result=fail";
 		}
-		
+
 		Long no = authUser.getNo();
 		vo.setNo(no);
 		userService.update(vo);
 		UserVo userVo = userService.getUser(no);
-		System.out.println(userVo);
 		session.setAttribute("authUser", userVo);		
-		
+
 		return "redirect:/";
 	}
+
+//	@ExceptionHandler(Exception.class) // 모든 예외를 여기로 받음  
+//	public String handleException() {
+//		// 로그 남기는 작업
+//		return "error/exception";
+//	} --> 이거 사용하면 여기서 예외가 처리되어 GlobalExceptionHandler가 사용되지 않게되므로 주석처리 
 }

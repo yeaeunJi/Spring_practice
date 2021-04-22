@@ -28,4 +28,6 @@ public class UserService { // 비즈니스(서비스) 관련 용어로 메서드
 		return userRepository.updateAll(vo);
 	}
 	
+	
+	
 }

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.saltlux.mysite.db.Mysql;
+import com.saltlux.mysite.exception.UserRepositoryException;
 import com.saltlux.mysite.vo.UserVo;
 @Repository
 public class UserRepository {
@@ -46,7 +47,7 @@ public class UserRepository {
 			}
 			System.out.println("*************** user 번호로 사용자 정보 조회 완료 *************** ");
 		} catch(SQLException e) {
-			System.out.println("error-"+e);
+			throw new UserRepositoryException(e.toString()); // db exception을 runtimeException으로 전환
 
 		} finally {
 			try {
@@ -54,7 +55,7 @@ public class UserRepository {
 				//if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
-				System.out.println("error-"+e);
+				throw new UserRepositoryException(e.toString()); 
 			}
 
 		}
@@ -90,7 +91,7 @@ public class UserRepository {
 			}
 			System.out.println("*************** 로그인 완료 *************** ");
 		} catch(SQLException e) {
-			System.out.println("error-"+e);
+			throw new UserRepositoryException(e.toString()); 
 
 		} finally {
 			try {
@@ -98,7 +99,7 @@ public class UserRepository {
 				//if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
-				System.out.println("error-"+e);
+				throw new UserRepositoryException(e.toString()); 
 			}
 
 		}
@@ -129,14 +130,14 @@ public class UserRepository {
 			System.out.println("*************** updateNameAndGender end *************** ");
 			return result;
 		} catch(SQLException e) {
-			System.out.println("error-"+e);
-			return result;
+			throw new UserRepositoryException(e.toString()); 
+			
 		} finally {
 			try {
 				//if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
-				System.out.println("error-"+e);
+				throw new UserRepositoryException(e.toString()); 
 			}
 
 		}
@@ -166,14 +167,13 @@ public class UserRepository {
 			System.out.println("*************** updateAll start *************** ");
 			return result;
 		} catch(SQLException e) {
-			System.out.println("error-"+e);
-			return result;
+			throw new UserRepositoryException(e.toString()); 
 		} finally {
 			try {
 				//if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
-				System.out.println("error-"+e);
+				throw new UserRepositoryException(e.toString()); 
 			}
 
 		}
@@ -204,14 +204,13 @@ public class UserRepository {
 			System.out.println("*************** insert end *************** ");
 			return result;
 		} catch(SQLException e) {
-			System.out.println("error-"+e);
-			return result;
+			throw new UserRepositoryException(e.toString()); 
 		} finally {
 			try {
 				//if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
-				System.out.println("error-"+e);
+				throw new UserRepositoryException(e.toString()); 
 			}
 		}
 	}
