@@ -3,8 +3,10 @@
 <configuration>
 	<typeAliases>
 	<typeAlias type="com.saltlux.mysite.vo.UserVo" alias="uservo"/>
+	<typeAlias type="com.saltlux.mysite.vo.GuestbookVo" alias="guestbookvo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/guestbook.xml" />
 	</mappers>
 </configuration>
