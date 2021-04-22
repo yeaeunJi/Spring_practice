@@ -4,35 +4,28 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.apache.log4j.Logger;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.saltlux.mysite.db.Mysql;
 import com.saltlux.mysite.exception.UserRepositoryException;
 import com.saltlux.mysite.vo.UserVo;
+
 @Repository
 public class UserRepository {
 
-	//logger 
-	private static final Logger logger   = Logger.getLogger(UserRepository.class);
- 
-	
+	@Autowired
+	private DataSource dataSource;
+
 	public UserVo findByNo(Long no ) {
-		System.out.println("*************** user 번호로 사용자 정보 조회 시작 *************** ");
 		UserVo userVo = null ;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
 		try {
-			conn = Mysql.getConnection();
-			if(Mysql.useReplicated) conn.setReadOnly(true);
+			conn = dataSource.getConnection();
 			String sql ="select no, name, email, gender from user where no = ?;";
-
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setLong(1, no);
-
 			result = pstmt.executeQuery();
 
 			if(result.next()) {
@@ -45,14 +38,13 @@ public class UserRepository {
 				userVo.setEmail(email);
 				userVo.setGender(gender);
 			}
-			System.out.println("*************** user 번호로 사용자 정보 조회 완료 *************** ");
 		} catch(SQLException e) {
 			throw new UserRepositoryException(e.toString()); // db exception을 runtimeException으로 전환
 
 		} finally {
 			try {
 				if(result!=null) result.close();
-				//if(conn!=null) conn.close();
+				if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
 				throw new UserRepositoryException(e.toString()); 
@@ -63,19 +55,14 @@ public class UserRepository {
 	}
 
 	public UserVo findByEmailAndPassword(UserVo vo ) {
-		System.out.println("*************** 로그인 시작 *************** ");
 		UserVo userVo = null ;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
 		try {
-			conn = Mysql.getConnection();
-			if(Mysql.useReplicated) conn.setReadOnly(true);
-
+			conn = dataSource.getConnection();
 			String sql ="select no, name from user where email=? and password=?;";
-
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPassword());
 
@@ -89,14 +76,13 @@ public class UserRepository {
 				userVo.setName(name);
 				userVo.setNo(no);
 			}
-			System.out.println("*************** 로그인 완료 *************** ");
 		} catch(SQLException e) {
 			throw new UserRepositoryException(e.toString()); 
 
 		} finally {
 			try {
 				if(result!=null) result.close();
-				//if(conn!=null) conn.close();
+				if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
 				throw new UserRepositoryException(e.toString()); 
@@ -107,34 +93,27 @@ public class UserRepository {
 	}
 
 	public boolean updateNameAndGender(UserVo vo) {
-		System.out.println("*************** updateNameAndGender 시작 *************** ");
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
-			conn = Mysql.getConnection();
-			if(Mysql.useReplicated) conn.setReadOnly(false);
-
+			conn = dataSource.getConnection();
 			String sql = "update user set name = ?, gender=? where no = ?;";
-
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setString(1, vo.getName());
-			//			pstmt.setString(3, vo.getPassword());
 			pstmt.setString(2, vo.getGender());
 			pstmt.setLong(3, vo.getNo());
 
 			int count = pstmt.executeUpdate();
 			result = count == 1;
-			System.out.println("*************** updateNameAndGender end *************** ");
 			return result;
 		} catch(SQLException e) {
 			throw new UserRepositoryException(e.toString()); 
-			
+
 		} finally {
 			try {
-				//if(conn!=null) conn.close();
+				if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
 				throw new UserRepositoryException(e.toString()); 
@@ -144,14 +123,12 @@ public class UserRepository {
 	}
 
 	public boolean updateAll(UserVo vo) {
-		System.out.println("*************** updateAll start *************** ");
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
-			conn = Mysql.getConnection();
-			if(Mysql.useReplicated) conn.setReadOnly(false);
+			conn = dataSource.getConnection();
 
 			String sql = "update user set name = ?, gender=?, password=? where no = ?;";
 
@@ -164,13 +141,12 @@ public class UserRepository {
 
 			int count = pstmt.executeUpdate();
 			result = count == 1;
-			System.out.println("*************** updateAll start *************** ");
 			return result;
 		} catch(SQLException e) {
 			throw new UserRepositoryException(e.toString()); 
 		} finally {
 			try {
-				//if(conn!=null) conn.close();
+				if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
 				throw new UserRepositoryException(e.toString()); 
@@ -178,22 +154,19 @@ public class UserRepository {
 
 		}
 	}
+
 	public boolean insert(UserVo vo) {
-		System.out.println("*************** insert start *************** ");
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
-			conn = Mysql.getConnection();
-			if(Mysql.useReplicated) conn.setReadOnly(false);
+			conn = dataSource.getConnection();
 
-			String sql = "insert " +
-					"into user ( no, name, email, password, gender, join_date) " +
+			String sql = "insert into user ( no, name, email, password, gender, join_date) " +
 					"values (null, ?, ?, ?, ?,now());";
 
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());
@@ -201,13 +174,12 @@ public class UserRepository {
 
 			int count = pstmt.executeUpdate();
 			result = count == 1;
-			System.out.println("*************** insert end *************** ");
 			return result;
 		} catch(SQLException e) {
 			throw new UserRepositoryException(e.toString()); 
 		} finally {
 			try {
-				//if(conn!=null) conn.close();
+				if(conn!=null) conn.close();
 				if(pstmt != null) pstmt.close();
 			} catch (SQLException e) {
 				throw new UserRepositoryException(e.toString()); 
