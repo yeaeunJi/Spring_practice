@@ -82,6 +82,7 @@ public class UserController {
 		Long no = authUser.getNo();
 		// argument resolve 
 		UserVo userVo = userService.getUser(no);
+		System.out.println("update: "+authUser);
 		model.addAttribute("userVo", userVo);
 		return "user/update";
 	}

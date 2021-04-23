@@ -40,6 +40,12 @@
 			</bean>
 
 		</mvc:message-converters>
+		
+     <!-- argument resolver -->
+	<mvc:argument-resolvers>
+         <bean class="com.saltlux.mysite.security.AuthUserHandlerMethodArgumentResolver"/>           
+      </mvc:argument-resolvers>
+		
 	</mvc:annotation-driven>
 
 	<!-- Interceptors -->
