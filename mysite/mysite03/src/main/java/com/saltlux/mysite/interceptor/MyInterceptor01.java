@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+
+// interceptor test용 코드
 public class MyInterceptor01 implements HandlerInterceptor {
 	
 	@Override

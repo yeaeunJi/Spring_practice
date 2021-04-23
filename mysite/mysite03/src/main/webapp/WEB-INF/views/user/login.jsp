@@ -17,13 +17,13 @@
 		<div id="content">
 			<div id="user">
 				<form id="login-form" name="loginform" method="post"
-					action="${pageContext.request.contextPath }/user/login">
+					action="${pageContext.request.contextPath }/user/auth">
 <label
 						class="block-label" for="email">이메일</label> <input id="email"
 						name="email" type="text" value=""> <label
 						class="block-label">패스워드</label> <input name="password"
 						type="password" value="">
-					<c:if test="${'fail' == result }">
+					<c:if test="${ param.result  == 'fail'}">
 					<p>로그인이 실패 했습니다.</p>
 					</c:if>
 					<input type="submit" value="로그인">

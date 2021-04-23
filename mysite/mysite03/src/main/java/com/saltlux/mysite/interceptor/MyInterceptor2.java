@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
+//interceptor test용 코드
 public class MyInterceptor2 extends HandlerInterceptorAdapter {
 
 	@Override
