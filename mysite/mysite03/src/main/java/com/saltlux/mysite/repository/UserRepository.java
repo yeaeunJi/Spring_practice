@@ -26,9 +26,11 @@ public class UserRepository {
 	}
 
 	public boolean insert(UserVo vo) {
-		System.out.println(vo.getNo());
 		int count =  sqlSession.insert("user.insert",vo); // 삽입 후 no를 받아오기
-		System.out.println(vo.getNo());
 		return count==1;
+	}
+
+	public String findByEmail(String email) {
+		return sqlSession.selectOne("user.findByEmail", email);
 	}
 }

@@ -14,6 +14,12 @@
 	 select no, name from user where email= #{email} and password=#{password}
 ]]>
 </select> 
+
+<select id="findByEmail"  resultType="string" parameterType="string">
+<![CDATA[
+	 select no from user where email= #{email}
+]]>
+</select> 
  
 <!-- mysql에는 last_insert_id()로 방금 insert된 pk를 얻을 수 있음 --> 
 <insert id="insert" parameterType="uservo">

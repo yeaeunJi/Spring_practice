@@ -9,6 +9,57 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.6.0.js"  ></script>
+<script>
+$(function(){ // 화면 load가 끝날 때 실행되는 이벤트 함수라고 생각하면 됨...?
+	
+	$("#email-check").change(function(){ // email 입력 변경 이벤트
+		$("#img-check").hide();
+		$("#btn-check").show();
+	});
+	
+	
+	$("#btn-check").click(function(){ // 클릭 이벤트 함수 등록 : 비동기
+		let email = $("#email-check").val();
+		if (email == '') {
+			return; // 이메일 입력하지 않고 버튼을 누르면 통신x
+		}
+		
+		let url = "${pageContext.request.contextPath}/api/user/existemail?email="+email;
+		
+		$.ajax({
+			url : url,
+			asyc : true, // 비동기
+			data: '',
+			dataType: "json",
+			success : function(response){
+				// String을 자바스크리브 객체로 받음
+				if (response.result !='success'){
+					console.error(response.message);
+					return;
+				}
+
+				if (response.data == true) {
+					alert("이미 존재하는 이메일입니다. 다른 이메일은 사용해주세요.");
+					$("#email-check").val('').focus();
+					return;
+				} 
+				
+				alert("사용가능한 email입니다.");
+				$("#password").focus();
+				$("#img-check").show();
+				$("#btn-check").hide();
+			},
+		error : function(xhr, status, e){
+				console.log(e);
+		}
+			
+		});
+	
+	});
+})
+
+</script>
 </head>
 <body>
 	<div id="container">
@@ -21,11 +72,12 @@
 					<input id="name" name="name" type="text" value="">
 
 					<label class="block-label" for="email">이메일</label>
-					<input id="email" name="email" type="text" value="">
-					<input type="button" value="id 중복체크">
+					<input id="email-check" name="email" type="text" value="">
+					<img  id="img-check" src="${pageContext.request.contextPath }/assets/images/check.png"  style="width:16px; display:none"   >
+					<input type="button" value="id 중복체크" id="btn-check">
 					
 					<label class="block-label">패스워드</label>
-					<input name="password" type="password" value="">
+					<input name="password" type="password" value="" id="password">
 					
 					<fieldset>
 						<legend>성별</legend>
