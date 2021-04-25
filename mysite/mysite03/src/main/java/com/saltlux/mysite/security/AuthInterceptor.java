@@ -28,14 +28,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// 3. Method에 @Auth가 달려 있는지 체크 
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
 		
-		// 4. Method에 @Auth가 안달려 있으면 
-		System.out.println("handlerMethod.getBean().getClass() : "+handlerMethod.getBean().getClass());
-		System.out.println("handlerMethod.getBean().getClass().getAnnotation(Auth.class) : "+handlerMethod.getBean().getClass().getAnnotation(Auth.class));
-		
+		// 4-1 . Method에 @Auth가 안달려 있으면 
+		// 4-2. class에도 @Auth가 달려있지 않으면 
 		if(auth == null) {
-			// class에 @Auth가 달려 있는지 체크
-			
-			return true;				
+			auth = handlerMethod.getBean().getClass().getAnnotation(Auth.class);
+			if (auth == null) {
+				return true;				
+			}
 		}
 		
 		/* 인증 확인 */
@@ -52,6 +51,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
+		/* 권한 확인 */
 		if("user".equals(authUser.getRole()) && "admin".equals(auth.role()))
 		{
 			response.sendRedirect(request.getContextPath());
