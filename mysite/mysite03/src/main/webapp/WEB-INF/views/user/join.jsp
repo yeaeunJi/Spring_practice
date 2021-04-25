@@ -54,9 +54,11 @@ $(function(){ // 화면 load가 끝날 때 실행되는 이벤트 함수라고 �
 				console.log(e);
 		}
 			
-		});
-	
-	});
+		}); // $("#btn-check").click
+		
+		$("#join_btn").click(function(){ 
+		
+	}); // $("#join_btn").click
 })
 
 </script>
@@ -91,7 +93,7 @@ $(function(){ // 화면 load가 끝날 때 실행되는 이벤트 함수라고 �
 						<label>서비스 약관에 동의합니다.</label>
 					</fieldset>
 					
-					<input type="submit" value="가입하기">
+					<input type="submit" value="가입하기" id="join_btn"> 
 					
 				</form>
 			</div>

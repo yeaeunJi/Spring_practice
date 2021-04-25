@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME) // 인터셉터가 사용하는 어노테이션
 @Target({ METHOD, TYPE })
 public @interface Auth {
-	public Role role() default Role.USER; // 항상 디폴트
+	public String role() default "user"; // 항상 디폴트
 }

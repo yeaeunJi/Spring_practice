@@ -5,19 +5,19 @@
  
 <select id="findByNo"  resultType="uservo" parameterType="long">
 <![CDATA[
-	 select no, name, email, gender from user where no = #{no}
+	 select no, name, email, gender, role from user where no = #{no}
 ]]>
 </select>
  
 <select id="findByEmailAndPassword"  resultType="uservo" parameterType="uservo">
 <![CDATA[
-	 select no, name from user where email= #{email} and password=#{password}
+	 select no, name, role from user where email= #{email} and password=#{password}
 ]]>
 </select> 
 
 <select id="findByEmail"  resultType="string" parameterType="string">
 <![CDATA[
-	 select no from user where email= #{email}
+	 select no, role from user where email= #{email}
 ]]>
 </select> 
  
@@ -25,8 +25,8 @@
 <insert id="insert" parameterType="uservo">
 <![CDATA[
    insert  
-   into user  ( no, name, email, password, gender, join_date) 
-   values (null,  #{name}, #{email}, #{password}, #{gender}, now() )
+   into user  ( no, name, email, password, gender, join_date, role) 
+   values (null,  #{name}, #{email}, #{password}, #{gender}, now(), 'user' )
 ]]>
 <selectKey keyProperty="no" order="AFTER" resultType="long"> <!-- 트랜잭션 보장해줌 : 쿼리 실행 후 -->
 	<![CDATA[

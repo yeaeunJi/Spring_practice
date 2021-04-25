@@ -20,7 +20,7 @@ public class UserController {
 	@RequestMapping("/existemail")
 	@ResponseBody
 	public JsonResult existEmail( String email){
-		Boolean result = userService.existUser(email);
+		boolean result = userService.existUser(email);
 		return JsonResult.success(result);
 	}
 }
