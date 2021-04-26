@@ -1,13 +1,11 @@
 package com.saltlux.mysite.repository;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.saltlux.mysite.vo.BoardVo;
+import com.saltlux.mysite.vo.PageVo;
 import com.saltlux.mysite.vo.UserVo;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/applicationContext.xml"})
@@ -32,6 +31,8 @@ public class BoardRepositoryTest {
 		
 		private BoardVo board1;
 		private BoardVo board2;
+		private BoardVo board3;
+		private BoardVo board4;
 		
 		@Before
 		public void setUp() {
@@ -50,7 +51,8 @@ public class BoardRepositoryTest {
 			
 			this.board1 = new BoardVo("title1", this.user1.getNo(), "contents1",1L, 1L, 0L );
 			this.board2 =  new BoardVo("title2", this.user2.getNo(), "contents2",1L, 2L, 1L );
-			
+			this.board3 = new BoardVo("title3", this.user1.getNo(), "contents3",1L, 3L, 2L );
+			this.board4 =  new BoardVo("title4", this.user2.getNo(), "contents4",2L, 1L, 0L );
 		}
 		
 		@Test 
@@ -69,6 +71,22 @@ public class BoardRepositoryTest {
 			BoardVo boardget2 = boardRepository.getBoard(board2.getNo());
 			assertThat(boardget2.getTitle(), is(board2.getTitle()));
 			assertThat(boardget2.getContents(), is(board2.getContents()));
+		}
+		
+		@Test 
+		public void findAll() throws SQLException {
+			boardRepository.deleteAll();
+			assertThat(boardRepository.getCount(), is(0));
+	
+			boardRepository.insert(board1);
+			boardRepository.insert(board2);
+			assertThat(boardRepository.getCount(), is(2));
+			
+			PageVo pagevo = new PageVo(0L, 2L);
+			
+			List<BoardVo> list = boardRepository.findAll("", pagevo);
+			assertThat(boardRepository.getCount(), is(list.size()));
+			
 		}
 
 //		@Test(expected=EmptyResultDataAccessException.class)

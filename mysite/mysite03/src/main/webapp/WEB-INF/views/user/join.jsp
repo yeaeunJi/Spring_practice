@@ -43,6 +43,7 @@ $(function(){ // 화면 load가 끝날 때 실행되는 이벤트 함수라고 �
 				if (response.data == true) {
 					alert("이미 존재하는 이메일입니다. 다른 이메일은 사용해주세요.");
 					$("#email-check").val('').focus();
+					$("#join_btn").attr("disabled", true);
 					return;
 				} 
 				
@@ -50,6 +51,7 @@ $(function(){ // 화면 load가 끝날 때 실행되는 이벤트 함수라고 �
 				$("#password").focus();
 				$("#img-check").show();
 				$("#btn-check").hide();
+				$("#join_btn").attr("disabled", false);
 			},
 		error : function(xhr, status, e){
 				console.log(e);
@@ -95,7 +97,7 @@ $(function(){ // 화면 load가 끝날 때 실행되는 이벤트 함수라고 �
 						<label>서비스 약관에 동의합니다.</label>
 					</fieldset>
 					
-					<input type="submit" value="가입하기" id="join_btn"> 
+					<input type="submit" value="가입하기" id="join_btn" disabled="disabled"> 
 					
 				</form>
 			</div>

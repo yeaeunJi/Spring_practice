@@ -1,27 +1,44 @@
 package com.saltlux.mysite.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.saltlux.mysite.vo.BoardVo;
 //import com.saltlux.mysite.vo.PageVo;
+import com.saltlux.mysite.vo.PageVo;
 
 @Repository
 public class BoardRepository {
 	@Autowired
 	private SqlSession sqlSession;
+	
 	public void deleteAll() {
 		sqlSession.delete("board.deleteAll");
 	}
+	
 	public int getCount() {
 		return sqlSession.selectOne("board.getCount");
 	}
+	
 	public boolean insert(BoardVo vo) {
 		return sqlSession.insert("board.insert", vo)==1;
 	}
+	
 	public BoardVo getBoard(Long no) {
 		return sqlSession.selectOne("board.findOne", no);
+	}
+	
+	public List<BoardVo> findAll(String keyword, PageVo pagevo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", keyword);
+		map.put("start", pagevo.getStart());
+		map.put("showNum", pagevo.getShowNum());
+		return sqlSession.selectList("board.findAll", map);
 	}
 
 

@@ -11,13 +11,7 @@
 <link href="${pageContext.request.contextPath }/assets/css/board.css"
 	rel="stylesheet" type="text/css">
 <style>
-.tbl-ex tr:nth-child(odd) {
-background-color : gray;
-}
 
-.tbl-ex tr:nth-child(even) {
-background-color: #777799;;
-}
 </style>
 </head>
 <body>
@@ -68,11 +62,13 @@ background-color: #777799;;
 							<td>${vo.writer }</td>
 							<td>${vo.count }</td>
 							<td>${vo.regDate }</td>
+							<td>
 							<c:if test="${!empty authUser  && authUser.no == vo.userNo}">
-								<td><a
+								<a
 									href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}&keyword=${keyword}"
-									class="del">삭제</a></td>
-							</c:if>
+									class="del" >삭제</a>
+							</c:if> 
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

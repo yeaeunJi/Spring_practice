@@ -16,14 +16,14 @@
 		<result column="depth" property="depth" />
 		<result column="del_flag" property="delFlag" />
 	</resultMap>
-<!-- 
+ 
 	<select id="findAll" resultMap="resultMapList" parameterType="map">
 <![CDATA[
 	 select no, title, (select name from user where no=board.user_no) as writer, user_no, count, reg_date, group_no, order_no, depth, del_flag 
 	 from board where contents like '%${keyword}%' or title like  '%${keyword}%'  order by group_no desc, order_no limit #{start},#{showNum} 
 ]]>
 	</select>
-	 -->
+
 	
 	<select id="findOne" resultMap="resultMapList" parameterType="long">
 <![CDATA[

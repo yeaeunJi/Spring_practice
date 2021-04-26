@@ -4,6 +4,7 @@
 	<typeAliases>
 	<typeAlias type="com.saltlux.mysite.vo.UserVo" alias="uservo"/>
 	<typeAlias type="com.saltlux.mysite.vo.GuestbookVo" alias="guestbookvo"/>
+	<typeAlias type="com.saltlux.mysite.vo.PageVo" alias="pagevo"/>
 	<typeAlias type="com.saltlux.mysite.vo.BoardVo" alias="boardvo"/>
 	</typeAliases>
 	<mappers>
