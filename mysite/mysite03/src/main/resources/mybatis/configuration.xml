@@ -4,9 +4,11 @@
 	<typeAliases>
 	<typeAlias type="com.saltlux.mysite.vo.UserVo" alias="uservo"/>
 	<typeAlias type="com.saltlux.mysite.vo.GuestbookVo" alias="guestbookvo"/>
+	<typeAlias type="com.saltlux.mysite.vo.BoardVo" alias="boardvo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/guestbook.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
 	</mappers>
 </configuration>

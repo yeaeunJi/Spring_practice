@@ -10,6 +10,20 @@ public class UserVo {
 	private String role; 
 	private String authFlag;
 	
+	public UserVo(String name, String email, String password, String gender, String role, String authFlag) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.gender = gender;
+		this.role = role;
+		this.authFlag = authFlag;
+	}
+	
+	
+	public UserVo() {
+	}
+
+
 	public String getAuthFlag() {
 		return authFlag;
 	}

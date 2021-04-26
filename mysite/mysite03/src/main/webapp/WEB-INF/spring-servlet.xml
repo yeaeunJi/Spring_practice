@@ -63,7 +63,8 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/assets/**"/>
+			<!-- AuthInterceptor에서 디폴트 서블릿 핸들러와 관련된 정적 자원 처리를 통과시키는 방법으로 다음과 같이 url을 제외해주는 방법도 사용 가능
+			  <mvc:exclude-mapping path="/assets/**"/> -->
 			<mvc:exclude-mapping path="/user/auth"/>
 			<mvc:exclude-mapping path="/user/logout"/>
 			<bean class="com.saltlux.mysite.security.AuthInterceptor" />

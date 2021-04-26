@@ -58,4 +58,10 @@
 
 </update>
 
+<delete id="deleteAll" >
+<![CDATA[
+delete from user
+]]>
+</delete>
+
 </mapper>

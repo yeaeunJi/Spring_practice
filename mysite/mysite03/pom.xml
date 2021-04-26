@@ -79,6 +79,22 @@
 		</dependency>
 
 
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- Spring Test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- Common DBCP : 아파치에서 제공하는 데이터 커넥션 풀 라이브러리 -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>

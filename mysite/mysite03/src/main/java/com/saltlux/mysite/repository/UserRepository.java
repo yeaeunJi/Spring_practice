@@ -37,4 +37,8 @@ public class UserRepository {
 	public boolean updateAuthFlag(UserVo vo) {
 		return sqlSession.selectOne("user.updateAuthFlag", vo);
 	}
+
+	public void deleteAll() {
+		sqlSession.delete("user.deleteAll");
+	}
 }

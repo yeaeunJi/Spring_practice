@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<resultMap type="boardvo" id="resultMapList">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="user_no" property="userNo" />
+		<result column="contents" property="contents" />
+		<result column="count" property="count" />
+		<result column="reg_date" property="regDate" />
+		<result column="group_no" property="gNo" />
+		<result column="order_no" property="oNo" />
+		<result column="depth" property="depth" />
+		<result column="del_flag" property="delFlag" />
+	</resultMap>
+<!-- 
+	<select id="findAll" resultMap="resultMapList" parameterType="map">
+<![CDATA[
+	 select no, title, (select name from user where no=board.user_no) as writer, user_no, count, reg_date, group_no, order_no, depth, del_flag 
+	 from board where contents like '%${keyword}%' or title like  '%${keyword}%'  order by group_no desc, order_no limit #{start},#{showNum} 
+]]>
+	</select>
+	 -->
+	
+	<select id="findOne" resultMap="resultMapList" parameterType="long">
+<![CDATA[
+	select no, title, contents, user_no, (select name from user where no=board.user_no) as writer, count, reg_date, depth, group_no, order_no 
+	from board 
+ 	where no = #{no} and del_flag = 'F'
+]]>
+	</select>
+<!-- 
+	<select id="getNewGNo" resultType="long">
+<![CDATA[
+	select ifnull(max(group_no),0)+1 as max from board
+]]>
+	</select>
+
+	<select id="getChildCount" resultType="int" parameterType="boardvo">
+<![CDATA[
+	select count(*)  from board where depth > #{depth} and order_no = #{oNo}+1 and group_no=#{gNo}
+]]>
+	</select>
+	
+		<select id="getParentInfo" resultType="boardvo" parameterType="long">
+<![CDATA[
+	select group_no, order_no, depth from board where no=#{no}
+]]>
+	</select>
+		 -->
+		<select id="getCount" resultType="int" >
+<![CDATA[
+	SELECT count(*) FROM board
+]]>
+	</select>
+			<select id="getMaxONo" resultType="long" parameterType="long">
+<![CDATA[
+	sselect ifnull(max(order_no),0)+1 as max from board where group_no = #{gNo}
+]]>
+	</select>
+	
+<!-- 
+	<select id="paging" resultType="pagevo" parameterType="map">
+<![CDATA[
+	SELECT count(no) as total, CASE WHEN ceiling(count(no)/#{showNum})  = 0 THEN 1 ELSE ceiling(count(no)/#{showNum})  END AS totalpage FROM board where contents like '%${keyword}%' or title like  '%${keyword}%'
+]]>
+	</select>
+	 -->
+	<insert id="insert" parameterType="boardvo" >
+		<choose>
+			<when test="depth !=0">
+<![CDATA[insert into board (no, title, contents, user_no, count, reg_date, group_no, order_no, depth, del_flag)
+ values (null, #{title}, #{contents},#{userNo}, 0, now(), #{gNo}, #{oNo} , #{depth}, 'F')
+]]>
+			</when>
+			<otherwise>
+<![CDATA[insert into board (no, title, contents, user_no, count, reg_date, group_no, order_no, depth, del_flag)
+ values (null, #{title}, #{contents},#{userNo}, 0, now(), #{gNo}, 1 , 0, 'F')
+]]>
+			</otherwise>
+		</choose>
+		<selectKey keyProperty="no" order="AFTER" resultType="long"> <!-- 트랜잭션 보장해줌 : 쿼리 실행 후 -->
+	<![CDATA[
+	select last_insert_id()
+	]]>
+	</selectKey>
+	</insert>
+<!-- 
+
+	<update id="updateOrderNo" parameterType="map">
+		<![CDATA[
+	update board set order_no= order_no+1 where group_no = #{gNo} and order_no > #{oNo} and no > 0
+	]]>
+	</update>
+	
+		<update id="updateCount"  parameterType="boardvo">
+		<![CDATA[
+	update board set count=#{count} where no = #{no}
+	]]>
+	</update>
+	
+	<update id="update" parameterType="boardvo">
+		<![CDATA[
+	update board set title=#{title}, contents=#{contents} where no = #{no}
+	]]>
+	</update>
+	
+		<delete id="delete" parameterType="boardvo">
+		<![CDATA[
+	delete from board where no = #{no}
+	]]>
+	</delete>
+	 -->
+			<delete id="deleteAll"  >
+		<![CDATA[
+	delete from board 
+	]]>
+	</delete>
+</mapper> 
