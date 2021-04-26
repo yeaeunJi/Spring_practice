@@ -32,6 +32,9 @@ public class UserService { // 비즈니스(서비스) 관련 용어로 메서드
 		return userRepository.findByEmail(email)!=null;
 	}
 	
+	public boolean updateAuthFlag(UserVo vo) {
+		return userRepository.updateAuthFlag(vo);
+	}
 	
 	
 }

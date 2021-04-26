@@ -35,6 +35,11 @@
 </selectKey>
 </insert>
 
+<update id="updateAuthFlag" parameterType="uservo">
+		<![CDATA[
+	update user set auth_flag = #{authFlag} where no = #{no}
+	]]>
+</update>
 
 <update id="update" parameterType="uservo">
 <choose>

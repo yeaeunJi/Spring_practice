@@ -33,4 +33,8 @@ public class UserRepository {
 	public String findByEmail(String email) {
 		return sqlSession.selectOne("user.findByEmail", email);
 	}
+	
+	public boolean updateAuthFlag(UserVo vo) {
+		return sqlSession.selectOne("user.updateAuthFlag", vo);
+	}
 }

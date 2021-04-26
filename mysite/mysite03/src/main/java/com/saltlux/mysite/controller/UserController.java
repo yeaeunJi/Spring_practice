@@ -77,31 +77,21 @@ public class UserController {
 	//@Auth(role=Role.ADMIN) // 접근제어 . 클래스 단위로도 붙일 수 있음 @Auth(role="ADMIN")
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	//public String update(HttpSession session, Model model) {
 	public String update(@AuthUser UserVo authUser, Model model) { 
 		Long no = authUser.getNo();
-		// argument resolve 
 		UserVo userVo = userService.getUser(no);
-		System.out.println("update: "+authUser);
 		model.addAttribute("userVo", userVo);
 		return "user/update";
 	}
 	
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(UserVo vo, HttpSession session) {
-		// 접근 제어
-		UserVo authUser = (UserVo) session.getAttribute("authUser");		
-		if(authUser == null) {
-			return "redirect:/user/login?result=fail";
-		}
-
+	public String update(UserVo vo, @AuthUser UserVo authUser, Model model) {
 		Long no = authUser.getNo();
 		vo.setNo(no);
 		userService.update(vo);
 		UserVo userVo = userService.getUser(no);
-		session.setAttribute("authUser", userVo);		
-
+		model.addAttribute("userVo", userVo);
 		return "redirect:/";
 	}
 

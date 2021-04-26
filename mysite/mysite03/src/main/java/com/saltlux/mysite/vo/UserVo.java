@@ -8,7 +8,14 @@ public class UserVo {
 	private String gender;
 	private String joinDate;
 	private String role; 
+	private String authFlag;
 	
+	public String getAuthFlag() {
+		return authFlag;
+	}
+	public void setAuthFlag(String authFlag) {
+		this.authFlag = authFlag;
+	}
 	public String getRole() {
 		return role;
 	}
@@ -54,8 +61,10 @@ public class UserVo {
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + ", role=" + role + "]";
+				+ gender + ", joinDate=" + joinDate + ", role=" + role + ", authFlag=" + authFlag + "]";
 	}
+
+	
 	
 	
 	
