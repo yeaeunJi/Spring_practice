@@ -35,9 +35,9 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/bookmark">글목록</a>
+					<a href="${pageContext.request.contextPath }/dictionary">글목록</a>
 					<c:if test="${!empty authUser && vo.userNo == authUser.userNo }">
-					<a href="${pageContext.request.contextPath }/bookmark/updateBookmark?wordNo=${vo.wordNo}"> ☆ </a>
+					<input type="button" value="☆" id="bookmark-btn">  
 					</c:if>
 				</div>
 			</div>

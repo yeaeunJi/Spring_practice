@@ -126,11 +126,14 @@ a#new-book	 {
 	padding:10px 20px 11px 20px 
 }
 
+.bookmark td {
+	word-break:break-all;
+}
+
 a.del	{
 	display:block;
 	width:20px;
 	height:20px; 
-	background:url("../../assets/images/recycle.png") no-repeat 0 0;
 	font-size:0;
 }
 /*

@@ -8,40 +8,55 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.saltlux.mydictionary.security.Auth;
+import com.saltlux.mydictionary.security.AuthUser;
 import com.saltlux.mydictionary.service.BookmarkService;
-import com.saltlux.mydictionary.service.PageInterface;
 import com.saltlux.mydictionary.vo.BookmarkVo;
 import com.saltlux.mydictionary.vo.PageVo;
+import com.saltlux.mydictionary.vo.UserVo;
 
 @Controller
 @RequestMapping("/bookmark")
+@Auth
 public class BookmarkController  {
 
 	@Autowired
-	private BookmarkService service;
+	private BookmarkService bookmarkService;
 	
 	@RequestMapping("")
-	public String list(@RequestParam(name = "keyword", defaultValue = "") String keyword,  Model model) {
+	public String list(@RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
 		
 		/* paging 처리*/
 		
 		PageVo pagevo = new PageVo(0L, 2L);
 		
-		List<BookmarkVo> lilst = service.findAll(keyword, pagevo);
-		model.addAttribute("list", lilst);
+		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
+		model.addAttribute("list", list);
 		return "bookmark/index";
 	}
-//	
-//	@Auth
-//	@RequestMapping(value="/write",  method =RequestMethod.GET)
-//	public String insert() {
-//		return "bookmark/list";
-//	}
-//	
-//	@Auth
-//	@RequestMapping(value="/write",  method =RequestMethod.POST)
-//	public String insert(@AuthUser UserVo authUser, BoardVo vo) {
+	
+//	@RequestMapping(value="/insert",  method = RequestMethod.POST)
+//	public String insert(@AuthUser UserVo authUser, BookmarkVo vo, Model model) {
+//		bookmarkService.insert(authUser.getUserNo(), vo);
+//		PageVo pagevo = new PageVo(0L, 2L);
 //		
+//		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
+//		model.addAttribute("list", list);
 //		return "bookmark/list";
+//	
 //	}
+	
+	@RequestMapping(value="/delete")
+	public String delete(long wordNo, @RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
+		bookmarkService.delete(wordNo);
+		
+		/* paging 처리*/
+		PageVo pagevo = new PageVo(0L, 2L);		
+		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
+		model.addAttribute("list", list);
+		return "bookmark/index";
+	}
+
+
+
 }

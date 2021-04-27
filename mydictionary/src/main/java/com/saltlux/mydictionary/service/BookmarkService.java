@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.saltlux.mydictionary.repository.BookmarkRepository;
 import com.saltlux.mydictionary.vo.BookmarkVo;
 import com.saltlux.mydictionary.vo.PageVo;
+import com.saltlux.mydictionary.vo.UserVo;
 
 @Service
 public class BookmarkService {
@@ -18,9 +19,13 @@ public class BookmarkService {
 	public void deleteAll() {
 		repository.deleteAll();
 	}
-
-	public List<BookmarkVo> findAll(String keyword, PageVo pagevo) {
-		return repository.findAll(keyword, pagevo);
+	
+	public void delete(long wordNo) {
+		repository.delete(wordNo);
+	}
+	
+	public List<BookmarkVo> findAll(String keyword, PageVo pagevo, UserVo authUser) {
+		return repository.findAll(keyword, pagevo, authUser);
 	}
 	
 }

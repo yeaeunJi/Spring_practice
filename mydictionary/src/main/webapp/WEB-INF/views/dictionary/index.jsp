@@ -20,9 +20,9 @@
 		<div id="content">
 			<div id="board">
 				<form id="search_form"
-					action="${pageContext.request.contextPath }/bookmark/search" method="post">
+					action="${pageContext.request.contextPath }/dictionary/search" method="post">
 					<input type="text" id="keyword" name="keyword" value="${keyword}"> 
-					<input type="submit"	value="찾기">
+					<input type="button"	value="찾기" id="search-btn"/>
 					<h6>* 제목과 내용, 요약, 검색 키워드 정보에서 검색합니다.</h6>
 				</form>
 				<table class="tbl-ex">
@@ -40,7 +40,7 @@
 							<td>${page.totalCount - (page.curPage-1)*page.showNum-status.index}</td>
 							<td style="text-align: left; padding-left: 0px;">
 								<a	style="text-align: left; padding-left: 0px;"
-									href="${pageContext.request.contextPath }/bookmark/view?wordNo=${vo.wordNo}" >
+									href="${pageContext.request.contextPath }/dictionary/view?wordNo=${vo.wordNo}" >
 									<c:if test="${vo.thumbnail != '' }">
 										<img src="${vo.thumbnail }" />
 									</c:if> 
@@ -57,7 +57,7 @@
 							<td>${vo.description }</td>
 							<td>${vo.regDate }</td>
 							<td>								
-								<a href="${pageContext.request.contextPath }/bookmark/delete?wordNo=${vo.wordNo}" class="del">★</a>
+								<a href="${pageContext.request.contextPath }/dictionary/delete?wordNo=${vo.wordNo}" class="del">★</a>
 							</td>
 						</tr>
 					</c:forEach>
@@ -147,5 +147,17 @@ window.onload = function() {
 			break;
 		}
 	}
-}</script>
+	
+	$("#search-btn").click(function(){
+		let keyword = $("#keyword").val();
+		if (keyword.trim() == '') {
+			alert("검색할 단어를 입력해주세요.");
+			$("#keyword").focus();
+			return; 
+		} 
+		search_form.submit();	
+	
+	}); // $("search-btn").click
+}
+</script>
 </html>

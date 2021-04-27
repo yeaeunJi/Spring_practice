@@ -85,10 +85,10 @@ public class BookmarkRepositoryTest {
 		bookmarkRepository.insert(board4);
 		assertThat(bookmarkRepository.getCount(), is(4));
 
-		PageVo pagevo = new PageVo(0L, 4L);
+		PageVo pagevo = new PageVo(0L, 5L);
 
-		List<BookmarkVo> list = bookmarkRepository.findAll("", pagevo);
-		assertThat(bookmarkRepository.getCount(), is(list.size()));
+		List<BookmarkVo> list = bookmarkRepository.findAll("", pagevo, user1);
+		assertThat(list.size(), is(2));
 	}
 
 	@Test
@@ -100,53 +100,22 @@ public class BookmarkRepositoryTest {
 		assertThat(vo, nullValue(BookmarkVo.class));
 	}
 
-	//		@Test 
-	//		public void update() throws SQLException {		
-	//			dao.deleteAll();
-	//			assertThat(dao.getCount(), is(0));
-	//
-	//			dao.add(user1);	
-	//			assertThat(dao.getCount(), is(1));
-	//			
-	//			User testUser = new User(user1.getId(), "updateNm", "updatePw");		
-	//			assertThat(user1.getName(), not(testUser.getName()));
-	//			assertThat(user1.getPassword(),not(testUser.getPassword()));
-	//			
-	//			dao.Update(testUser);
-	//			
-	//			User userget1 = dao.get(user1.getId());
-	//			assertThat(userget1.getName(), is(testUser.getName()));
-	//			assertThat(userget1.getPassword(), is(testUser.getPassword()));
-	//		}
-	//
-	//		@Test(expected=EmptyResultDataAccessException.class)
-	//		public void delete() throws SQLException {
-	//			dao.deleteAll();
-	//			assertThat(dao.getCount(), is(0));
-	//
-	//			dao.add(user1);	
-	//			assertThat(dao.getCount(), is(1));
-	//			
-	//			User userget1 = dao.get(user1.getId());
-	//			assertThat(userget1.getName(), is(user1.getName()));
-	//			assertThat(userget1.getPassword(), is(user1.getPassword()));
-	//			
-	//			dao.delete(user1.getId());		
-	//			dao.get(user1.getId());	
-	//		}
-	//	
-	//		@Test
-	//		public void count() throws SQLException {
-	//			dao.deleteAll();
-	//			assertThat(dao.getCount(), is(0));
-	//					
-	//			dao.add(user1);
-	//			assertThat(dao.getCount(), is(1));
-	//			
-	//			dao.add(user2);
-	//			assertThat(dao.getCount(), is(2));
-	//			
-	//			dao.add(user3);
-	//			assertThat(dao.getCount(), is(3));
-	//		}
+	@Test
+	public void delete() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);	
+		assertThat(bookmarkRepository.getCount(), is(1));
+
+		BookmarkVo boardget1 = bookmarkRepository.getBoard(board1.getWordNo());
+		assertThat(boardget1.getTitle(), is(board1.getTitle()));
+		assertThat(boardget1.getContents(), is(board1.getContents()));
+
+		bookmarkRepository.delete(board1.getWordNo());		
+		BookmarkVo vo =bookmarkRepository.getBoard(board1.getWordNo());
+		assertThat(vo, nullValue(BookmarkVo.class));
+	}
+
+
 }

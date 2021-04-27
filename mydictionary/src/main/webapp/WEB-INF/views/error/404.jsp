@@ -12,5 +12,6 @@
 <body>
 <h1>sorry, 404 Error happened</h1>
 <p>File Not Found....</p>
+<a href="${pageContext.request.contextPath }">메인화면으로 이동...</a>
 </body>
 </html>
