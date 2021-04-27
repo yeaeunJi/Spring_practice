@@ -5,7 +5,7 @@
 
 <select id="findByNo" resultType="uservo" parameterType="long">
 	<![CDATA[
-	 select userno, name, id from dictuser where userno = #{userNo}
+	 select userno, name, id, password from dictuser where userno = #{userNo}
 	]]>
 </select>
 
@@ -21,7 +21,12 @@
 	]]>
 </select>
 
-<!-- mysql에는 last_insert_id()로 방금 insert된 pk를 얻을 수 있음 -->
+<select id="getCount" resultType="int">
+	<![CDATA[
+	 select count(*) from dictuser 
+	]]>
+</select>
+
 <insert id="insert" parameterType="uservo">
 	<![CDATA[
 	  insert  

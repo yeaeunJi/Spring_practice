@@ -37,4 +37,8 @@ public class UserRepository {
 	public void deleteAll() {
 		sqlSession.delete("user.deleteAll");
 	}
+
+	public Object getCount() {
+		return sqlSession.selectOne("user.getCount");
+	}
 }

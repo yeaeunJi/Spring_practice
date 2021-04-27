@@ -7,13 +7,18 @@ public class UserVo {
 	private String password;
 	private String joinDate;
 	
+	public UserVo() {	}
+	
 	public UserVo(String name, String id, String password) {
 		this.name = name;
 		this.id = id;
 		this.password = password;
 	}
-	
-	public UserVo() {	}
+
+	public UserVo(String name, String id, String password, long userNo) {
+		this(name, id, password);
+		this.userNo = userNo;
+	}
 
 	public long getUserNo() {
 		return userNo;
