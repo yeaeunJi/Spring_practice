@@ -1,4 +1,4 @@
-package com.saltlux.mysite.controller;
+package com.saltlux.mydictionary.controller;
 
 import java.util.List;
 
@@ -8,17 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.saltlux.mysite.service.BoardService;
-import com.saltlux.mysite.service.PageInterface;
-import com.saltlux.mysite.vo.BoardVo;
-import com.saltlux.mysite.vo.PageVo;
+import com.saltlux.mydictionary.service.BookmarkService;
+import com.saltlux.mydictionary.service.PageInterface;
+import com.saltlux.mydictionary.vo.BookmarkVo;
+import com.saltlux.mydictionary.vo.PageVo;
 
 @Controller
-@RequestMapping("/board")
-public class BoardController  {
+@RequestMapping("/bookmark")
+public class BookmarkController  {
 
 	@Autowired
-	private BoardService boardService;
+	private BookmarkService service;
 	
 	@RequestMapping("")
 	public String list(@RequestParam(name = "keyword", defaultValue = "") String keyword,  Model model) {
@@ -27,21 +27,21 @@ public class BoardController  {
 		
 		PageVo pagevo = new PageVo(0L, 2L);
 		
-		List<BoardVo> lilst = boardService.findAll(keyword, pagevo);
+		List<BookmarkVo> lilst = service.findAll(keyword, pagevo);
 		model.addAttribute("list", lilst);
-		return "board/index";
+		return "bookmark/index";
 	}
 //	
 //	@Auth
 //	@RequestMapping(value="/write",  method =RequestMethod.GET)
 //	public String insert() {
-//		return "board/list";
+//		return "bookmark/list";
 //	}
 //	
 //	@Auth
 //	@RequestMapping(value="/write",  method =RequestMethod.POST)
 //	public String insert(@AuthUser UserVo authUser, BoardVo vo) {
 //		
-//		return "board/list";
+//		return "bookmark/list";
 //	}
 }

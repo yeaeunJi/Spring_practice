@@ -1,4 +1,4 @@
-package com.saltlux.mysite.vo;
+package com.saltlux.mydictionary.vo;
 
 public class PageVo {
 	private Long total = 1L; 	// 전체 페이지 수

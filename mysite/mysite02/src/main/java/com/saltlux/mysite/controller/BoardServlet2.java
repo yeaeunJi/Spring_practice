@@ -150,7 +150,18 @@ public class BoardServlet2 extends HttpServlet {
 			}else {
 				WebUtil.redirect(request.getContextPath()+"/board2?msg=false", request, response);
 			}
-		} 
+		} else if ("mulPageBefore".equals(action)) {
+			Long startPage = request.getParameter("startPage") == null?1L:Long.parseLong(request.getParameter("startPage"));
+			Long newStartPage = startPage - pageShowNum;
+			Long start = (newStartPage-1)*showNum;
+
+			PageVo page = dao.paging(newStartPage, start, showNum, newStartPage, startPage-1, pageShowNum);
+			List<BoardVo2> list = dao.findAll(page);
+
+			request.setAttribute("list", list);
+			request.setAttribute("page", page);
+			WebUtil.forward("/WEB-INF/views/board2/index.jsp", request, response);
+		}
 		else if ("onePageBefore".equals(action)) {
 			Long curPage = request.getParameter("curPage") == null?1L:Long.parseLong(request.getParameter("curPage"));
 			Long endPage = request.getParameter("endPage") == null?1L:Long.parseLong(request.getParameter("endPage"));
@@ -216,18 +227,7 @@ public class BoardServlet2 extends HttpServlet {
 			request.setAttribute("page", page);
 			WebUtil.forward("/WEB-INF/views/board2/index.jsp", request, response);
 		} 	
-		else if ("mulPageBefore".equals(action)) {
-			Long startPage = request.getParameter("startPage") == null?1L:Long.parseLong(request.getParameter("startPage"));
-			Long newStartPage = startPage - pageShowNum;
-			Long start = (newStartPage-1)*showNum;
-
-			PageVo page = dao.paging(newStartPage, start, showNum, newStartPage, startPage-1, pageShowNum);
-			List<BoardVo2> list = dao.findAll(page);
-
-			request.setAttribute("list", list);
-			request.setAttribute("page", page);
-			WebUtil.forward("/WEB-INF/views/board2/index.jsp", request, response);
-		}
+		
 		else if("movePage".equals(action)) { 			// 전체 게시판 조회
 			String movePage = request.getParameter("movePage"); // 4
 			Long curPage = 1L;

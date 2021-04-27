@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookmark">
+
+	<select id="findAll" resultType="bookmarkvo" parameterType="map">
+<![CDATA[
+	 select wordno, title, regDate, contents, link, keyword, thumbnail, description 
+	 from bookmark where userno = #{userNo} and contents like '%${keyword}%' or title like  '%${keyword}%'  order by regDate desc limit #{start},#{showNum} 
+]]>
+	</select>
+
+	
+	<select id="findOne" resultType="bookmarkvo" parameterType="long">
+<![CDATA[
+	select wordno, title, userNo, regDate, contents, link, keyword, thumbnail, description 
+	from bookmark 
+ 	where wordNo = #{wordNo}
+]]>
+	</select>
+<!-- 
+	<select id="getNewGNo" resultType="long">
+<![CDATA[
+	select ifnull(max(group_no),0)+1 as max from board
+]]>
+	</select>
+
+	<select id="getChildCount" resultType="int" parameterType="boardvo">
+<![CDATA[
+	select count(*)  from board where depth > #{depth} and order_no = #{oNo}+1 and group_no=#{gNo}
+]]>
+	</select>
+	
+		<select id="getParentInfo" resultType="boardvo" parameterType="long">
+<![CDATA[
+	select group_no, order_no, depth from board where no=#{no}
+]]>
+	</select>
+		 -->
+		<select id="getCount" resultType="int" >
+<![CDATA[
+	SELECT count(*) FROM bookmark
+]]>
+	</select>
+	
+<!-- 
+	<select id="paging" resultType="pagevo" parameterType="map">
+<![CDATA[
+	SELECT count(no) as total, CASE WHEN ceiling(count(no)/#{showNum})  = 0 THEN 1 ELSE ceiling(count(no)/#{showNum})  END AS totalpage FROM board where contents like '%${keyword}%' or title like  '%${keyword}%'
+]]>
+	</select>
+	 -->
+<insert id="insert" parameterType="bookmarkvo" >
+	<![CDATA[
+	insert into bookmark (wordno, title, contents, regDate, link, keyword, thumbnail, description, userno )
+	 values (null, #{title}, #{contents}, now(), #{link}, #{keyword}, #{thumbnail} , #{description}, #{userNo})
+	]]>
+	<selectKey keyProperty="wordNo" order="AFTER" resultType="long"> 
+	<![CDATA[
+	select last_insert_id()
+	]]>
+	</selectKey>
+	</insert>
+<!-- 
+
+	<update id="updateOrderNo" parameterType="map">
+		<![CDATA[
+	update board set order_no= order_no+1 where group_no = #{gNo} and order_no > #{oNo} and no > 0
+	]]>
+	</update>
+	
+		<update id="updateCount"  parameterType="boardvo">
+		<![CDATA[
+	update board set count=#{count} where no = #{no}
+	]]>
+	</update>
+	
+	<update id="update" parameterType="boardvo">
+		<![CDATA[
+	update board set title=#{title}, contents=#{contents} where no = #{no}
+	]]>
+	</update>
+	
+		<delete id="delete" parameterType="boardvo">
+		<![CDATA[
+	delete from board where no = #{no}
+	]]>
+	</delete>
+	 -->
+			<delete id="deleteAll"  >
+		<![CDATA[
+	delete from bookmark 
+	]]>
+	</delete>
+</mapper> 
