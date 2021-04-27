@@ -14,8 +14,8 @@ import com.saltlux.mydictionary.vo.BookmarkVo;
 public class DictionaryController {
 	
 	private String searchUrl = "https://openapi.naver.com/v1/search/encyc.json";
-	private String naverSearchClientId = "FwGUdeuCXwzcKsGaoB09";
-	private String naverSearchClientSecret = "Jf1c8FRU9b";
+	private String naverSearchClientId = "";
+	private String naverSearchClientSecret = "";
 	
 	@RequestMapping("/search")
 	public String search(String keyword, Model model){		
