@@ -25,6 +25,20 @@
 						<td class="label">제목</td>
 						<td>${vo.title }</td>
 					</tr>
+					<c:if test="${vo.link != ''}">
+					<tr>
+						<td class="label"><img src="${vo.link}" name="thumbnail"/></td>
+					</tr>
+					</c:if>
+					<tr>
+						<td class="label">요약</td>
+						<td> ${vo.description } </td>
+					</tr>
+					<c:if test="${!empty authUser }">
+					<tr>
+						<td>즐겨찾기 추가 : <input type="button" value="☆" id="bookmark-btn"></td> 
+					</tr>  
+					</c:if>
 					<tr>
 						<td class="label">내용</td>
 						<td>
@@ -36,9 +50,7 @@
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/dictionary">글목록</a>
-					<c:if test="${!empty authUser && vo.userNo == authUser.userNo }">
-					<input type="button" value="☆" id="bookmark-btn">  
-					</c:if>
+					
 				</div>
 			</div>
 		</div>

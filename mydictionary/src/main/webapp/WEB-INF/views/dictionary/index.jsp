@@ -21,43 +21,37 @@
 			<div id="board">
 				<form id="search_form"
 					action="${pageContext.request.contextPath }/dictionary/search" method="post">
+					<input type="hidden" id="display" name="display" value="${page.showNum}"/>
+					<input type="hidden" id="start" name="start" value="${page.start}"/>
 					<input type="text" id="keyword" name="keyword" value="${keyword}"> 
 					<input type="button"	value="찾기" id="search-btn"/>
 					<h6>* 제목과 내용, 요약, 검색 키워드 정보에서 검색합니다.</h6>
 				</form>
 				<table class="tbl-ex">
 					<tr>
-						<th>번호</th>
+						<!--  <th></th>-->
 						<th>제목</th>
-						<th>검색키워드</th>
 						<th>요약</th>
-						<th>등록일</th>
-						<th>&nbsp;</th>
+						<th>즐겨찾기</th>
 					</tr>
 					<c:set var="count" value="${fn:length(list)}" />
 					<c:forEach items="${list}" begin="0" step="1" varStatus="status" var="vo">
-						<tr class="board">
-							<td>${page.totalCount - (page.curPage-1)*page.showNum-status.index}</td>
-							<td style="text-align: left; padding-left: 0px;">
-								<a	style="text-align: left; padding-left: 0px;"
-									href="${pageContext.request.contextPath }/dictionary/view?wordNo=${vo.wordNo}" >
+						<tr class="board" >
+						<!-- 
+							<td style="text-align: left; padding-left: 0px; width:20%;">								
 									<c:if test="${vo.thumbnail != '' }">
-										<img src="${vo.thumbnail }" />
+										<img src="${vo.thumbnail }" style="width:100%;" />
 									</c:if> 
-									<c:choose>
-										<c:when test="${fn:length(vo.title) <= 15}">
-									 		${vo.title}
-									 	</c:when>
-										<c:otherwise>
-									 		${fn:substring(vo.title,0,15)}...
-									 	</c:otherwise>
-									</c:choose>
+							</td> -->
+							<td style="width:20%;  word-break: keep-all;">
+									<a	style="text-align: left; padding-left: 0px;" href="${pageContext.request.contextPath }/dictionary/view?link=${vo.link}" >
+									${vo.title}
 							</a></td>
-							<td>${vo.keyword }</td>
-							<td>${vo.description }</td>
-							<td>${vo.regDate }</td>
+							<td style="width:70%;">						
+									${vo.description }
+							</td>
 							<td>								
-								<a href="${pageContext.request.contextPath }/dictionary/delete?wordNo=${vo.wordNo}" class="del">★</a>
+								<a href="${pageContext.request.contextPath }/Bookmark/update?link=${vo.link}" style="font-size:20px; width:30px;'">☆</a>
 							</td>
 						</tr>
 					</c:forEach>
@@ -69,7 +63,7 @@
 					<c:choose>
 							<c:when test="${page.startPage!=1}">
 								<li><a
-									href="${pageContext.request.contextPath }/bookmark/mulPageBefore?startPage=${page.startPage}&totalPage=${page.total}&keyword=${keyword}">
+									href="${pageContext.request.contextPath }/dictionary/mulPageBefore?startPage=${page.startPage}&totalPage=${page.total}&keyword=${keyword}">
 										◀◀ </a></li>
 							</c:when>
 							<c:otherwise>
@@ -81,7 +75,7 @@
 						<c:choose>
 							<c:when test="${page.curPage!=1}">
 								<li><a
-									href="${pageContext.request.contextPath }/bookmark/onePageBefore?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">◀</a></li>
+									href="${pageContext.request.contextPath }/dictionary/onePageBefore?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">◀</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="#">◀</a></li>
@@ -90,14 +84,14 @@
 						
 						<c:forEach step="1" begin="${page.startPage}" end="${page.endPage}"  var="pageNum"  varStatus="status">
 					<li><a
-								href="${pageContext.request.contextPath }/bookmark/movePage?movePage=${pageNum}&keyword=${keyword}">${pageNum}</a></li>
+								href="${pageContext.request.contextPath }/dictionary/movePage?movePage=${pageNum}&keyword=${keyword}">${pageNum}</a></li>
 					 
 						</c:forEach>
 						
 						<c:choose>
 							<c:when test="${page.curPage!= page.total}">
 								<li><a
-									href="${pageContext.request.contextPath }/bookmark/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">▶</a></li>
+									href="${pageContext.request.contextPath }/dictionary/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">▶</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="#">▶</a></li>
@@ -108,7 +102,7 @@
 						<c:choose>
 							<c:when test="${page.endPage != page.total}">
 								<li><a
-									href="${pageContext.request.contextPath }/bookmark/mulPageNext?endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">
+									href="${pageContext.request.contextPath }/dictionary/mulPageNext?endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">
 										▶▶</a></li>
 							</c:when>
 							<c:otherwise>

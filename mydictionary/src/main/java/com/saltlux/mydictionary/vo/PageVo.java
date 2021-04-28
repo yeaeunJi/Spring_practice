@@ -1,87 +1,100 @@
 package com.saltlux.mydictionary.vo;
 
 public class PageVo {
-	private Long total = 1L; 	// 전체 페이지 수
-	private Long curPage = 1L;  	// 현재 페이지
-	private Long start = 1L; // start row
-	private Long showNum = 2L; // 한 페이지에 보여줄 게시물 수
-	private Long startPage = 1L; // 시작 페이지 (1, 1+showNum, ... )
-	private Long endPage = 1L; // 마지막 페이징 (showNum, showNum*2, ... )
-	private Long totalCount = 0L; // 조회된 전체 행 수
-	private Long  pageShowNum = 3L; 
+	private int total = 1; 	// 전체 페이지 수
+	private int curPage = 1;  	// 현재 페이지
+	private int start = 1; // start row
+	private int showNum = 10; // 한 페이지에 보여줄 게시물 수
+	private int startPage = 1; // 시작 페이지 (1, 1+showNum, ... )
+	private int endPage = 1; // 마지막 페이징 (showNum, showNum*2, ... )
+	private int totalCount = 0; // 조회된 전체 행 수
+	private int  pageShowNum = 5; 
 	
 	
 	public PageVo() {}
-	public PageVo(Long curPage, Long start, Long showNum, Long startPage, Long endPage,	Long pageShowNum) {
+	
+	public PageVo(int curPage, int start, int showNum, int startPage, int endPage,	int pageShowNum) {
+		this(start, showNum);
 		this.curPage = curPage;
-		this.start = start;
-		this.showNum = showNum;
 		this.startPage = startPage;
 		this.endPage = endPage;
 		this.pageShowNum = pageShowNum;
 	}
 	
-	public PageVo(Long start, Long showNum) {
+	public PageVo(int start, int showNum) {
 		this.start = start;
 		this.showNum = showNum;
 	}
-	public Long getPageShowNum() {
-		return pageShowNum;
-	}
-	public void setPageShowNum(Long pageShowNum) {
-		this.pageShowNum = pageShowNum;
-	}
-	public Long getTotal() {
+
+	public int getTotal() {
 		return total;
 	}
-	public void setTotal(Long total) {
+
+	public void setTotal(int total) {
 		this.total = total;
 	}
-	public Long getCurPage() {
+
+	public int getCurPage() {
 		return curPage;
 	}
-	public void setCurPage(Long curPage) {
+
+	public void setCurPage(int curPage) {
 		this.curPage = curPage;
 	}
-	public Long getStart() {
+
+	public int getStart() {
 		return start;
 	}
-	public void setStart(Long start) {
+
+	public void setStart(int start) {
 		this.start = start;
 	}
-	public Long getShowNum() {
+
+	public int getShowNum() {
 		return showNum;
 	}
-	public void setShowNum(Long showNum) {
+
+	public void setShowNum(int showNum) {
 		this.showNum = showNum;
 	}
-	public Long getStartPage() {
+
+	public int getStartPage() {
 		return startPage;
 	}
-	public void setStartPage(Long startPage) {
+
+	public void setStartPage(int startPage) {
 		this.startPage = startPage;
 	}
-	public Long getEndPage() {
+
+	public int getEndPage() {
 		return endPage;
 	}
-	public void setEndPage(Long endPage) {
+
+	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	public Long getTotalCount() {
+
+	public int getTotalCount() {
 		return totalCount;
 	}
-	public void setTotalCount(Long totalCount) {
+
+	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 	}
+
+	public int getPageShowNum() {
+		return pageShowNum;
+	}
+
+	public void setPageShowNum(int pageShowNum) {
+		this.pageShowNum = pageShowNum;
+	}
+
 	@Override
 	public String toString() {
 		return "PageVo [total=" + total + ", curPage=" + curPage + ", start=" + start + ", showNum=" + showNum
 				+ ", startPage=" + startPage + ", endPage=" + endPage + ", totalCount=" + totalCount + ", pageShowNum="
 				+ pageShowNum + "]";
 	}
-
-	
-	
-	
 	
 }

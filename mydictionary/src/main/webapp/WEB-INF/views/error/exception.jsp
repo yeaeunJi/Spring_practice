@@ -13,5 +13,5 @@
 <h1>Sorry, Exception happened !!</h1>
 <p>Application Error...</p>
 <p style="color:red;">${error }</p>
-</body>
+<a href="${pageContext.request.contextPath }">메인화면으로 이동...</a>
 </html>

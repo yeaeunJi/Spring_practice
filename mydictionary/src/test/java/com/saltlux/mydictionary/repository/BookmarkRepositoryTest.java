@@ -85,7 +85,7 @@ public class BookmarkRepositoryTest {
 		bookmarkRepository.insert(board4);
 		assertThat(bookmarkRepository.getCount(), is(4));
 
-		PageVo pagevo = new PageVo(0L, 5L);
+		PageVo pagevo = new PageVo(0, 5);
 
 		List<BookmarkVo> list = bookmarkRepository.findAll("", pagevo, user1);
 		assertThat(list.size(), is(2));

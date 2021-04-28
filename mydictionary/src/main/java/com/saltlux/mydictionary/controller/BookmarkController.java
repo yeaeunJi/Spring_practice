@@ -28,7 +28,7 @@ public class BookmarkController  {
 		
 		/* paging 처리*/
 		
-		PageVo pagevo = new PageVo(0L, 2L);
+		PageVo pagevo = new PageVo(0, 2);
 		
 		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
 		model.addAttribute("list", list);
@@ -51,7 +51,7 @@ public class BookmarkController  {
 		bookmarkService.delete(wordNo);
 		
 		/* paging 처리*/
-		PageVo pagevo = new PageVo(0L, 2L);		
+		PageVo pagevo = new PageVo(0, 2);		
 		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
 		model.addAttribute("list", list);
 		return "bookmark/index";

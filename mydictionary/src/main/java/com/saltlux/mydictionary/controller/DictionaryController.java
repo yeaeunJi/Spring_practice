@@ -2,36 +2,44 @@ package com.saltlux.mydictionary.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.saltlux.mydictionary.vo.BookmarkVo;
+import com.saltlux.mydictionary.security.Auth;
+import com.saltlux.mydictionary.service.DictionaryService;
+import com.saltlux.mydictionary.vo.DictionaryVo;
+import com.saltlux.mydictionary.vo.PageVo;
 
 @RequestMapping("/dictionary")
 @Controller
+@Auth
 public class DictionaryController {
 	
-	private String searchUrl = "https://openapi.naver.com/v1/search/encyc.json";
-	private String naverSearchClientId = "";
-	private String naverSearchClientSecret = "";
+	
+	@Autowired
+	private DictionaryService dictionaryService;
 	
 	@RequestMapping("/search")
-	public String search(String keyword, Model model){		
-		BookmarkVo board1 = new BookmarkVo("title1",202, "contents1", "link1", keyword, "thumbnail1", "description1");
-		board1.setWordNo(1);
-		board1.setRegDate("20210428");
-		List<BookmarkVo> list = new ArrayList<>();
-		list.add(board1);
+	public String search(String keyword, int display, int start, Model model){		
+		String response = dictionaryService.search(keyword, display, start);
+		Map<String, Object> responseMap = dictionaryService.convertJSONstringToMap(response);
+		List<DictionaryVo> list = dictionaryService.convertMapToDictionaryVo(responseMap);
 		model.addAttribute("list", list);
 		return "dictionary/index";
 	}
 	
 	@RequestMapping("")
-	public String index(String keyword, Model model){		
-		List<BookmarkVo> list = new ArrayList<>();
+	public String index(Model model){
+		PageVo pagevo = new PageVo();
+		
+		List<DictionaryVo> list = new ArrayList<>();
+		model.addAttribute("page", pagevo);
 		model.addAttribute("list", list);
+		model.addAttribute("keyword", "");
 		return "dictionary/index";
 	}
 }
