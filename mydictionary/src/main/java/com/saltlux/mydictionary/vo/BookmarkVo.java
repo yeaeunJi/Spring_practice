@@ -4,7 +4,6 @@ public class BookmarkVo {
 	private long wordNo;
 	private long userNo;
 	private String title;
-	private String contents;
 	private String regDate;
 	private String link;
 	private String keyword;
@@ -13,16 +12,14 @@ public class BookmarkVo {
 
 	public BookmarkVo() {}
 	
-	public BookmarkVo(String title, long userNo, String contents) {
+	public BookmarkVo(String title, long userNo) {
 		this.title = title;
 		this.userNo = userNo;
-		this.contents = contents;
 	}
 	
-	public BookmarkVo(String title, long userNo, String contents, String link, String keyword, String thumbnail, String despcription) {
+	public BookmarkVo(String title, long userNo, String link, String keyword, String thumbnail, String despcription) {
 		this.title = title;
 		this.userNo = userNo;
-		this.contents = contents;
 		this.link = link;
 		this.keyword = keyword;
 		this.thumbnail = thumbnail;
@@ -47,12 +44,7 @@ public class BookmarkVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
+
 	public String getRegDate() {
 		return regDate;
 	}
@@ -83,11 +75,13 @@ public class BookmarkVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "BookmarkVo [wordNo=" + wordNo + ", userNo=" + userNo + ", title=" + title + ", contents=" + contents
-				+ ", regDate=" + regDate + ", link=" + link + ", keyword=" + keyword + ", thumbnail=" + thumbnail
-				+ ", description=" + description + "]";
+		return "BookmarkVo [wordNo=" + wordNo + ", userNo=" + userNo + ", title=" + title + ", regDate=" + regDate
+				+ ", link=" + link + ", keyword=" + keyword + ", thumbnail=" + thumbnail + ", description="
+				+ description + "]";
 	}
+	
+
 }

@@ -30,7 +30,11 @@ public class BookmarkRepository {
 	}
 	
 	public BookmarkVo getBoard(long wordNo) {
-		return sqlSession.selectOne("bookmark.findOne", wordNo);
+		return sqlSession.selectOne("bookmark.findByWordNo", wordNo);
+	}
+	
+	public boolean existBookmark(String link) {
+		return (int)sqlSession.selectOne("bookmark.findByLink", link)>0;
 	}
 	
 //	public List<BookmarkVo> findAll(String keyword, PageVo pagevo) {
@@ -52,6 +56,10 @@ public class BookmarkRepository {
 	
 	public boolean delete(long wordNo) {
 		return sqlSession.delete("bookmark.delete", wordNo)==1;
+	}
+
+	public boolean deleteByLinkAndUserNo(BookmarkVo bookmarkVo) {
+		return sqlSession.delete("bookmark.deleteByLinkAndUserNo", bookmarkVo)==1;
 	}
 	
 //	public PageVo paging(Long shownum, String keyword){

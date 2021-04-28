@@ -1,6 +1,7 @@
 package com.saltlux.mydictionary.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,30 @@ import com.saltlux.mydictionary.vo.UserVo;
 public class BookmarkService {
 
 	@Autowired
-	private BookmarkRepository repository;
+	private BookmarkRepository bookmarkrepository;
 	
 	public void deleteAll() {
-		repository.deleteAll();
+		bookmarkrepository.deleteAll();
 	}
 	
 	public void delete(long wordNo) {
-		repository.delete(wordNo);
+		bookmarkrepository.delete(wordNo);
 	}
 	
 	public List<BookmarkVo> findAll(String keyword, PageVo pagevo, UserVo authUser) {
-		return repository.findAll(keyword, pagevo, authUser);
+		return bookmarkrepository.findAll(keyword, pagevo, authUser);
+	}
+
+	public boolean insert(BookmarkVo bookmarkVo) {
+		return bookmarkrepository.insert(bookmarkVo);
+	}
+	
+	public boolean existBookmark(String link) {
+		return bookmarkrepository.existBookmark(link);
+	}
+
+	public boolean deleteByLinkAndUserNo(BookmarkVo bookmarkVo) {
+		return bookmarkrepository.deleteByLinkAndUserNo(bookmarkVo);
 	}
 	
 }

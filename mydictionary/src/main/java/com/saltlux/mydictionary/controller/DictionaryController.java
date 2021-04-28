@@ -28,6 +28,7 @@ public class DictionaryController {
 		String response = dictionaryService.search(keyword, display, start);
 		Map<String, Object> responseMap = dictionaryService.convertJSONstringToMap(response);
 		List<DictionaryVo> list = dictionaryService.convertMapToDictionaryVo(responseMap);
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
 		return "dictionary/index";
 	}

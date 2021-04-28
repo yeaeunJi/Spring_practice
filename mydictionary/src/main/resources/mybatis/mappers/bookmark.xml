@@ -12,19 +12,26 @@
 -->
 <select id="findAll" resultType="bookmarkvo" parameterType="map">
 	<![CDATA[
-	 select wordno, title, regDate, contents, link, keyword, thumbnail, description 
-	 from bookmark where userno = #{userNo} and (contents like '%${keyword}%' or title like  '%${keyword}%') order by regDate desc limit #{start},#{showNum} 
+	 select wordno, title, regDate, link, keyword, thumbnail, description 
+	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%') order by regDate desc limit #{start},#{showNum} 
 	]]>
 </select>
 	
-	<select id="findOne" resultType="bookmarkvo" parameterType="long">
+	<select id="findByWordNo" resultType="bookmarkvo" parameterType="long">
 <![CDATA[
-	select wordno, title, userNo, regDate, contents, link, keyword, thumbnail, description 
+	select wordno, title, userNo, regDate,  link, keyword, thumbnail, description 
 	from bookmark 
  	where wordNo = #{wordNo}
 ]]>
 	</select>
-
+	
+	<select id="findByLink" resultType="int" parameterType="string">
+<![CDATA[
+	select count(*)
+	from bookmark 
+ 	where link = #{link}
+]]>
+	</select>
 		<select id="getCount" resultType="int" >
 <![CDATA[
 	SELECT count(*) FROM bookmark
@@ -40,8 +47,8 @@
 	 -->
 <insert id="insert" parameterType="bookmarkvo" >
 	<![CDATA[
-	insert into bookmark (wordno, title, contents, regDate, link, keyword, thumbnail, description, userno )
-	 values (null, #{title}, #{contents}, now(), #{link}, #{keyword}, #{thumbnail} , #{description}, #{userNo})
+	insert into bookmark (wordno, title,  regDate, link, keyword, thumbnail, description, userno )
+	 values (null, #{title},  now(), #{link}, #{keyword}, #{thumbnail} , #{description}, #{userNo})
 	]]>
 	<selectKey keyProperty="wordNo" order="AFTER" resultType="long"> 
 	<![CDATA[
@@ -55,6 +62,13 @@
 	delete from bookmark where wordNo = #{wordNo}
 	]]>
 </delete>
+<delete id="deleteByLinkAndUserNo" parameterType="bookmarkvo">
+	<![CDATA[
+	delete from bookmark where link = #{link} and userNo = #{userNo}
+	]]>
+</delete>
+
+
 
 <delete id="deleteAll"  >
 	<![CDATA[

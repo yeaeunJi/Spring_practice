@@ -3,14 +3,19 @@ package com.saltlux.mydictionary.repository;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.saltlux.mydictionary.vo.BookmarkVo;
 import com.saltlux.mydictionary.vo.PageVo;
 import com.saltlux.mydictionary.vo.UserVo;
@@ -49,10 +54,10 @@ public class BookmarkRepositoryTest {
 		this.admin = userRepository.findByNo(admin.getUserNo());
 
 		// String title, long userNo, String contents, String link, String keyword, String thumbnail, String despcription
-		this.board1 = new BookmarkVo("title1", this.user1.getUserNo(), "contents1", "link1", "keyword1", "thumbnail1", "description1");
-		this.board2 =  new BookmarkVo("title2", this.user2.getUserNo(), "contents2", "link2", "keyword2", "thumbnail2", "description2");
-		this.board3 = new BookmarkVo("title3", this.user1.getUserNo(), "contents3", "link3", "keyword3", "thumbnail3", "description3");
-		this.board4 =  new BookmarkVo("title4", this.user2.getUserNo(), "contents4", "link4", "keyword4", "thumbnail4", "description4");
+		this.board1 = new BookmarkVo("title1", this.user1.getUserNo(), "link1", "keyword1", "thumbnail1", "description1");
+		this.board2 =  new BookmarkVo("title2", this.user2.getUserNo(), "link2", "keyword2", "thumbnail2", "description2");
+		this.board3 = new BookmarkVo("title3", this.user1.getUserNo(),  "link3", "keyword3", "thumbnail3", "description3");
+		this.board4 =  new BookmarkVo("title4", this.user2.getUserNo(),  "link4", "keyword4", "thumbnail4", "description4");
 	}
 
 	@Test 
@@ -67,11 +72,24 @@ public class BookmarkRepositoryTest {
 		BookmarkVo boardget1 = bookmarkRepository.getBoard(board1.getWordNo());
 
 		assertThat(boardget1.getTitle(), is(board1.getTitle()));
-		assertThat(boardget1.getContents(), is(board1.getContents()));
+		assertThat(boardget1.getLink(), is(board1.getLink()));
 
 		BookmarkVo boardget2 = bookmarkRepository.getBoard(board2.getWordNo());
 		assertThat(boardget2.getTitle(), is(board2.getTitle()));
-		assertThat(boardget2.getContents(), is(board2.getContents()));
+		assertThat(boardget2.getLink(), is(board2.getLink()));
+	}	
+	
+	@Test 
+	public void findByLink() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);
+		bookmarkRepository.insert(board2);
+		assertThat(bookmarkRepository.getCount(), is(2));
+
+		boolean result = bookmarkRepository.existBookmark(board1.getLink());
+		assertThat(result, is(true));
 	}
 
 	@Test 
@@ -101,7 +119,7 @@ public class BookmarkRepositoryTest {
 	}
 
 	@Test
-	public void delete() throws SQLException {
+	public void deleteByWordNo() throws SQLException {
 		bookmarkRepository.deleteAll();
 		assertThat(bookmarkRepository.getCount(), is(0));
 
@@ -110,12 +128,28 @@ public class BookmarkRepositoryTest {
 
 		BookmarkVo boardget1 = bookmarkRepository.getBoard(board1.getWordNo());
 		assertThat(boardget1.getTitle(), is(board1.getTitle()));
-		assertThat(boardget1.getContents(), is(board1.getContents()));
+		assertThat(boardget1.getLink(), is(board1.getLink()));
 
 		bookmarkRepository.delete(board1.getWordNo());		
 		BookmarkVo vo =bookmarkRepository.getBoard(board1.getWordNo());
 		assertThat(vo, nullValue(BookmarkVo.class));
 	}
 
+	@Test
+	public void deleteByLinkAndUserNo() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);	
+		assertThat(bookmarkRepository.getCount(), is(1));
+
+		BookmarkVo boardget1 = bookmarkRepository.getBoard(board1.getWordNo());
+		assertThat(boardget1.getTitle(), is(board1.getTitle()));
+		assertThat(boardget1.getLink(), is(board1.getLink()));
+
+		bookmarkRepository.deleteByLinkAndUserNo(boardget1);		
+		BookmarkVo vo =bookmarkRepository.getBoard(board1.getWordNo());
+		assertThat(vo, nullValue(BookmarkVo.class));
+	}
 
 }
