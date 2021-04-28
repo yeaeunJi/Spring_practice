@@ -10,6 +10,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.6.0.js"  ></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <style>
 
 </style>
@@ -50,8 +51,10 @@
 							<td style="width:70%;">						
 									${vo.description }
 							</td>
-							<td>								
-								<a href="${pageContext.request.contextPath }/Bookmark/update?link=${vo.link}" style="font-size:20px; width:30px;'">☆</a>
+							<td>
+							<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" id="bookmark-btn" style="width:20px; height:15px;" 
+							 title="즐겨찾기에 추가하기" alter="별모양 북마크 추가버튼"/>	
+							<!-- 	<a href="${pageContext.request.contextPath }/Bookmark/update?link=${vo.link}" style="font-size:20px; width:30px;'">☆</a> -->
 							</td>
 						</tr>
 					</c:forEach>
@@ -115,13 +118,6 @@
 
 				<div class="bottom">
 				</div>
-<!-- 
-				<div class="history">
-				<h3 style="display:inline-block;"> ** 최근 방문한 게시글 ** </h3>
-				<button onclick="removeHistory()">히스토리 지우기</button> 
-				<ul  id="historyList" >			
-				</ul>
-				</div>-->
 			</div>
 			 
 		</div>
@@ -141,6 +137,16 @@ window.onload = function() {
 			break;
 		}
 	}
+	
+	$("#bookmark-btn").hover(function(){
+		 $("#bookmark-btn").css('cursor','pointer');
+	});
+	
+	$("#bookmark-btn").click(function(){
+		//ajax  통신 결과가 success나오면
+		//별모양으로 변경
+		
+	});
 	
 	$("#search-btn").click(function(){
 		let keyword = $("#keyword").val();
