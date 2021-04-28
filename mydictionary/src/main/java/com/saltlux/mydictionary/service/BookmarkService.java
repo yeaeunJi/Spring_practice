@@ -21,12 +21,16 @@ public class BookmarkService {
 		bookmarkrepository.deleteAll();
 	}
 	
-	public void delete(long wordNo) {
-		bookmarkrepository.delete(wordNo);
+	public boolean delete(BookmarkVo bookmarkVo) {
+		return bookmarkrepository.delete(bookmarkVo);
 	}
 	
-	public List<BookmarkVo> findAll(String keyword, PageVo pagevo, UserVo authUser) {
-		return bookmarkrepository.findAll(keyword, pagevo, authUser);
+	public List<BookmarkVo> findAll(PageVo pagevo, UserVo authUser) {
+		return bookmarkrepository.findAll(pagevo, authUser);
+	}
+	
+	public List<BookmarkVo> findAllByKeyword(String keyword, PageVo pagevo, UserVo authUser) {
+		return bookmarkrepository.findAllByKeyword(keyword, pagevo, authUser);
 	}
 
 	public boolean insert(BookmarkVo bookmarkVo) {

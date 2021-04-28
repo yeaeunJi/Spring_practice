@@ -12,14 +12,21 @@
 -->
 <select id="findAll" resultType="bookmarkvo" parameterType="map">
 	<![CDATA[
-	 select wordno, title, regDate, link, keyword, thumbnail, description 
-	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%') order by regDate desc limit #{start},#{showNum} 
+	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
+	 from bookmark where userno = #{userNo} order by regDate desc limit #{start},#{showNum} 
+	]]>
+</select>
+
+<select id="findAllByKeyword" resultType="bookmarkvo" parameterType="map">
+	<![CDATA[
+	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
+	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) order by regDate desc limit #{start},#{showNum} 
 	]]>
 </select>
 	
 	<select id="findByWordNo" resultType="bookmarkvo" parameterType="long">
 <![CDATA[
-	select wordno, title, userNo, regDate,  link, keyword, thumbnail, description 
+	select wordno, title, userNo, date_format(regDate, '%Y-%m-%d') as regDate,  link, keyword, thumbnail, description 
 	from bookmark 
  	where wordNo = #{wordNo}
 ]]>
@@ -48,7 +55,7 @@
 <insert id="insert" parameterType="bookmarkvo" >
 	<![CDATA[
 	insert into bookmark (wordno, title,  regDate, link, keyword, thumbnail, description, userno )
-	 values (null, #{title},  now(), #{link}, #{keyword}, #{thumbnail} , #{description}, #{userNo})
+	 values (null, #{title}, date_format(now(), '%Y-%m-%d') , #{link}, #{keyword}, #{thumbnail} , #{description}, #{userNo})
 	]]>
 	<selectKey keyProperty="wordNo" order="AFTER" resultType="long"> 
 	<![CDATA[
@@ -57,11 +64,24 @@
 	</selectKey>
 	</insert>
 
-<delete id="delete" parameterType="long">
-	<![CDATA[
-	delete from bookmark where wordNo = #{wordNo}
-	]]>
+<delete id="delete" parameterType="bookmarkvo">
+
+	<choose>
+		<when test='link == null'>
+				<![CDATA[
+			delete from bookmark where wordNo = #{wordNo} and userNo=#{userNo}
+		]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+			delete from bookmark where  link=#{link} and userNo=#{userNo}
+		]]>
+		</otherwise>
+	</choose>
 </delete>
+
+
+
 <delete id="deleteByLinkAndUserNo" parameterType="bookmarkvo">
 	<![CDATA[
 	delete from bookmark where link = #{link} and userNo = #{userNo}

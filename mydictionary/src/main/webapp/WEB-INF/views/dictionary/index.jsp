@@ -141,7 +141,7 @@ window.onload = function() {
 	});
 	
 	$(".bookmark").click(function(){
-		let url = "${pageContext.request.contextPath }/api/bookmark/update";
+		let url = "${pageContext.request.contextPath }/api/bookmark/insert";
 		let $td = $(this).parent().siblings();
 		
 		let title  = $td.find(".link-url:first").text().trim();
@@ -158,20 +158,22 @@ window.onload = function() {
 				"description": description
 		};
 		
-		//let bookmarkStatus = $(this).attr("name");
-		let restType = $(this).attr("name") == "emptystar"?"POST":"DELETE";
-		console.log("data.link : "+data.link);
+		let bookmarkStatus = $(this).attr("name");
+		//let restType = $(this).attr("name") == "emptystar"?"POST":"DELETE";
+		//console.log("data.link : "+data.link);
 		
-		if(restType == "DELETE"){
-			url = "${pageContext.request.contextPath }/api/bookmark/update?link="+link;
-			data = '';
+		if(bookmarkStatus == "fullstar"){
+			url = "${pageContext.request.contextPath }/api/bookmark/delete";
+			data = {
+					"link": link,
+			};
 		}
 		
 		$.ajax({
 			url : encodeURI(url) ,
 			asyc : true, // 비동기
 			data: data,
-			type: restType,
+			type: "POST",
 			dataType: "json",
 			context: this,
 			success : function(response){
@@ -188,10 +190,8 @@ window.onload = function() {
 					return;
 				}	
 				
-				console.log("restType : "+restType);
 				
 				if ( $(this).attr("name") == "emptystar"){
-					console.log("2");
 					$(this).attr("src","${pageContext.request.contextPath }/assets/images/fullstar.png" )
 											  .attr("title","즐겨찾기에서 삭제하기" )
 											  .attr("name","fullstar");
@@ -199,7 +199,6 @@ window.onload = function() {
 				}
 				
 				if ($(this).attr("name") == "fullstar"){
-					console.log("1");
 					$(this).attr("src","${pageContext.request.contextPath }/assets/images/emptystar.png" )
 										     .attr("title","즐겨찾기에 추가하기" )
 										 	 .attr("name","emptystar");

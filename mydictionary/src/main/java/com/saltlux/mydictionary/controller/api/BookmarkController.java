@@ -24,23 +24,27 @@ public class BookmarkController  {
 	@Autowired
 	private BookmarkService bookmarkService;
 		
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResult insert(BookmarkVo bookmarkVo, @AuthUser UserVo authUser) {
 		bookmarkVo.setUserNo(authUser.getUserNo());
+		System.out.println("api insert : "+bookmarkVo);
 		if(bookmarkService.existBookmark(bookmarkVo.getLink())) {
 			return JsonResult.success(true);
 		}
 		boolean result = bookmarkService.insert(bookmarkVo);
+		System.out.println("result : "+result);
 		return JsonResult.success(result);
 	}
 
-	@RequestMapping(value="/update", method=RequestMethod.DELETE)
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResult delete(BookmarkVo bookmarkVo, @AuthUser UserVo authUser) {
 		bookmarkVo.setUserNo(authUser.getUserNo());
-		boolean result = bookmarkService.deleteByLinkAndUserNo(bookmarkVo);
+		System.out.println("api delete : "+bookmarkVo);
+		boolean result = bookmarkService.delete(bookmarkVo);
+		System.out.println("result : "+result);
 		return JsonResult.success(result);
 	}
-
 }

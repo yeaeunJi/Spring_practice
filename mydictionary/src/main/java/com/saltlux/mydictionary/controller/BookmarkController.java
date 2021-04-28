@@ -24,13 +24,25 @@ public class BookmarkController  {
 	private BookmarkService bookmarkService;
 	
 	@RequestMapping("")
-	public String list(@RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
+	public String list(@AuthUser UserVo authUser, Model model) {
 		
 		/* paging 처리*/
 		
-		PageVo pagevo = new PageVo(0, 2);
+		PageVo pagevo = new PageVo(0,10);
 		
-		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
+		List<BookmarkVo> list = bookmarkService.findAll(pagevo, authUser);
+		model.addAttribute("list", list);
+		return "bookmark/index";
+	}
+	
+	@RequestMapping("search")
+	public String search(@RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
+		
+		/* paging 처리*/
+		
+		PageVo pagevo = new PageVo(0,10);
+		
+		List<BookmarkVo> list = bookmarkService.findAllByKeyword(keyword, pagevo, authUser);
 		model.addAttribute("list", list);
 		return "bookmark/index";
 	}
@@ -45,17 +57,17 @@ public class BookmarkController  {
 //		return "bookmark/list";
 //	
 //	}
-	
-	@RequestMapping(value="/delete")
-	public String delete(long wordNo, @RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
-		bookmarkService.delete(wordNo);
-		
-		/* paging 처리*/
-		PageVo pagevo = new PageVo(0, 2);		
-		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
-		model.addAttribute("list", list);
-		return "bookmark/index";
-	}
+//	
+//	@RequestMapping(value="/delete")
+//	public String delete(long wordNo, @RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
+//		bookmarkService.delete(wordNo);
+//		
+//		/* paging 처리*/
+//		PageVo pagevo = new PageVo(0, 2);		
+//		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
+//		model.addAttribute("list", list);
+//		return "bookmark/index";
+//	}
 
 
 

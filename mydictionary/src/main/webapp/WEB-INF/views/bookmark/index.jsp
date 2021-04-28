@@ -29,6 +29,7 @@
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
+						<th></th>
 						<th>검색키워드</th>
 						<th>요약</th>
 						<th>등록일</th>
@@ -38,26 +39,21 @@
 					<c:forEach items="${list}" begin="0" step="1" varStatus="status" var="vo">
 						<tr class="board">
 							<td>${page.totalCount - (page.curPage-1)*page.showNum-status.index}</td>
-							<td style="text-align: left; padding-left: 0px;">
-								<a	style="text-align: left; padding-left: 0px;"
-									href="${pageContext.request.contextPath }/bookmark/view?wordNo=${vo.wordNo}" >
-									<c:if test="${vo.thumbnail != '' }">
-										<img src="${vo.thumbnail }" />
-									</c:if> 
-									<c:choose>
-										<c:when test="${fn:length(vo.title) <= 15}">
-									 		${vo.title}
-									 	</c:when>
-										<c:otherwise>
-									 		${fn:substring(vo.title,0,15)}...
-									 	</c:otherwise>
-									</c:choose>
-							</a></td>
+							<td style="width:20%;  word-break: keep-all;">
+									<p	style="text-align: left; padding-left: 0px;" class="link-url" >
+									${vo.title}
+									</p>
+							</td>
+							<td style="text-align: left; padding-left: 0px; width:20%;">								
+								<img src="${vo.thumbnail }" style="width:100%;" class="thumbnail" />
+							</td> 
 							<td>${vo.keyword }</td>
-							<td>${vo.description }</td>
+							<td style="width:70%;"  >	<a href="${vo.link }" class="description">${vo.description }</a>					
+							</td>
 							<td>${vo.regDate }</td>
-							<td>								
-								<a href="${pageContext.request.contextPath }/bookmark/delete?wordNo=${vo.wordNo}" class="del">★</a>
+							<td class="test">
+								<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:20px; height:15px;" 
+								 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 추가버튼" name="fullstar" onclick="deleteBookmark(this, ${vo.wordNo})" />	
 							</td>
 						</tr>
 					</c:forEach>
@@ -137,8 +133,35 @@
 </body>
 
 <script>
+function deleteBookmark(obj, wordNo){
+	let url = "${pageContext.request.contextPath }/api/bookmark/delete";
+	$.ajax({
+		url : encodeURI(url) ,
+		asyc : true, // 비동기
+		data: {"wordNo":wordNo},
+		type: "POST",
+		dataType: "json",
+		context: obj,
+		success : function(response){
+			// String을 자바스크리브 객체로 받음
+			if (response.result !='success'){
+				console.error(response.message);
+				return;
+			}
+
+			if(response.data == false){
+				return;
+			}	
+			
+			$(obj).parent().parent().remove();
+		},
+		error : function(xhr, status, e){
+			console.log(e);
+		}
+	}); // ajax
+}
+
 window.onload = function() {	
-	// curPage a태그의 색이 red 로 바뀜
 	let a = document.getElementsByClassName("page");
 	for(let i = 0; i < a.length; i++){
 		let text= a[i].innerHTML;
@@ -147,5 +170,24 @@ window.onload = function() {
 			break;
 		}
 	}
-}</script>
+	
+	$(".bookmark").hover(function(){
+		 $(".bookmark").css('cursor','pointer');
+	});
+	
+	
+	$("#search-btn").click(function(){
+		let keyword = $("#keyword").val();
+		if (keyword.trim() == '') {
+			alert("검색할 단어를 입력해주세요.");
+			$("#keyword").focus();
+			return; 
+		} 
+		search_form.submit();	
+	
+	}); // $("search-btn").click
+}
+	
+
+</script>
 </html>

@@ -105,10 +105,28 @@ public class BookmarkRepositoryTest {
 
 		PageVo pagevo = new PageVo(0, 5);
 
-		List<BookmarkVo> list = bookmarkRepository.findAll("", pagevo, user1);
+		List<BookmarkVo> list = bookmarkRepository.findAll(pagevo, user1);
 		assertThat(list.size(), is(2));
 	}
 
+	@Test 
+	public void findAllByKeyword() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);
+		bookmarkRepository.insert(board2);			
+		bookmarkRepository.insert(board3);
+		bookmarkRepository.insert(board4);
+		assertThat(bookmarkRepository.getCount(), is(4));
+
+		PageVo pagevo = new PageVo(0, 5);
+
+		List<BookmarkVo> list = bookmarkRepository.findAllByKeyword("", pagevo, user1);
+		assertThat(list.size(), is(2));
+	}
+	
+	
 	@Test
 	public void getBoardFailure() throws SQLException {
 		bookmarkRepository.deleteAll();
@@ -130,7 +148,7 @@ public class BookmarkRepositoryTest {
 		assertThat(boardget1.getTitle(), is(board1.getTitle()));
 		assertThat(boardget1.getLink(), is(board1.getLink()));
 
-		bookmarkRepository.delete(board1.getWordNo());		
+		bookmarkRepository.delete(board1);		
 		BookmarkVo vo =bookmarkRepository.getBoard(board1.getWordNo());
 		assertThat(vo, nullValue(BookmarkVo.class));
 	}
