@@ -1,0 +1,66 @@
+-- 즐겨찾기
+ALTER TABLE `bookmark`
+	DROP FOREIGN KEY `FK_dictUser_TO_bookmark`, -- 회원(백과사전) -> 즐겨찾기
+	DROP INDEX `FK_dictUser_TO_bookmark`; -- 회원(백과사전) -> 즐겨찾기
+
+-- 회원(백과사전)
+DROP TABLE IF EXISTS `dictUser` RESTRICT;
+
+-- 즐겨찾기
+DROP TABLE IF EXISTS `bookmark` RESTRICT;
+
+-- 회원(백과사전)
+CREATE TABLE `dictUser` (
+	`userNo`   INT UNSIGNED NOT NULL COMMENT '회원번호', -- 회원번호
+	`name`     VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
+	`id`       VARCHAR(200) NOT NULL COMMENT '아이디', -- 아이디
+	`password` VARCHAR(20)  NOT NULL COMMENT '비밀번호', -- 비밀번호
+	`joinDate` DATETIME     NOT NULL DEFAULT now() COMMENT '가입일' -- 가입일
+)
+COMMENT '회원(백과사전)';
+
+-- 회원(백과사전)
+ALTER TABLE `dictUser`
+	ADD CONSTRAINT `PK_dictUser` -- 회원(백과사전) 기본키
+		PRIMARY KEY (
+			`userNo` -- 회원번호
+		);
+
+ALTER TABLE `dictUser`
+	MODIFY COLUMN `userNo` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+-- 즐겨찾기
+CREATE TABLE `bookmark` (
+	`wordNo`      INT UNSIGNED  NOT NULL COMMENT '단어번호', -- 단어번호
+	`userNo`      INT UNSIGNED  NOT NULL COMMENT '회원번호', -- 회원번호
+	`title`       VARCHAR(200)  NOT NULL COMMENT '제목', -- 제목
+	`regDate`     DATETIME      NOT NULL COMMENT '등록일', -- 등록일
+	`link`        VARCHAR(2000) NOT NULL COMMENT '링크', -- 링크
+	`keyword`     VARCHAR(2000) NULL     COMMENT '검색키워드', -- 검색키워드
+	`thumbnail`   VARCHAR(2000) NULL     COMMENT '썸네일', -- 썸네일
+	`description` VARCHAR(2000) NULL     COMMENT '요약' -- 요약
+)
+COMMENT '즐겨찾기';
+
+-- 즐겨찾기
+ALTER TABLE `bookmark`
+	ADD CONSTRAINT `PK_bookmark` -- 즐겨찾기 기본키
+		PRIMARY KEY (
+			`wordNo` -- 단어번호
+		);
+
+ALTER TABLE `bookmark`
+	MODIFY COLUMN `wordNo` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '단어번호';
+
+-- 즐겨찾기
+ALTER TABLE `bookmark`
+	ADD CONSTRAINT `FK_dictUser_TO_bookmark` -- 회원(백과사전) -> 즐겨찾기
+		FOREIGN KEY (
+			`userNo` -- 회원번호
+		)
+		REFERENCES `dictUser` ( -- 회원(백과사전)
+			`userNo` -- 회원번호
+		),
+	ADD INDEX `FK_dictUser_TO_bookmark` (
+		`userNo` ASC -- 회원번호
+	);
