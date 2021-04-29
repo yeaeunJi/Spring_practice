@@ -28,8 +28,8 @@ import com.saltlux.mydictionary.vo.DictionaryVo;
 public class DictionaryService {
 	
 	private String searchUrl = "https://openapi.naver.com/v1/search/encyc";
-	private String clientId = "FwGUdeuCXwzcKsGaoB09";
-	private String clientSecret = "yNVRqgDFWD";
+	private String clientId = "";
+	private String clientSecret = "";
 	
 	
 	public List<DictionaryVo> search(String keyword, int display, int start) {
