@@ -126,6 +126,18 @@ public class BookmarkRepositoryTest {
 		assertThat(list.size(), is(2));
 	}
 	
+	@Test 
+	public void findLinkByUserNoAndKeyword() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);
+		bookmarkRepository.insert(board2);			
+		assertThat(bookmarkRepository.getCount(), is(2));
+
+		List<String> list = bookmarkRepository.findLinkByUserNoAndKeyword("keyword", user1);
+		assertThat(list.size(), is(1));
+	}
 	
 	@Test
 	public void getBoardFailure() throws SQLException {

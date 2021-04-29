@@ -18,9 +18,17 @@
 </select>
 
 <select id="findAllByKeyword" resultType="bookmarkvo" parameterType="map">
-	<![CDATA[
+		<![CDATA[
 	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
 	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) order by regDate desc limit #{start},#{showNum} 
+	]]>
+</select>
+
+<select id="findLinkByUserNoAndKeyword" resultType="string" parameterType="map">
+		<![CDATA[
+	 select link
+	 from bookmark 
+	 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) 
 	]]>
 </select>
 	
@@ -45,13 +53,6 @@
 ]]>
 	</select>
 	
-<!-- 
-	<select id="paging" resultType="pagevo" parameterType="map">
-<![CDATA[
-	SELECT count(no) as total, CASE WHEN ceiling(count(no)/#{showNum})  = 0 THEN 1 ELSE ceiling(count(no)/#{showNum})  END AS totalpage FROM board where contents like '%${keyword}%' or title like  '%${keyword}%'
-]]>
-	</select>
-	 -->
 <insert id="insert" parameterType="bookmarkvo" >
 	<![CDATA[
 	insert into bookmark (wordno, title,  regDate, link, keyword, thumbnail, description, userno )
@@ -87,7 +88,6 @@
 	delete from bookmark where link = #{link} and userNo = #{userNo}
 	]]>
 </delete>
-
 
 
 <delete id="deleteAll"  >

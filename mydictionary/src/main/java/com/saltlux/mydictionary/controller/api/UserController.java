@@ -17,7 +17,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	//@GetMapping("/existemail") : get REST란 의미
 	@RequestMapping("/existid")
 	@ResponseBody
 	public JsonResult existid(String id){

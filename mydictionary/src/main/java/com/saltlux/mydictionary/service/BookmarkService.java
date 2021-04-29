@@ -32,7 +32,11 @@ public class BookmarkService {
 	public List<BookmarkVo> findAllByKeyword(String keyword, PageVo pagevo, UserVo authUser) {
 		return bookmarkrepository.findAllByKeyword(keyword, pagevo, authUser);
 	}
-
+	
+	public List<String> findLinkByUserNoAndKeyword(String keyword, UserVo authUser) {
+		return bookmarkrepository.findLinkByUserNoAndKeyword(keyword,  authUser);
+	}
+	
 	public boolean insert(BookmarkVo bookmarkVo) {
 		return bookmarkrepository.insert(bookmarkVo);
 	}

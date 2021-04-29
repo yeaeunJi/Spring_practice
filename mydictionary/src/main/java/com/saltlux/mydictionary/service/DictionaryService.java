@@ -28,18 +28,38 @@ import com.saltlux.mydictionary.vo.DictionaryVo;
 public class DictionaryService {
 	
 	private String searchUrl = "https://openapi.naver.com/v1/search/encyc";
-	private String clientId = "";
-	private String clientSecret = "";
+	private String clientId = "FwGUdeuCXwzcKsGaoB09";
+	private String clientSecret = "yNVRqgDFWD";
 	
-	public String search(String keyword, int display, int start) {
+	
+	public List<DictionaryVo> search(String keyword, int display, int start) {
+		String response = getResponseBody(keyword, display, start);
+		Map<String, Object> responseMap = convertJSONstringToMap(response);
+		List<DictionaryVo> list = convertMapToDictionaryVo(responseMap);
+		return list;
+	}
+	
+	public String getResponseBody(String keyword, int display, int start) {
 		String apiURL = makeURL(keyword, display, start);
 		Map<String, String> requestHeaders = makeRequestHeader();
 
 		String responseBody = get(apiURL,requestHeaders);
 		return responseBody;
 	}
+	
+	public List<DictionaryVo> markingBookmarkFlag(List<String> compareList, List<DictionaryVo> list){
+		for(int i=0; i<list.size(); i++) {
+			if (compareList.contains(list.get(i).getLink())){
+				list.get(i).setBookmarkFlag(true);
+			}else {
+				continue;
+			}
+		}
+		return list;
+	}
 
 	/* open api 연결 관련 메서드  */
+
 	private String makeURL(String keyword, int display, int start) {
 		String url = searchUrl;
 		Map<String, Object> urlParam = new HashMap<>();
@@ -111,6 +131,7 @@ public class DictionaryService {
 	}
 
 	/* 응답 결과 처리 */
+
 	private static String readBody(InputStream body){
 		InputStreamReader streamReader = new InputStreamReader(body);
 

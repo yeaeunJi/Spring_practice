@@ -1,8 +1,5 @@
 package com.saltlux.mydictionary.controller.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +25,10 @@ public class BookmarkController  {
 	@ResponseBody
 	public JsonResult insert(BookmarkVo bookmarkVo, @AuthUser UserVo authUser) {
 		bookmarkVo.setUserNo(authUser.getUserNo());
-		System.out.println("api insert : "+bookmarkVo);
 		if(bookmarkService.existBookmark(bookmarkVo.getLink())) {
 			return JsonResult.success(true);
 		}
 		boolean result = bookmarkService.insert(bookmarkVo);
-		System.out.println("result : "+result);
 		return JsonResult.success(result);
 	}
 
@@ -42,9 +37,7 @@ public class BookmarkController  {
 	@ResponseBody
 	public JsonResult delete(BookmarkVo bookmarkVo, @AuthUser UserVo authUser) {
 		bookmarkVo.setUserNo(authUser.getUserNo());
-		System.out.println("api delete : "+bookmarkVo);
 		boolean result = bookmarkService.delete(bookmarkVo);
-		System.out.println("result : "+result);
 		return JsonResult.success(result);
 	}
 }

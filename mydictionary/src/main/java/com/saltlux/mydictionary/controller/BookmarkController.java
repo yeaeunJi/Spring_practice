@@ -47,28 +47,6 @@ public class BookmarkController  {
 		return "bookmark/index";
 	}
 	
-//	@RequestMapping(value="/insert",  method = RequestMethod.POST)
-//	public String insert(@AuthUser UserVo authUser, BookmarkVo vo, Model model) {
-//		bookmarkService.insert(authUser.getUserNo(), vo);
-//		PageVo pagevo = new PageVo(0L, 2L);
-//		
-//		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
-//		model.addAttribute("list", list);
-//		return "bookmark/list";
-//	
-//	}
-//	
-//	@RequestMapping(value="/delete")
-//	public String delete(long wordNo, @RequestParam(name = "keyword", defaultValue = "") String keyword, @AuthUser UserVo authUser, Model model) {
-//		bookmarkService.delete(wordNo);
-//		
-//		/* paging 처리*/
-//		PageVo pagevo = new PageVo(0, 2);		
-//		List<BookmarkVo> list = bookmarkService.findAll(keyword, pagevo, authUser);
-//		model.addAttribute("list", list);
-//		return "bookmark/index";
-//	}
-
 
 
 }

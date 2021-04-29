@@ -26,7 +26,7 @@
 					<input type="hidden" id="start" name="start" value="${page.start}"/>
 					<input type="text" id="keyword" name="keyword" value="${keyword}"> 
 					<input type="button"	value="찾기" id="search-btn"/>
-					<h6>* 제목과 내용, 요약, 검색 키워드 정보에서 검색합니다.</h6>
+					<h6>* 네이버  지식백과에서 검색합니다. 검색어를 입력해주세요.</h6>
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -51,10 +51,17 @@
 								<span class="description">${vo.description }</span>
 							</td>
 							<td>
-								<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" class="bookmark" style="width:20px; height:15px;" 
-								 title="즐겨찾기에 추가하기" alt="별모양 북마크 추가버튼" name="emptystar" />	
+								<c:choose>
+									<c:when test="${vo.bookmarkFlag == true}">
+										<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:20px; height:15px;" 
+										 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 삭제버튼" name="fullstar" />	
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" class="bookmark" style="width:20px; height:15px;" 
+										 title="즐겨찾기에 추가하기" alt="별모양 북마크 추가버튼" name="emptystar" />	
+									</c:otherwise>
+								</c:choose>
 							</td>
-							
 						</tr>
 					</c:forEach>
 				</table>

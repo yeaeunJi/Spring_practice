@@ -37,14 +37,6 @@ public class BookmarkRepository {
 		return (int)sqlSession.selectOne("bookmark.findByLink", link)>0;
 	}
 	
-//	public List<BookmarkVo> findAll(String keyword, PageVo pagevo) {
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("keyword", keyword);
-//		map.put("start", pagevo.getStart());
-//		map.put("showNum", pagevo.getShowNum());
-//		return sqlSession.selectList("bookmark.findAll", map);
-//	}
-//	
 	public List<BookmarkVo> findAll(PageVo pagevo, UserVo userVo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", pagevo.getStart());
@@ -70,8 +62,13 @@ public class BookmarkRepository {
 	public boolean deleteByLinkAndUserNo(BookmarkVo bookmarkVo) {
 		return sqlSession.delete("bookmark.deleteByLinkAndUserNo", bookmarkVo)==1;
 	}
-
 	
+	public List<String> findLinkByUserNoAndKeyword(String keyword, UserVo userVo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", keyword);
+		map.put("userNo", userVo.getUserNo());
+		return sqlSession.selectList("bookmark.findLinkByUserNoAndKeyword", map);
+	}
 //	public PageVo paging(Long shownum, String keyword){
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("showNum", shownum);

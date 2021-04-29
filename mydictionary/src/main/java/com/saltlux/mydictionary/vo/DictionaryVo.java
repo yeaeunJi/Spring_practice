@@ -8,7 +8,7 @@ public class DictionaryVo {
 	private String link;
 	private String description;
 	private String thumbnail;
-	
+	private boolean bookmarkFlag;
 	
 	public DictionaryVo() {
 	}
@@ -25,6 +25,16 @@ public class DictionaryVo {
 		this.total = total;
 		this.start = start;
 		this.display = display;
+	}
+
+	
+	
+	public boolean isBookmarkFlag() {
+		return bookmarkFlag;
+	}
+
+	public void setBookmarkFlag(boolean bookmarkFlag) {
+		this.bookmarkFlag = bookmarkFlag;
 	}
 
 	public int getTotal() {
@@ -69,13 +79,14 @@ public class DictionaryVo {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "DictionaryVo [total=" + total + ", start=" + start + ", display=" + display + ", title=" + title
-				+ ", link=" + link + ", description=" + description + ", thumbnail=" + thumbnail + "]";
+				+ ", link=" + link + ", description=" + description + ", thumbnail=" + thumbnail + ", bookmarkFlag="
+				+ bookmarkFlag + "]";
 	}
-	
-	
+
+
 	
 }

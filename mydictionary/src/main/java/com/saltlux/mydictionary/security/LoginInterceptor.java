@@ -10,9 +10,7 @@ import com.saltlux.mydictionary.service.UserService;
 import com.saltlux.mydictionary.vo.UserVo;
 
 
-// spring  컨테이너 밖에 존재하므로 직접 코딩
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-	/* 스프링 컨테이너에 생성된 UserService를 사용*/
 	@Autowired
 	private UserService userService;
 	

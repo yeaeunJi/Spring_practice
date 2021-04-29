@@ -18,7 +18,7 @@ public class DictionaryController {
 	@RequestMapping("")
 	@ResponseBody
 	public JsonResult index(String keyword, int display, int start){
-		String responseBody = dictionaryService.search(keyword, display, start);
+		String responseBody = dictionaryService.getResponseBody(keyword, display, start);
 		return JsonResult.success(responseBody);
 	}
 	

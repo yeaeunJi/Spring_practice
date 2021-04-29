@@ -1,9 +1,9 @@
 package com.saltlux.mydictionary.security;
 
-import javax.servlet.annotation.HandlesTypes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -15,11 +15,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		//1. handler 종류 확인
 		if(handler instanceof HandlerMethod == false) {
-			// DefaultServletHandler가 처리하는 경우(보통, assets의 정적 자원 접근)
-			// 정적 자원 요청을 다른 곳에서 처리할 수도 있음 : sping-servlet.xml에서 인터셉터안에  <mvc:exclude-mapping path ="/assets/**"/> 명시
-			// 하지만 이렇게 처리하는 것이 안전함? 
 			return true;  // 통과시킴
 		}
 		

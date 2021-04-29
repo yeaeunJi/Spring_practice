@@ -2,7 +2,6 @@ package com.saltlux.mydictionary.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saltlux.mydictionary.security.Auth;
+import com.saltlux.mydictionary.security.AuthUser;
+import com.saltlux.mydictionary.service.BookmarkService;
 import com.saltlux.mydictionary.service.DictionaryService;
 import com.saltlux.mydictionary.vo.DictionaryVo;
 import com.saltlux.mydictionary.vo.PageVo;
+import com.saltlux.mydictionary.vo.UserVo;
 
 @RequestMapping("/dictionary")
 @Controller
@@ -23,13 +25,16 @@ public class DictionaryController {
 	@Autowired
 	private DictionaryService dictionaryService;
 	
+	@Autowired
+	private BookmarkService bookmarkService;
+	
 	@RequestMapping("/search")
-	public String search(String keyword, int display, int start, Model model){		
-		String response = dictionaryService.search(keyword, display, start);
-		Map<String, Object> responseMap = dictionaryService.convertJSONstringToMap(response);
-		List<DictionaryVo> list = dictionaryService.convertMapToDictionaryVo(responseMap);
-
-		PageVo pagevo = new PageVo();
+	public String search(String keyword, int display, int start, @AuthUser UserVo authUser, Model model){		
+		List<DictionaryVo> list = dictionaryService.search(keyword, display, start);
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(keyword, authUser);
+		list = dictionaryService.markingBookmarkFlag(compareList, list);
+		
+		PageVo pagevo = new PageVo(1, 5);
 		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);

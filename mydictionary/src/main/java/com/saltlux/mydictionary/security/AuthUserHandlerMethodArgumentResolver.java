@@ -16,15 +16,12 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		// 판단
 		AuthUser authUser = parameter.getParameterAnnotation(AuthUser.class);
 		
-		// @AuthUser가 안붙어 있는 경우
 		if(authUser==null) {
 			return false;
 		}
 		
-		// 파라미터 타입이 UserVo가 아니면... 
 		if(!parameter.getParameterType().equals(UserVo.class)) {
 			return false;	
 		}
@@ -37,7 +34,6 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 		if(!supportsParameter(parameter)) { // @AuthUser에서는 UserVo만 사용 가능하도록
 			return WebArgumentResolver.UNRESOLVED; // 다음 리졸버가 작동 
 		}
-		// NativeWebRequest webRequest : request 
 		HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 		HttpSession session = request.getSession();
 		if(session == null) {

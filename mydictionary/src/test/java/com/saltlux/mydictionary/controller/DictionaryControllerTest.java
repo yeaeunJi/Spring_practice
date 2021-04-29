@@ -28,14 +28,14 @@ public class DictionaryControllerTest {
 
 	@Test
 	public void search() {
-		String responseBody = dictionaryService.search("프로이트", 10, 1);
+		String responseBody = dictionaryService.getResponseBody("프로이트", 10, 1);
 		Map<String, Object> searchItems = dictionaryService.convertJSONstringToMap(responseBody);
 		assertThat((String)searchItems.get("errorMessage"), nullValue(String.class));
 	}
 
 	@Test
 	public void convertJSONstringToMap() {
-		String responseBody = dictionaryService.search("프로이트", 10, 1);
+		String responseBody = dictionaryService.getResponseBody("프로이트", 10, 1);
 		Map<String, Object> searchItems = dictionaryService.convertJSONstringToMap(responseBody);
 		assertThat((String)searchItems.get("errorMessage"), nullValue(String.class));
 
@@ -49,7 +49,7 @@ public class DictionaryControllerTest {
 
 	@Test
 	public void convertMapToDictionaryVo() {
-		String responseBody = dictionaryService.search("프로이트", 10, 1);
+		String responseBody = dictionaryService.getResponseBody("프로이트", 10, 1);
 		Map<String, Object> searchItems = dictionaryService.convertJSONstringToMap(responseBody);
 		assertThat((String)searchItems.get("errorMessage"), nullValue(String.class));
 		
@@ -57,6 +57,5 @@ public class DictionaryControllerTest {
 		List<DictionaryVo> list = dictionaryService.convertMapToDictionaryVo(searchItems);
 
 		assertEquals(list.get(0).getTitle(), items.get(0).get("title"));
-		System.out.println(list);
 	}
 }
