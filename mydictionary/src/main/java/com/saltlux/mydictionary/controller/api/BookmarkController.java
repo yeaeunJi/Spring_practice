@@ -25,7 +25,7 @@ public class BookmarkController  {
 	@ResponseBody
 	public JsonResult insert(BookmarkVo bookmarkVo, @AuthUser UserVo authUser) {
 		bookmarkVo.setUserNo(authUser.getUserNo());
-		if(bookmarkService.existBookmark(bookmarkVo.getLink())) {
+		if(bookmarkService.existBookmark(bookmarkVo)) {
 			return JsonResult.success(true);
 		}
 		boolean result = bookmarkService.insert(bookmarkVo);

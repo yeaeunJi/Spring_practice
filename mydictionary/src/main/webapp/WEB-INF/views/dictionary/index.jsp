@@ -23,7 +23,7 @@
 					<input type="hidden" id="showNum" name="showNum" value="${page.showNum}"/>
 					<input type="hidden" id="startPage" name="startPage" value="${page.startPage}"/>
 					<input type="hidden" id="startRow" name="startRow" value="1"/>
-					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder=" ༼๑⁰⊖⁰๑༽ 오늘도 화이팅!" ">
+					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder=" ༼๑⁰⊖⁰๑༽ 오늘도 화이팅!" >
 					<input type="button" value="찾기" id="search-btn" />
 					<h3 style="clear:both;">* 네이버  지식백과에서 검색합니다. 검색어를 입력해주세요.</h3>
 				</form>
@@ -126,17 +126,13 @@ window.onload = function() {
 	
 		
 	$(".bookmark").click(function(){
-		
-		
 		let url = "${pageContext.request.contextPath }/api/bookmark/insert";
 		let $td = $(this).parent().siblings();
-		
 		let title  = $td.find(".link-url:first").text().trim();
 		let keyword = $("#keyword").val();
 		let thumbnail = $td.find(".thumbnail").attr("src");
 		let description = $td.find(".description").eq(0).text();
 		let link = $td.find(".link-url").attr("href");
-		
 		let data = {
 				"title": title,
 				"link": link,
@@ -146,16 +142,12 @@ window.onload = function() {
 		};
 		
 		let bookmarkStatus = $(this).attr("name");
-		//let restType = $(this).attr("name") == "emptystar"?"POST":"DELETE";
-		//console.log("data.link : "+data.link);
-		
 		if(bookmarkStatus == "fullstar"){
 			url = "${pageContext.request.contextPath }/api/bookmark/delete";
 			data = {
 					"link": link,
 			};
 		}
-		
 		$.ajax({
 			url : encodeURI(url) ,
 			asyc : true, // 비동기
@@ -165,18 +157,17 @@ window.onload = function() {
 			context: this,
 			success : function(response){
 				// String을 자바스크리브 객체로 받음
+				
 				if (response.result !='success'){
 					console.error(response.message);
 					console.log("response.result !='success'");
 					
 					return;
 				}
-
 				if(response.data == false){
 					console.log("response.data == false");
 					return;
 				}	
-				
 				
 				if ( $(this).attr("name") == "emptystar"){
 					$(this).attr("src","${pageContext.request.contextPath }/assets/images/fullstar.png" )

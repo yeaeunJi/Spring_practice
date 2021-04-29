@@ -49,8 +49,8 @@ public class BookmarkService {
 		return bookmarkrepository.insert(bookmarkVo);
 	}
 
-	public boolean existBookmark(String link) {
-		return bookmarkrepository.existBookmark(link);
+	public boolean existBookmark(BookmarkVo bookmarkVo) {
+		return bookmarkrepository.existBookmark(bookmarkVo);
 	}
 
 	public boolean deleteByLinkAndUserNo(BookmarkVo bookmarkVo) {

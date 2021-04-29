@@ -88,7 +88,7 @@ public class BookmarkRepositoryTest {
 		bookmarkRepository.insert(board2);
 		assertThat(bookmarkRepository.getCount(), is(2));
 
-		boolean result = bookmarkRepository.existBookmark(board1.getLink());
+		boolean result = bookmarkRepository.existBookmark(board1);
 		assertThat(result, is(true));
 	}
 

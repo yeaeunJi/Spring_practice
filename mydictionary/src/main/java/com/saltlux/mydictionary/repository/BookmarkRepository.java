@@ -41,8 +41,8 @@ public class BookmarkRepository {
 		return sqlSession.selectOne("bookmark.findByWordNo", wordNo);
 	}
 	
-	public boolean existBookmark(String link) {
-		return (int)sqlSession.selectOne("bookmark.findByLink", link)>0;
+	public boolean existBookmark(BookmarkVo bookmarkVo) {
+		return (int)sqlSession.selectOne("bookmark.findByLink", bookmarkVo)==1;
 	}
 	
 	public List<BookmarkVo> findAll(PageVo pagevo, UserVo userVo) {

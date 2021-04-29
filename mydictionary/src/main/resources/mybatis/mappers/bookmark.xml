@@ -41,11 +41,11 @@
 ]]>
 	</select>
 	
-	<select id="findByLink" resultType="int" parameterType="string">
+	<select id="findByLink" resultType="int" parameterType="bookmarkvo">
 <![CDATA[
 	select count(*)
 	from bookmark 
- 	where link = #{link}
+ 	where link = #{link} and userNo=#{userNo}
 ]]>
 	</select>
 		<select id="getCount" resultType="int" >
