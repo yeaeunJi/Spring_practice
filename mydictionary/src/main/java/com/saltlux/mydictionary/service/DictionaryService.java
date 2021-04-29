@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saltlux.mydictionary.exception.DictionaryServiceException;
 import com.saltlux.mydictionary.vo.DictionaryVo;
+import com.saltlux.mydictionary.vo.PageVo;
 
 @Service
 public class DictionaryService {
@@ -32,20 +33,28 @@ public class DictionaryService {
 	private String clientSecret = "";
 	
 	
-	public List<DictionaryVo> search(String keyword, int display, int start) {
-		String response = getResponseBody(keyword, display, start);
+	public List<DictionaryVo> search(PageVo pagevo) {
+//		System.out.println("================= DictionaryService search ");
+		String response = getResponseBody(pagevo);
+//		System.out.println("================= (1) "+response);
 		Map<String, Object> responseMap = convertJSONstringToMap(response);
 		List<DictionaryVo> list = convertMapToDictionaryVo(responseMap);
 		return list;
 	}
 	
-	public String getResponseBody(String keyword, int display, int start) {
-		String apiURL = makeURL(keyword, display, start);
+	public String getResponseBody(PageVo pagevo) {
+//		System.out.println("================= DictionaryService getResponseBody ");
+		
+		String apiURL = makeURL(pagevo);
+//		System.out.println("================= (1) "+apiURL);
 		Map<String, String> requestHeaders = makeRequestHeader();
-
+//		System.out.println("================= (2) "+requestHeaders);
 		String responseBody = get(apiURL,requestHeaders);
+//		System.out.println("================= (3) "+responseBody);
 		return responseBody;
 	}
+	
+
 	
 	public List<DictionaryVo> markingBookmarkFlag(List<String> compareList, List<DictionaryVo> list){
 		for(int i=0; i<list.size(); i++) {
@@ -59,21 +68,20 @@ public class DictionaryService {
 	}
 
 	/* open api 연결 관련 메서드  */
-
-	private String makeURL(String keyword, int display, int start) {
+	private String makeURL(PageVo pagevo) {
 		String url = searchUrl;
 		Map<String, Object> urlParam = new HashMap<>();
 		String txtKeyword = "";
 	
 		try {
-			txtKeyword = URLEncoder.encode(keyword, "UTF-8");
+			txtKeyword = URLEncoder.encode(pagevo.getKeyword(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new DictionaryServiceException(e.toString());
 		}
 	
 		urlParam.put("query", txtKeyword);
-		urlParam.put("display", display);
-		urlParam.put("start", start);
+		urlParam.put("display", pagevo.getShowNum());
+		urlParam.put("start", pagevo.getStartRow());
 		Iterator<String> keyIter = urlParam.keySet().iterator();
 
 		for(int i =0; keyIter.hasNext(); i++) {

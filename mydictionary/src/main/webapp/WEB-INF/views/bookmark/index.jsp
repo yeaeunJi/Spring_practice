@@ -21,24 +21,24 @@
 			<div id="board">
 				<form id="search_form"
 					action="${pageContext.request.contextPath }/bookmark/search" method="post">
-					<input type="text" id="keyword" name="keyword" value="${keyword}"> 
+					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder="(ꐦ ◣‸◢) 공부!!! "> 
 					<input type="submit"	value="찾기">
-					<h6>* 제목과 내용, 요약, 검색 키워드 정보에서 검색합니다.</h6>
+					<h6>* 제목과 요약, 검색 키워드 정보에서 검색합니다.</h6>
 				</form>
+				<p style="text-align:right;">총 검색 수 : <span id="totalRow">${page.totalRow}</span>건</p>
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
-						<th></th>
+						<th>사진</th>
 						<th>검색키워드</th>
 						<th>요약</th>
 						<th>등록일</th>
 						<th>&nbsp;</th>
 					</tr>
-					<c:set var="count" value="${fn:length(list)}" />
 					<c:forEach items="${list}" begin="0" step="1" varStatus="status" var="vo">
 						<tr class="board">
-							<td>${page.totalCount - (page.curPage-1)*page.showNum-status.index}</td>
+							<td>${page.totalRow - (page.curPage-1)*page.showNum-status.index}</td>
 							<td style="width:20%;  word-break: keep-all;">
 									<p	style="text-align: left; padding-left: 0px;" class="link-url" >
 									${vo.title}
@@ -48,7 +48,7 @@
 								<img src="${vo.thumbnail }" style="width:100%;" class="thumbnail" />
 							</td> 
 							<td>${vo.keyword }</td>
-							<td style="width:70%;"  >	<a href="${vo.link }" class="description">${vo.description }</a>					
+							<td style="width:70%;"  >	<a href="${vo.link }" class="description" target="_blank">${vo.description }</a>					
 							</td>
 							<td>${vo.regDate }</td>
 							<td class="test">
@@ -62,22 +62,10 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-					<c:choose>
-							<c:when test="${page.startPage!=1}">
-								<li><a
-									href="${pageContext.request.contextPath }/bookmark/mulPageBefore?startPage=${page.startPage}&totalPage=${page.total}&keyword=${keyword}">
-										◀◀ </a></li>
-							</c:when>
-							<c:otherwise>
-									<li><a href="#">◀◀ </a></li>
-							</c:otherwise>
-						</c:choose>
-					
-					
 						<c:choose>
 							<c:when test="${page.curPage!=1}">
 								<li><a
-									href="${pageContext.request.contextPath }/bookmark/onePageBefore?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">◀</a></li>
+									href="${pageContext.request.contextPath }/bookmark/onePagePrev?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">◀</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="#">◀</a></li>
@@ -85,47 +73,29 @@
 						</c:choose>
 						
 						<c:forEach step="1" begin="${page.startPage}" end="${page.endPage}"  var="pageNum"  varStatus="status">
-					<li><a
-								href="${pageContext.request.contextPath }/bookmark/movePage?movePage=${pageNum}&keyword=${keyword}">${pageNum}</a></li>
+					<li><a	href="${pageContext.request.contextPath }/bookmark/selectPage?selectPage=${pageNum}&curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}" class="page">${pageNum}</a></li>
 					 
 						</c:forEach>
 						
 						<c:choose>
-							<c:when test="${page.curPage!= page.total}">
-								<li><a
-									href="${pageContext.request.contextPath }/bookmark/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">▶</a></li>
+							<c:when test="${page.curPage!= page.totalPage}">
+								<li>
+								<a href="${pageContext.request.contextPath }/bookmark/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">▶</a>
+								</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="#">▶</a></li>
-							</c:otherwise>
-						</c:choose>
-
-
-						<c:choose>
-							<c:when test="${page.endPage != page.total}">
-								<li><a
-									href="${pageContext.request.contextPath }/bookmark/mulPageNext?endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">
-										▶▶</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="#">
-										▶▶</a></li>
+								<li>
+								<a href="#">▶</a>
+								</li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
 				</div>
-
 				<div class="bottom">
 				</div>
-<!-- 
-				<div class="history">
-				<h3 style="display:inline-block;"> ** 최근 방문한 게시글 ** </h3>
-				<button onclick="removeHistory()">히스토리 지우기</button> 
-				<ul  id="historyList" >			
-				</ul>
-				</div>-->
 			</div>
-			 
+
+			
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
@@ -152,8 +122,7 @@ function deleteBookmark(obj, wordNo){
 			if(response.data == false){
 				return;
 			}	
-			
-			$(obj).parent().parent().remove();
+			location.reload();
 		},
 		error : function(xhr, status, e){
 			console.log(e);
@@ -174,20 +143,6 @@ window.onload = function() {
 	$(".bookmark").hover(function(){
 		 $(".bookmark").css('cursor','pointer');
 	});
-	
-	
-	$("#search-btn").click(function(){
-		let keyword = $("#keyword").val();
-		if (keyword.trim() == '') {
-			alert("검색할 단어를 입력해주세요.");
-			$("#keyword").focus();
-			return; 
-		} 
-		search_form.submit();	
-	
-	}); // $("search-btn").click
 }
-	
-
 </script>
 </html>

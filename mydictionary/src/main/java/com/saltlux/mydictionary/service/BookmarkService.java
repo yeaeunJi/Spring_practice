@@ -16,31 +16,39 @@ public class BookmarkService {
 
 	@Autowired
 	private BookmarkRepository bookmarkrepository;
-	
+
 	public void deleteAll() {
 		bookmarkrepository.deleteAll();
 	}
-	
+
 	public boolean delete(BookmarkVo bookmarkVo) {
 		return bookmarkrepository.delete(bookmarkVo);
 	}
-	
+
+	public int getCountByUserNo(long userNo) {
+		return bookmarkrepository.getCountByUserNo(userNo);
+	}
+
 	public List<BookmarkVo> findAll(PageVo pagevo, UserVo authUser) {
 		return bookmarkrepository.findAll(pagevo, authUser);
 	}
 	
-	public List<BookmarkVo> findAllByKeyword(String keyword, PageVo pagevo, UserVo authUser) {
-		return bookmarkrepository.findAllByKeyword(keyword, pagevo, authUser);
+	public int getCountByUserNoAndKeyword(Map<String, Object> map) {
+		return bookmarkrepository.getCountByUserNoAndKeyword(map);
 	}
-	
+
+	public List<BookmarkVo> findAllByKeyword(PageVo pagevo, UserVo authUser) {
+		return bookmarkrepository.findAllByKeyword(pagevo, authUser);
+	}
+
 	public List<String> findLinkByUserNoAndKeyword(String keyword, UserVo authUser) {
 		return bookmarkrepository.findLinkByUserNoAndKeyword(keyword,  authUser);
 	}
-	
+
 	public boolean insert(BookmarkVo bookmarkVo) {
 		return bookmarkrepository.insert(bookmarkVo);
 	}
-	
+
 	public boolean existBookmark(String link) {
 		return bookmarkrepository.existBookmark(link);
 	}
@@ -48,5 +56,5 @@ public class BookmarkService {
 	public boolean deleteByLinkAndUserNo(BookmarkVo bookmarkVo) {
 		return bookmarkrepository.deleteByLinkAndUserNo(bookmarkVo);
 	}
-	
+
 }

@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 			
 		}else {
 			// 2. 사과 페이지로 이동
-			request.setAttribute("error", e.toString());
+			request.setAttribute("error",  e.getLocalizedMessage());
 			request.getRequestDispatcher("/WEB-INF/views/error/exception.jsp").forward(request, response);
 		}
 	} 

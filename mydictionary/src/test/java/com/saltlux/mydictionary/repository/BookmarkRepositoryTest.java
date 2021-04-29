@@ -121,8 +121,8 @@ public class BookmarkRepositoryTest {
 		assertThat(bookmarkRepository.getCount(), is(4));
 
 		PageVo pagevo = new PageVo(0, 5);
-
-		List<BookmarkVo> list = bookmarkRepository.findAllByKeyword("", pagevo, user1);
+		pagevo.setKeyword("");
+		List<BookmarkVo> list = bookmarkRepository.findAllByKeyword(pagevo, user1);
 		assertThat(list.size(), is(2));
 	}
 	
@@ -137,6 +137,20 @@ public class BookmarkRepositoryTest {
 
 		List<String> list = bookmarkRepository.findLinkByUserNoAndKeyword("keyword", user1);
 		assertThat(list.size(), is(1));
+	}
+	
+	@Test 
+	public void getCountByUserNo() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);
+		bookmarkRepository.insert(board2);			
+		bookmarkRepository.insert(board3);
+		assertThat(bookmarkRepository.getCount(), is(3));
+
+		int total = bookmarkRepository.getCountByUserNo(user1.getUserNo());
+		assertThat(total, is(2));
 	}
 	
 	@Test

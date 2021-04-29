@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.saltlux.mydictionary.service.DictionaryService;
 import com.saltlux.mydictionary.vo.DictionaryVo;
+import com.saltlux.mydictionary.vo.PageVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/applicationContext.xml"})
@@ -28,14 +29,18 @@ public class DictionaryControllerTest {
 
 	@Test
 	public void search() {
-		String responseBody = dictionaryService.getResponseBody("프로이트", 10, 1);
+		PageVo pagevo = new PageVo(1, 10);
+		pagevo.setKeyword("프로이트");
+		String responseBody = dictionaryService.getResponseBody(pagevo);
 		Map<String, Object> searchItems = dictionaryService.convertJSONstringToMap(responseBody);
 		assertThat((String)searchItems.get("errorMessage"), nullValue(String.class));
 	}
 
 	@Test
 	public void convertJSONstringToMap() {
-		String responseBody = dictionaryService.getResponseBody("프로이트", 10, 1);
+		PageVo pagevo = new PageVo(1, 10);
+		pagevo.setKeyword("프로이트");
+		String responseBody = dictionaryService.getResponseBody(pagevo);
 		Map<String, Object> searchItems = dictionaryService.convertJSONstringToMap(responseBody);
 		assertThat((String)searchItems.get("errorMessage"), nullValue(String.class));
 
@@ -49,7 +54,9 @@ public class DictionaryControllerTest {
 
 	@Test
 	public void convertMapToDictionaryVo() {
-		String responseBody = dictionaryService.getResponseBody("프로이트", 10, 1);
+		PageVo pagevo = new PageVo(1, 10);
+		pagevo.setKeyword("프로이트");
+		String responseBody = dictionaryService.getResponseBody(pagevo);
 		Map<String, Object> searchItems = dictionaryService.convertJSONstringToMap(responseBody);
 		assertThat((String)searchItems.get("errorMessage"), nullValue(String.class));
 		

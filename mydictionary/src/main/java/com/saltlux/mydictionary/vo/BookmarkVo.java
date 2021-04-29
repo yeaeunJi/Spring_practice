@@ -9,7 +9,8 @@ public class BookmarkVo {
 	private String keyword;
 	private String thumbnail;
 	private String description;
-
+	private int total;
+	
 	public BookmarkVo() {}
 	
 	public BookmarkVo(String title, long userNo) {
@@ -26,6 +27,14 @@ public class BookmarkVo {
 		this.description = despcription;
 	}
 	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	public long getWordNo() {
 		return wordNo;
 	}
@@ -80,8 +89,9 @@ public class BookmarkVo {
 	public String toString() {
 		return "BookmarkVo [wordNo=" + wordNo + ", userNo=" + userNo + ", title=" + title + ", regDate=" + regDate
 				+ ", link=" + link + ", keyword=" + keyword + ", thumbnail=" + thumbnail + ", description="
-				+ description + "]";
+				+ description + ", total=" + total + "]";
 	}
+
 	
 
 }

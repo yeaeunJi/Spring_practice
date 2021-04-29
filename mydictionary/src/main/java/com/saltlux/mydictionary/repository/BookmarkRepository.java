@@ -25,6 +25,14 @@ public class BookmarkRepository {
 		return sqlSession.selectOne("bookmark.getCount");
 	}
 	
+	public int getCountByUserNo(long userNo) {
+		return sqlSession.selectOne("bookmark.getCountByUserNo", userNo);
+	}
+	
+	public int getCountByUserNoAndKeyword(Map<String, Object> map) {
+		return sqlSession.selectOne("bookmark.getCountByUserNoAndKeyword", map);
+	}
+	
 	public boolean insert(BookmarkVo vo) {
 		return sqlSession.insert("bookmark.insert", vo)==1;
 	}
@@ -39,17 +47,17 @@ public class BookmarkRepository {
 	
 	public List<BookmarkVo> findAll(PageVo pagevo, UserVo userVo) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("start", pagevo.getStart());
+		map.put("startRow", pagevo.getStartRow());
 		map.put("showNum", pagevo.getShowNum());
 		map.put("userNo", userVo.getUserNo());
 		return sqlSession.selectList("bookmark.findAll", map);
 	}	
 	
 	
-	public List<BookmarkVo> findAllByKeyword(String keyword, PageVo pagevo, UserVo userVo) {
+	public List<BookmarkVo> findAllByKeyword(PageVo pagevo, UserVo userVo) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("keyword", keyword);
-		map.put("start", pagevo.getStart());
+		map.put("keyword", pagevo.getKeyword());
+		map.put("startRow", pagevo.getStartRow());
 		map.put("showNum", pagevo.getShowNum());
 		map.put("userNo", userVo.getUserNo());
 		return sqlSession.selectList("bookmark.findAllByKeyword", map);
@@ -69,15 +77,5 @@ public class BookmarkRepository {
 		map.put("userNo", userVo.getUserNo());
 		return sqlSession.selectList("bookmark.findLinkByUserNoAndKeyword", map);
 	}
-//	public PageVo paging(Long shownum, String keyword){
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("showNum", shownum);
-//		map.put("keyword", keyword);
-//		return sqlSession.selectOne("board.paging", map);
-//	}
-//
-//
-
-
 
 }

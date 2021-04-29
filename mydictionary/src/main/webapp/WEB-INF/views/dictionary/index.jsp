@@ -20,71 +20,61 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form"
-					action="${pageContext.request.contextPath }/dictionary/search" method="post">
-					<input type="hidden" id="display" name="display" value="${page.showNum}"/>
-					<input type="hidden" id="start" name="start" value="${page.start}"/>
-					<input type="text" id="keyword" name="keyword" value="${keyword}"> 
+				<form id="search_form"	action="${pageContext.request.contextPath }/dictionary/search" method="post">
+					<input type="hidden" id="showNum" name="showNum" value="${page.showNum}"/>
+					<input type="hidden" id="startPage" name="startPage" value="${page.startPage}"/>
+					<input type="hidden" id="startRow" name="startRow" value="1"/>
+					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder=" ༼๑⁰⊖⁰๑༽ 오늘도 화이팅!">
 					<input type="button"	value="찾기" id="search-btn"/>
-					<h6>* 네이버  지식백과에서 검색합니다. 검색어를 입력해주세요.</h6>
+					<h6>* 네이버  지식백과에서 검색합니다. <br/>검색어를 입력해주세요.</h6>
 				</form>
-				<table class="tbl-ex">
-					<tr>
-						<th></th>
-						<th>제목</th>
-						<th>요약</th>
-						<th>즐겨찾기</th>
-					</tr>
-					<c:set var="count" value="${fn:length(list)}" />
-					<c:forEach items="${list}" begin="0" step="1" varStatus="status" var="vo">
-						<tr class="board" >
-						
-							<td style="text-align: left; padding-left: 0px; width:20%;">								
-								<img src="${vo.thumbnail }" style="width:100%;" class="thumbnail" />
-							</td> 
-							<td style="width:20%;  word-break: keep-all;">
-									<a	style="text-align: left; padding-left: 0px;" href="${vo.link}" class="link-url" >
-									${vo.title}
-									</a>
-							</td>
-							<td style="width:70%;"  >						
-								<span class="description">${vo.description }</span>
-							</td>
-							<td>
-								<c:choose>
-									<c:when test="${vo.bookmarkFlag == true}">
-										<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:20px; height:15px;" 
-										 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 삭제버튼" name="fullstar" />	
-									</c:when>
-									<c:otherwise>
-										<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" class="bookmark" style="width:20px; height:15px;" 
-										 title="즐겨찾기에 추가하기" alt="별모양 북마크 추가버튼" name="emptystar" />	
-									</c:otherwise>
-								</c:choose>
-							</td>
+				<p style="text-align: right;">총 검색 결과 : ${page.totalRow}건</p>
+					<table class="tbl-ex">
+						<tr>
+							<th>번호</th>
+							<th>사진</th>
+							<th>제목</th>
+							<th>요약</th>
+							<th></th>
 						</tr>
-					</c:forEach>
-				</table>
-
+						<c:forEach items="${list}" begin="0" step="1"  varStatus="status" var="vo">
+							<tr class="board" >
+								<td>${page.totalRow - (page.curPage-1)*page.showNum-status.index}</td>
+								<td style="text-align: left; padding-left: 0px; width:20%;">								
+									<img src="${vo.thumbnail }" style="width:100%;" class="thumbnail"  />
+								</td> 
+								<td style="width:20%;  word-break: keep-all;">
+										<a	style="text-align: left; padding-left: 0px;" href="${vo.link}" class="link-url" target="_blank" >
+										${vo.title}
+										</a>
+								</td>
+								<td style="width:70%;"  >						
+									<span class="description">${vo.description }</span>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${vo.bookmarkFlag == true}">
+											<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:20px; height:15px;" 
+											 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 삭제버튼" name="fullstar" />	
+										</c:when>
+										<c:otherwise>
+											<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" class="bookmark" style="width:20px; height:15px;" 
+											 title="즐겨찾기에 추가하기" alt="별모양 북마크 추가버튼" name="emptystar" />	
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+			
+				
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-					<c:choose>
-							<c:when test="${page.startPage!=1}">
-								<li><a
-									href="${pageContext.request.contextPath }/dictionary/mulPageBefore?startPage=${page.startPage}&totalPage=${page.total}&keyword=${keyword}">
-										◀◀ </a></li>
-							</c:when>
-							<c:otherwise>
-									<li><a href="#">◀◀ </a></li>
-							</c:otherwise>
-						</c:choose>
-					
-					
 						<c:choose>
 							<c:when test="${page.curPage!=1}">
 								<li><a
-									href="${pageContext.request.contextPath }/dictionary/onePageBefore?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">◀</a></li>
+									href="${pageContext.request.contextPath }/dictionary/search/onePagePrev?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">◀</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="#">◀</a></li>
@@ -92,36 +82,24 @@
 						</c:choose>
 						
 						<c:forEach step="1" begin="${page.startPage}" end="${page.endPage}"  var="pageNum"  varStatus="status">
-					<li><a
-								href="${pageContext.request.contextPath }/dictionary/movePage?movePage=${pageNum}&keyword=${keyword}">${pageNum}</a></li>
+					<li><a	href="${pageContext.request.contextPath }/dictionary/search/selectPage?selectPage=${pageNum}&curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}" class="page">${pageNum}</a></li>
 					 
 						</c:forEach>
 						
 						<c:choose>
-							<c:when test="${page.curPage!= page.total}">
-								<li><a
-									href="${pageContext.request.contextPath }/dictionary/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">▶</a></li>
+							<c:when test="${page.curPage!= page.totalPage}">
+								<li>
+								<a href="${pageContext.request.contextPath }/dictionary/search/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">▶</a>
+								</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="#">▶</a></li>
-							</c:otherwise>
-						</c:choose>
-
-
-						<c:choose>
-							<c:when test="${page.endPage != page.total}">
-								<li><a
-									href="${pageContext.request.contextPath }/dictionary/mulPageNext?endPage=${page.endPage}&totalPage=${page.total}&keyword=${keyword}">
-										▶▶</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="#">
-										▶▶</a></li>
+								<li>
+								<a href="#">▶</a>
+								</li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
 				</div>
-
 				<div class="bottom">
 				</div>
 			</div>
@@ -147,7 +125,10 @@ window.onload = function() {
 		 $(".bookmark").css('cursor','pointer');
 	});
 	
+		
 	$(".bookmark").click(function(){
+		
+		
 		let url = "${pageContext.request.contextPath }/api/bookmark/insert";
 		let $td = $(this).parent().siblings();
 		
@@ -230,6 +211,7 @@ window.onload = function() {
 		search_form.submit();	
 	
 	}); // $("search-btn").click
+	
 }
 	
 </script>

@@ -2,25 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="bookmark">
-<!-- 
-<select id="findAll" resultType="bookmarkvo" parameterType="map">
-<![CDATA[
-	 select wordno, title, regDate, contents, link, keyword, thumbnail, description 
-	 from bookmark where userno = #{userNo} and contents like '%${keyword}%' or title like  '%${keyword}%'  order by regDate desc limit #{start},#{showNum} 
-]]>
-</select>
--->
 <select id="findAll" resultType="bookmarkvo" parameterType="map">
 	<![CDATA[
 	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
-	 from bookmark where userno = #{userNo} order by regDate desc limit #{start},#{showNum} 
+	 from bookmark where userno = #{userNo} order by wordNo desc limit #{startRow},#{showNum} 
 	]]>
 </select>
 
 <select id="findAllByKeyword" resultType="bookmarkvo" parameterType="map">
 		<![CDATA[
 	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
-	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) order by regDate desc limit #{start},#{showNum} 
+	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) order by wordNo desc limit #{startRow},#{showNum} 
 	]]>
 </select>
 
@@ -31,6 +23,15 @@
 	 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) 
 	]]>
 </select>
+
+<select id="getCountByUserNoAndKeyword" resultType="int" parameterType="map">
+		<![CDATA[
+	 select count(*)
+	 from bookmark 
+	 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) 
+	]]>
+</select>
+
 	
 	<select id="findByWordNo" resultType="bookmarkvo" parameterType="long">
 <![CDATA[
@@ -52,6 +53,12 @@
 	SELECT count(*) FROM bookmark
 ]]>
 	</select>
+	
+<select id="getCountByUserNo" resultType="int" parameterType="long" >
+<![CDATA[
+	SELECT count(*) FROM bookmark where userNo = #{userNo}
+]]>
+</select>
 	
 <insert id="insert" parameterType="bookmarkvo" >
 	<![CDATA[

@@ -1,6 +1,5 @@
 package com.saltlux.mydictionary.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,27 +28,82 @@ public class DictionaryController {
 	private BookmarkService bookmarkService;
 	
 	@RequestMapping("/search")
-	public String search(String keyword, int display, int start, @AuthUser UserVo authUser, Model model){		
-		List<DictionaryVo> list = dictionaryService.search(keyword, display, start);
-		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(keyword, authUser);
+	public String search(PageVo vo, @AuthUser UserVo authUser, Model model){	
+		List<DictionaryVo> list = dictionaryService.search(vo);
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(vo.getKeyword(), authUser);
+		list = dictionaryService.markingBookmarkFlag(compareList, list);
+	
+		PageVo page = null;
+	
+		if(list.size() != 0) {
+			System.out.println("total Row : "+list.get(0).getTotal()+", list.size() : "+list.size());
+			page = new PageVo(list.get(0).getTotal(), vo.getStartRow(), vo.getKeyword());
+		}else {
+			page = vo;
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		return "dictionary/index";
+	}
+	
+	/*
+	 * Get : PageVo Parameter: curPage=${page.curPage}&startPage=${page.startPage}&totalRow=${page.totalRow}&endPage=${page.endPage}&totalPage=${page.totalPage}&keyword=${keyword}
+	 * */
+	@RequestMapping("/search/onePageNext")
+	public String onePageNext( PageVo page, @AuthUser UserVo authUser, Model model){	
+//		System.out.println("================= onePageNext");
+		page.nextPage(1);
+//		System.out.println("dictionary.search : "+ page);
+		
+		List<DictionaryVo> list = dictionaryService.search(page);
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(page.getKeyword(), authUser);
+		list = dictionaryService.markingBookmarkFlag(compareList, list);
+
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		return "dictionary/index";
+	}
+	
+	/*
+	 * Get : PageVo Parameter: selectPage=${showNum}&curPage=${page.curPage}&startPage=${page.startPage}&totalRow=${page.totalRow}&endPage=${page.endPage}&totalPage=${page.totalPage}&keyword=${keyword}
+	 * */	
+	@RequestMapping("/search/selectPage")
+	public String onePageNext(int selectPage, PageVo page, @AuthUser UserVo authUser, Model model){	
+//		System.out.println("================= onePageNext");
+		page.selectPage(selectPage, 1);
+//		System.out.println("dictionary.search : "+ page);
+		
+		List<DictionaryVo> list = dictionaryService.search(page);
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(page.getKeyword(), authUser);
+		list = dictionaryService.markingBookmarkFlag(compareList, list);
+
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		return "dictionary/index";
+	}
+	
+	/*
+	 * Get : PageVo Parameter: curPage=${page.curPage}&startPage=${page.startPage}&totalRow=${page.totalRow}&endPage=${page.endPage}&totalPage=${page.totalPage}&keyword=${keyword}
+	 * */
+	@RequestMapping("/search/onePagePrev")
+	public String onePagePrev(PageVo page, @AuthUser UserVo authUser, Model model){	
+//		System.out.println("================= onePagePrev");
+		page.prevPage(1);
+//		System.out.println("dictionary.search : "+ page);
+		
+		List<DictionaryVo> list = dictionaryService.search(page);
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(page.getKeyword(), authUser);
 		list = dictionaryService.markingBookmarkFlag(compareList, list);
 		
-		PageVo pagevo = new PageVo(1, 5);
-		
-		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("page", pagevo);
+		model.addAttribute("page", page);
 		return "dictionary/index";
 	}
 	
 	@RequestMapping("")
-	public String index(Model model){
-		PageVo pagevo = new PageVo();
-		
-		List<DictionaryVo> list = new ArrayList<>();
-		model.addAttribute("page", pagevo);
-		model.addAttribute("list", list);
-		model.addAttribute("keyword", "");
+	public String index(@AuthUser UserVo authUser, Model model){
+		PageVo page = new PageVo();
+		model.addAttribute("page", page);
 		return "dictionary/index";
 	}
 }
