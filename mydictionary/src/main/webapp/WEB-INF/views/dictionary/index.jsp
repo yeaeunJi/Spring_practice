@@ -8,9 +8,8 @@
 <head>
 <title>mydictionary</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
+<!--  --><link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.6.0.js"  ></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <style>
 
 </style>
@@ -24,9 +23,9 @@
 					<input type="hidden" id="showNum" name="showNum" value="${page.showNum}"/>
 					<input type="hidden" id="startPage" name="startPage" value="${page.startPage}"/>
 					<input type="hidden" id="startRow" name="startRow" value="1"/>
-					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder=" ༼๑⁰⊖⁰๑༽ 오늘도 화이팅!">
-					<input type="button"	value="찾기" id="search-btn"/>
-					<h6>* 네이버  지식백과에서 검색합니다. <br/>검색어를 입력해주세요.</h6>
+					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder=" ༼๑⁰⊖⁰๑༽ 오늘도 화이팅!" ">
+					<input type="button" value="찾기" id="search-btn" />
+					<h3 style="clear:both;">* 네이버  지식백과에서 검색합니다. 검색어를 입력해주세요.</h3>
 				</form>
 				<p style="text-align: right;">총 검색 결과 : ${page.totalRow}건</p>
 					<table class="tbl-ex">

@@ -32,7 +32,7 @@ $(function(){
 			<div id="user">
 				<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/update">
 				<input type="hidden" name="userNo" value="${userVo.userNo}"/>				
-					<label class="block-label" for="name">이름 : <input id="name" name="name" type="text" value="${ userVo.name}"/> </label>
+					<label class="block-label" for="name">이름 : <input id="name" name="name" type="text" value="${ userVo.name}" style="margin-left:30px;"/> </label>
 					<label class="block-label" for="id">아이디 : ${userVo.id} </label>
 					<label class="block-label">비밀번호 : <input name="password" type="password" value="" id="password"></label>
 					<input type="button" id="update-btn" value="수정">

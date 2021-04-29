@@ -1,8 +1,8 @@
 @charset "UTF-8";
 @import "mysite.css";
 
-#profile { width:900px; }
-#site-introduction				{ padding:20px;	width:540px; }
-#site-introduction img#profile	{ display:block; float:left }
-#site-introduction h2		   	{ float:left; width:320px; margin:50px 0 0 20px }
-#site-introduction p			{ clear:both; font-size:1.1em; padding:20px; line-height:1.5em }
+#profile { width:300px; }
+#site-introduction				{ padding:20px;	width:1150px; height:600px; margin:0 auto; }
+#site-introduction img#profile	{ display:inline; }
+#site-introduction h2		   	{ width:600px; display:block;}
+#site-introduction pre			{ font-size:1.5em; padding:10px; line-height:1.5em ;}

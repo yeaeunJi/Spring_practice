@@ -1,31 +1,31 @@
 @charset "UTF-8";
 @import "mysite.css";
 
-#board { margin:20px auto;	width:550px; }
-
-
+#board { margin:20px auto;	width:1200px; height:600px; }
 
 #search_form {
-	width:100%;
+	width:700px;
 	margin:50px auto 20px auto; 
 	text-align:center; 	 
 }
 
 input[type="text"]	{
 	padding:5px; 
-	border:1px solid #aaa
+	border:1px solid #aaa;
+	width:500px;
 }
 
-input[type="submit"] {
+input[type="submit"]  #search-btn{
 	padding:5px; 
 	border:1px solid #aaa;
 	background-color: #aaa;
 	font-weight:bold;
 	color:#fff;
+	width:40px; height:40px; font-size:16pt;
 }
 
 input#kwd	{
-	width:250px;
+	width:300px;
 }
 
 
@@ -111,14 +111,15 @@ a#new-book	 {
 }
 
 .board-form .bottom a,
-.board-form .bottom input[type="submit"] {
+.board-form .bottom input[type="submit"] #search-btn{
 	float:right; 
 	padding:10px 20px 10px 20px; 
 	border:1px solid #555; 
 	font-weight:bold; 
 	background-color:#E8ECF6; 
 	color:#111;
-	cursor: pointer	
+	cursor: pointer	;
+	width:40px; height:40px; font-size:16pt;
 }
 
 .board-form .bottom a {
@@ -126,16 +127,6 @@ a#new-book	 {
 	padding:10px 20px 11px 20px 
 }
 
-.bookmark td {
-	word-break:break-all;
-}
-
-a.del	{
-	display:block;
-	width:20px;
-	height:20px; 
-	font-size:0;
-}
 /*
 	게시판 리스트 페이징
 */

@@ -36,7 +36,7 @@ public class DictionaryController {
 		PageVo page = null;
 	
 		if(list.size() != 0) {
-			System.out.println("total Row : "+list.get(0).getTotal()+", list.size() : "+list.size());
+//			System.out.println("total Row : "+list.get(0).getTotal()+", list.size() : "+list.size());
 			page = new PageVo(list.get(0).getTotal(), vo.getStartRow(), vo.getKeyword());
 		}else {
 			page = vo;

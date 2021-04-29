@@ -23,7 +23,7 @@
 					action="${pageContext.request.contextPath }/bookmark/search" method="post">
 					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder="(ꐦ ◣‸◢) 공부!!! "> 
 					<input type="submit"	value="찾기">
-					<h6>* 제목과 요약, 검색 키워드 정보에서 검색합니다.</h6>
+					<h3>* 제목과 요약, 검색 키워드 정보에서 검색합니다.</h3>
 				</form>
 				<p style="text-align:right;">총 검색 수 : <span id="totalRow">${page.totalRow}</span>건</p>
 				<table class="tbl-ex">
