@@ -14,11 +14,13 @@
 <body>
 	<div id="container">
 		<c:import url ="/WEB-INF/views/includes/header.jsp" />
+		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
 		<div id="content">
 			<div id="user">
 				<form id="login-form" name="loginform" method="post"
 					action="${pageContext.request.contextPath }/user/auth">
-<label
+					<h3>Login</h3>
+					<label				
 						class="block-label" for="id">아이디</label> <input id="id"
 						name="id" type="text" value=""> <label
 						class="block-label">패스워드</label> <input name="password"
@@ -30,7 +32,6 @@
 				</form>
 			</div>
 		</div>
-		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url ="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>

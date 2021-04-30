@@ -10,4 +10,9 @@ public class MainController {
 	public String index() {
 		return "main/index";
 	}
+	
+	@RequestMapping({"/main/introduce", "/introduce"})
+	public String introduce() {
+		return "main/introduce";
+	}
 }

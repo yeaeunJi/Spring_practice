@@ -17,6 +17,7 @@
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<div id="content">
 			<div id="board">
 				<form id="search_form"
@@ -29,30 +30,30 @@
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>
-						<th>제목</th>
 						<th>사진</th>
-						<th>검색키워드</th>
+						<th>제목</th>
 						<th>요약</th>
+						<th>검색키워드</th>
 						<th>등록일</th>
 						<th>&nbsp;</th>
 					</tr>
 					<c:forEach items="${list}" begin="0" step="1" varStatus="status" var="vo">
 						<tr class="board">
-							<td>${page.totalRow - (page.curPage-1)*page.showNum-status.index}</td>
-							<td style="width:20%;  word-break: keep-all;">
-									<p	style="text-align: left; padding-left: 0px;" class="link-url" >
+							<td style="width:100px;">${page.totalRow - (page.curPage-1)*page.showNum-status.index}</td>
+							<td style="text-align: left; padding-left: 0px; width:110px;;">								
+								<img src="${vo.thumbnail }" style="width:100px;" class="thumbnail" />
+							</td> 
+							<td style=" width:200px;  word-break: keep-all;">
+									<p	style="text-align: left; padding-left: 0px; " class="link-url" >
 									${vo.title}
 									</p>
 							</td>
-							<td style="text-align: left; padding-left: 0px; width:20%;">								
-								<img src="${vo.thumbnail }" style="width:100%;" class="thumbnail" />
-							</td> 
-							<td>${vo.keyword }</td>
-							<td style="width:70%;"  >	<a href="${vo.link }" class="description" target="_blank">${vo.description }</a>					
+							<td style="width:500px;"  >	<a href="${vo.link }" class="description" target="_blank">${vo.description }</a>					
 							</td>
-							<td>${vo.regDate }</td>
+							<td style="width:100px;">${vo.keyword }</td>
+							<td  style="width:80px;" >${vo.regDate }</td>
 							<td class="test">
-								<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:20px; height:15px;" 
+								<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:30px; height:30px;" 
 								 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 추가버튼" name="fullstar" onclick="deleteBookmark(this, ${vo.wordNo})" />	
 							</td>
 						</tr>
@@ -91,13 +92,8 @@
 						</c:choose>
 					</ul>
 				</div>
-				<div class="bottom">
-				</div>
 			</div>
-
-			
 		</div>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>

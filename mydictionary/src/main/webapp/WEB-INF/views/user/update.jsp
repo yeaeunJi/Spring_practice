@@ -28,6 +28,7 @@ $(function(){
 <body>
 	<div id="container">
 		<c:import url ="/WEB-INF/views/includes/header.jsp"/>
+		<c:import url ="/WEB-INF/views/includes/navigation.jsp"/>
 		<div id="content">
 			<div id="user">
 				<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/update">
@@ -39,7 +40,6 @@ $(function(){
 				</form>
 			</div>
 		</div>
-		<c:import url ="/WEB-INF/views/includes/navigation.jsp"/>
 		<c:import url ="/WEB-INF/views/includes/footer.jsp"/>
 	</div>
 </body>

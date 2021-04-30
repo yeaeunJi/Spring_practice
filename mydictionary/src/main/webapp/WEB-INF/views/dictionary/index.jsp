@@ -17,6 +17,7 @@
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<div id="content">
 			<div id="board">
 				<form id="search_form"	action="${pageContext.request.contextPath }/dictionary/search" method="post">
@@ -30,34 +31,34 @@
 				<p style="text-align: right;">총 검색 결과 : ${page.totalRow}건</p>
 					<table class="tbl-ex">
 						<tr>
-							<th>번호</th>
-							<th>사진</th>
-							<th>제목</th>
-							<th>요약</th>
-							<th></th>
+							<th style="width:100px;">번호</th>
+							<th style="width:110px;">사진</th>
+							<th style="width:200px;">제목</th>
+							<th style="width:600px;" >요약</th>
+							<th style="width:30px;"></th>
 						</tr>
 						<c:forEach items="${list}" begin="0" step="1"  varStatus="status" var="vo">
 							<tr class="board" >
-								<td>${page.totalRow - (page.curPage-1)*page.showNum-status.index}</td>
-								<td style="text-align: left; padding-left: 0px; width:20%;">								
-									<img src="${vo.thumbnail }" style="width:100%;" class="thumbnail"  />
+								<td style="width:100px;">${page.totalRow - (page.curPage-1)*page.showNum-status.index}</td>
+								<td style="text-align: center; padding-left: 0px; width:110px;">								
+									<img src="${vo.thumbnail }" style="width:100px;" class="thumbnail"  />
 								</td> 
-								<td style="width:20%;  word-break: keep-all;">
+								<td style="width:200px;  word-break: keep-all; ">
 										<a	style="text-align: left; padding-left: 0px;" href="${vo.link}" class="link-url" target="_blank" >
 										${vo.title}
 										</a>
 								</td>
-								<td style="width:70%;"  >						
+								<td style="width:600px;"  >						
 									<span class="description">${vo.description }</span>
 								</td>
-								<td>
+								<td  >
 									<c:choose>
 										<c:when test="${vo.bookmarkFlag == true}">
-											<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:20px; height:15px;" 
+											<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark"style="width:30px; height:30px;"
 											 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 삭제버튼" name="fullstar" />	
 										</c:when>
 										<c:otherwise>
-											<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" class="bookmark" style="width:20px; height:15px;" 
+											<img src="${pageContext.request.contextPath }/assets/images/emptystar.png" class="bookmark" style="width:30px; height:30px;"
 											 title="즐겨찾기에 추가하기" alt="별모양 북마크 추가버튼" name="emptystar" />	
 										</c:otherwise>
 									</c:choose>
@@ -99,13 +100,10 @@
 						</c:choose>
 					</ul>
 				</div>
-				<div class="bottom">
-				</div>
 			</div>
-			 
 		</div>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+		
 	</div>
 </body>
 

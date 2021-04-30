@@ -2,35 +2,37 @@
 
 /* reset */
 *				{ margin:0; padding:0 }
-body, html		{ font:0.95em "맑은 고딕", 돋움, 굴림; text-align:center; height:750px; width:1530px; }
+html,body		{ font:1em "맑은 고딕", 돋움, 굴림;  width:1400px;  height:640px;  margin : 0px 0px 0px 0px;   }
 ul, ol			{ list-style-type: none }
 
+
 /* layout */
-div#container	{ text-align:left; width:1500px;;  height:750px; margin:0 auto; background-color:#EEE; }
-div#content		{ float:right; width: 1285px; height:600px; background-color:#fff; overflow: auto; }
-div#navigation	{ float:left; width:200px; height:600px;  }
-div#footer		{ clear:both; width:100%; height:50px; }
+div#container { width:100%;  height:100%; background-color:rgb(255,255,255);  padding:10px; margin:0;  }
+div#content	  { width:90%; height:80%;
+                background-color:rgb(255,255,255); margin-left: 100px; padding : 10px;    
+                position: relative; min-height: 100%;
+              }
+div#navigation	{ width:100%; height:10%;  background-color:rgb(255,255,255); padding:0; margin:0;}
+div#footer		{ width:100%; height:40px; background-color:rgb(255,255,255);
+				 color:rgb(0,0,0) ; padding:0; margin:0; font-weight:bold;
+				 position: absolute; z-index: 100;
+				 }
 
-/* header */
-div#header	h1				{ height:70px; line-height:70px; margin:0; padding-left:10px; color:#79B30B }
-div#header	ul				{ height:20px; margin:0 20px 10px 0 } 
-div#header	li				{ float:right }
-div#header	li a 			{ color:#4F4F4F; font-weight:bold; margin-left:10px; text-decoration:none; }
-
+/* header  : 위/오/아/왼, 위/아래, 왼오/ 위/왼오/아래 */
+div#header	ul	{ height:30px; margin: 10px 20px 10px 0 } 
+div#header img {margin-left : 600px; margin-top: 21px; }
+div#header	li	{ float:right }
+div#header	li a { color:#4F4F4F; font-weight:bold; margin-left:10px; text-decoration:none; }
 
 /* navigation */
-div#navigation ul			{ width:205px; margin-top:1px }
-div#navigation li			{ width:205px; background-color:#E9E9E9; border:1px solid #DADADA; margin-top:-1px }
-div#navigation li a			{ display:block; color:#4F4F4F; width:205px; font-weight:bold; padding:5px 5px; font-size:1.3em }
+div#navigation ul	{ height:30px; margin-top:10px; width: calc(100%-500px); margin-left:500px; }
+div#navigation li			{ width:205px; background-color:rgb(255,255,255); float:left; }
+div#navigation li a			{ color:rgb(255,255,255); width:205px; font-weight:bold;  font-size:1.3em }
 div#navigation li.selected	{ background:#E0E0E0 }
 div#navigation li a:link	{ color:#4F4F4F; text-decoration:none; }
 div#navigation li a:hover	{ color:#4F4F4F; text-decoration:none; }
 div#navigation li a:visited	{ color:#4F4F4F; text-decoration:none; }
 div#navigation li a:active	{ color:#4F4F4F; text-decoration:none; }
 
-
 /* footer */
-div#footer		{ background:#515151; color: #FFF }
-div#footer p	{ margin:0;padding:5px 10px; width:1500px; }
-
-
+div#footer p	{ margin:0; padding : 0px 0px 5px 580px; font-size:1.1em}
