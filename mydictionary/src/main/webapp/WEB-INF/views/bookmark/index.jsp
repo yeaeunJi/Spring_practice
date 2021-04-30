@@ -22,9 +22,14 @@
 			<div id="board">
 				<form id="search_form"
 					action="${pageContext.request.contextPath }/bookmark/search" method="post">
+					<select name="selectCondition">
+						<option value="total" selected="selected">전체</option>
+						<option value="keyword">검색키워드</option>
+						<option value="contents">제목+요약</option>
+					</select>
 					<input type="text" id="keyword" name="keyword" value="${page.keyword}" placeholder="(ꐦ ◣‸◢) 공부!!! "> 
 					<input type="submit"	value="찾기">
-					<h3>* 제목과 요약, 검색 키워드 정보에서 검색합니다.</h3>
+					<h3>* 내가 추가한 즐겨찾기 목록에서 검색합니다.</h3>
 				</form>
 				<p style="text-align:right;">총 검색 수 : <span id="totalRow">${page.totalRow}</span>건</p>
 				<table class="tbl-ex">
@@ -51,7 +56,7 @@
 							<td style="width:500px;"  >	<a href="${vo.link }" class="description" target="_blank">${vo.description }</a>					
 							</td>
 							<td style="width:100px;">${vo.keyword }</td>
-							<td  style="width:80px;" >${vo.regDate }</td>
+							<td  style="width:100px;" >${vo.regDate }</td>
 							<td class="test">
 								<img src="${pageContext.request.contextPath }/assets/images/fullstar.png" class="bookmark" style="width:30px; height:30px;" 
 								 title="즐겨찾기에서 삭제하기" alt="별모양 북마크 추가버튼" name="fullstar" onclick="deleteBookmark(this, ${vo.wordNo})" />	
@@ -66,7 +71,7 @@
 						<c:choose>
 							<c:when test="${page.curPage!=1}">
 								<li><a
-									href="${pageContext.request.contextPath }/bookmark/onePagePrev?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">◀</a></li>
+									href="${pageContext.request.contextPath }/bookmark/onePagePrev?selectCondition=${page.selectCondition}&curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">◀</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="#">◀</a></li>
@@ -74,14 +79,14 @@
 						</c:choose>
 						
 						<c:forEach step="1" begin="${page.startPage}" end="${page.endPage}"  var="pageNum"  varStatus="status">
-					<li><a	href="${pageContext.request.contextPath }/bookmark/selectPage?selectPage=${pageNum}&curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}" class="page">${pageNum}</a></li>
+					<li><a	href="${pageContext.request.contextPath }/bookmark/selectPage?selectCondition=${page.selectCondition}&selectPage=${pageNum}&curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}" class="page">${pageNum}</a></li>
 					 
 						</c:forEach>
 						
 						<c:choose>
 							<c:when test="${page.curPage!= page.totalPage}">
 								<li>
-								<a href="${pageContext.request.contextPath }/bookmark/onePageNext?curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">▶</a>
+								<a href="${pageContext.request.contextPath }/bookmark/onePageNext?selectCondition=${page.selectCondition}&curPage=${page.curPage}&startPage=${page.startPage}&endPage=${page.endPage}&totalRow=${page.totalRow}&totalPage=${page.totalPage}&keyword=${page.keyword}">▶</a>
 								</li>
 							</c:when>
 							<c:otherwise>
@@ -126,7 +131,13 @@ function deleteBookmark(obj, wordNo){
 	}); // ajax
 }
 
-window.onload = function() {	
+window.onload = function() {
+	
+	$("select[name='selectCondition']").val("${page.selectCondition}").attr("selected", "selected");
+	
+	
+	
+	
 	let a = document.getElementsByClassName("page");
 	for(let i = 0; i < a.length; i++){
 		let text= a[i].innerHTML;

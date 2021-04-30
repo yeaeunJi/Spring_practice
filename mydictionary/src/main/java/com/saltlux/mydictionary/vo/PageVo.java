@@ -10,7 +10,7 @@ public class PageVo {
 	private int totalRow = 0; // 조회된 전체 행 수
 	private int pageShowNum = 10; 
 	private String keyword = "";
-
+	private String selectCondition = "total";
 
 
 	public PageVo() {}
@@ -28,7 +28,10 @@ public class PageVo {
 		this.startRow = startRow;
 		this.showNum = showNum;
 	}
-
+	public PageVo(int totalRow, int startRow, String keyword, String selectCondition) {
+		this(totalRow, startRow, keyword);
+		this.selectCondition = selectCondition;
+	}
 	public PageVo(int totalRow, int startRow, String keyword) {
 		this.startRow = startRow;
 		this.keyword = keyword;
@@ -95,6 +98,15 @@ public class PageVo {
 
 	}
 	
+	
+	public String getSelectCondition() {
+		return selectCondition;
+	}
+
+	public void setSelectCondition(String selectCondition) {
+		this.selectCondition = selectCondition;
+	}
+
 	public String getKeyword() {
 		return keyword;
 	}
@@ -171,7 +183,8 @@ public class PageVo {
 	public String toString() {
 		return "PageVo [totalPage=" + totalPage + ", curPage=" + curPage + ", startRow=" + startRow + ", showNum="
 				+ showNum + ", startPage=" + startPage + ", endPage=" + endPage + ", totalRow=" + totalRow
-				+ ", pageShowNum=" + pageShowNum + ", keyword=" + keyword + "]";
+				+ ", pageShowNum=" + pageShowNum + ", keyword=" + keyword + ", selectCondition=" + selectCondition
+				+ "]";
 	}
 
 	

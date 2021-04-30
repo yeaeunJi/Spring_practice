@@ -41,23 +41,34 @@ public class BookmarkController  {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userNo", authUser.getUserNo());
 		map.put("keyword", vo.getKeyword());
-		int total = bookmarkService.getCountByUserNoAndKeyword(map);
+		map.put("selectCondition", vo.getSelectCondition());
+//		int total = bookmarkService.getCountByUserNoAndKeyword(map);
+		int total = bookmarkService.getCountBySelectCondition(map);
 		
 		if(total != 0) {
-			page = new PageVo(total, vo.getStartRow(), vo.getKeyword());
+			page = new PageVo(total, vo.getStartRow(), vo.getKeyword(), vo.getSelectCondition());
 		}else {
 			page = vo;
 		}
-		List<BookmarkVo> list = bookmarkService.findAllByKeyword(page, authUser);
+		
+		map.put("startRow", page.getStartRow());
+		map.put("showNum", page.getShowNum());
+		List<BookmarkVo> list = bookmarkService.findBySelectCondition(map);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return "bookmark/index";
 	}
 	
 	@RequestMapping("/onePageNext")
-	public String onePageNext(PageVo page, @AuthUser UserVo authUser, Model model){	
+	public String onePageNext(PageVo page, String selectCondition, @AuthUser UserVo authUser, Model model){	
 		page.nextPage(0);
-		List<BookmarkVo> list = bookmarkService.findAllByKeyword(page, authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", authUser.getUserNo());
+		map.put("keyword", page.getKeyword());
+		map.put("selectCondition", page.getSelectCondition());
+		map.put("startRow", page.getStartRow());
+		map.put("showNum", page.getShowNum());
+		List<BookmarkVo> list = bookmarkService.findBySelectCondition(map);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return "bookmark/index";
@@ -66,7 +77,13 @@ public class BookmarkController  {
 	@RequestMapping("/selectPage")
 	public String onePageNext( int selectPage, PageVo page, @AuthUser UserVo authUser, Model model){	
 		page.selectPage(selectPage, 0);
-		List<BookmarkVo> list = bookmarkService.findAllByKeyword(page, authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", authUser.getUserNo());
+		map.put("keyword", page.getKeyword());
+		map.put("selectCondition", page.getSelectCondition());
+		map.put("startRow", page.getStartRow());
+		map.put("showNum", page.getShowNum());
+		List<BookmarkVo> list = bookmarkService.findBySelectCondition(map);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return "bookmark/index";
@@ -75,7 +92,13 @@ public class BookmarkController  {
 	@RequestMapping("/onePagePrev")
 	public String onePagePrev(PageVo page, @AuthUser UserVo authUser, Model model){	
 		page.prevPage(0);
-		List<BookmarkVo> list = bookmarkService.findAllByKeyword(page, authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", authUser.getUserNo());
+		map.put("keyword", page.getKeyword());
+		map.put("selectCondition", page.getSelectCondition());
+		map.put("startRow", page.getStartRow());
+		map.put("showNum", page.getShowNum());
+		List<BookmarkVo> list = bookmarkService.findBySelectCondition(map);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return "bookmark/index";

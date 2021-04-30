@@ -36,6 +36,14 @@ public class BookmarkService {
 	public int getCountByUserNoAndKeyword(Map<String, Object> map) {
 		return bookmarkrepository.getCountByUserNoAndKeyword(map);
 	}
+	
+	public int getCountBySelectCondition(Map<String, Object> map) {
+		return bookmarkrepository.getCountBySelectCondition(map);
+	}
+	
+	public List<BookmarkVo> findBySelectCondition(Map<String, Object> map){
+		return bookmarkrepository.findBySelectCondition(map);
+	}
 
 	public List<BookmarkVo> findAllByKeyword(PageVo pagevo, UserVo authUser) {
 		return bookmarkrepository.findAllByKeyword(pagevo, authUser);

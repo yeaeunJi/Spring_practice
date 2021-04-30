@@ -56,7 +56,7 @@ public class BookmarkRepositoryTest {
 		// String title, long userNo, String contents, String link, String keyword, String thumbnail, String despcription
 		this.board1 = new BookmarkVo("title1", this.user1.getUserNo(), "link1", "keyword1", "thumbnail1", "description1");
 		this.board2 =  new BookmarkVo("title2", this.user2.getUserNo(), "link2", "keyword2", "thumbnail2", "description2");
-		this.board3 = new BookmarkVo("title3", this.user1.getUserNo(),  "link3", "keyword3", "thumbnail3", "description3");
+		this.board3 = new BookmarkVo("title3keyword", this.user1.getUserNo(),  "link3", "keyword3", "thumbnail3", "description3keyword");
 		this.board4 =  new BookmarkVo("title4", this.user2.getUserNo(),  "link4", "keyword4", "thumbnail4", "description4");
 	}
 
@@ -151,6 +151,68 @@ public class BookmarkRepositoryTest {
 
 		int total = bookmarkRepository.getCountByUserNo(user1.getUserNo());
 		assertThat(total, is(2));
+	}
+	
+	@Test 
+	public void getCountBySelectCondition() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);
+		bookmarkRepository.insert(board2);			
+		bookmarkRepository.insert(board3);
+		assertThat(bookmarkRepository.getCount(), is(3));
+	
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", board1.getUserNo());
+		map.put("keyword", "keyword");
+		map.put("selectCondition", "total");
+	
+		int total = bookmarkRepository.getCountBySelectCondition(map);
+		assertThat(total, is(2));
+		
+		map.put("keyword", "keyword1");
+		map.put("selectCondition", "keyword");
+		total = bookmarkRepository.getCountBySelectCondition(map);
+		assertThat(total, is(1));
+		
+		map.put("keyword", "keyword");
+		map.put("selectCondition", "contents");
+		total = bookmarkRepository.getCountBySelectCondition(map);
+		assertThat(total, is(1));
+	}
+	
+	@Test 
+	public void findBySelectCondition() throws SQLException {
+		bookmarkRepository.deleteAll();
+		assertThat(bookmarkRepository.getCount(), is(0));
+
+		bookmarkRepository.insert(board1);
+		bookmarkRepository.insert(board2);	
+		bookmarkRepository.insert(board3);	
+		assertThat(bookmarkRepository.getCount(), is(3));
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", board1.getUserNo());
+		map.put("keyword", "keyword");
+		map.put("selectCondition", "keyword");
+		map.put("startRow", 0);
+		map.put("showNum", 20);
+		List<BookmarkVo> list = bookmarkRepository.findBySelectCondition(map);
+		assertThat(list.size(), is(2));
+		
+		map.put("selectCondition", "contents");
+		map.put("startRow", 0);
+		map.put("showNum", 20);
+		list = bookmarkRepository.findBySelectCondition(map);
+		assertThat(list.size(), is(1));
+		
+		map.put("selectCondition", "total");
+		map.put("startRow", 0);
+		map.put("showNum", 20);
+		list = bookmarkRepository.findBySelectCondition(map);
+		System.out.println(list);
+		assertThat(list.size(), is(2));
 	}
 	
 	@Test

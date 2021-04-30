@@ -78,4 +78,11 @@ public class BookmarkRepository {
 		return sqlSession.selectList("bookmark.findLinkByUserNoAndKeyword", map);
 	}
 
+	public List<BookmarkVo> findBySelectCondition(Map<String, Object> map) {
+		return sqlSession.selectList("bookmark.findBySelectCondition", map);
+	}
+	
+	public int getCountBySelectCondition(Map<String, Object> map) {
+		return sqlSession.selectOne("bookmark.getCountBySelectCondition", map);
+	}
 }

@@ -8,13 +8,13 @@
 	margin:20px auto 20px auto; 
 	text-align:center; 	 
 }
-input[type="text"]	{
+input[type="text"]	 #selectCondition{
 	padding:5px; 
 	border:1px solid #aaa;
 	width: 300px;
 }
 
-input[type="submit"] input[type="button"]{
+input[type="submit"], input[type="button"]{
 	padding:5px; 
 	border:1px solid #aaa;
 	background-color: #aaa;
@@ -22,7 +22,7 @@ input[type="submit"] input[type="button"]{
 	color:#fff;
 }
 
-input#kwd	{
+input#kwd{
 	width:250px;
 }
 
@@ -110,7 +110,7 @@ a#new-book	 {
 }
 
 .board-form .bottom a,
-.board-form .bottom input[type="submit"]  input[type="button"]{
+.board-form .bottom input[type="submit"],  input[type="button"], #selectCondition{
 	float:right; 
 	padding:10px 20px 10px 20px; 
 	border:1px solid #555; 
