@@ -15,9 +15,9 @@
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
 			<div id="content">
 				<div id="site-introduction">
+						<h2 >안녕하세요. mydictionary에 오신 것을 환영합니다.</h2>
 					<img id="profile"
 						src="${pageContext.request.contextPath }/assets/images/images.jpeg">
-					<h2 >Main 화면입니다. </h2>
 					</div>
 			</div>
 			<c:import url ="/WEB-INF/views/includes/footer.jsp" />

@@ -8,7 +8,7 @@
 <head>
 <title>mydictionary</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<!--  --><link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.6.0.js"  ></script>
 <style>
 

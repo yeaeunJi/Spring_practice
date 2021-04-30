@@ -16,7 +16,7 @@
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
 			<div id="content">
 				<div id="site-introduction">					
-					<h2 >안녕하세요. mydictionary에 오신 것을 환영합니다.</h2>
+				
 					<pre><b>[프로젝트명] My Dictionary
 					
 [기획] wis 
