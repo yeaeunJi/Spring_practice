@@ -9,5 +9,6 @@
 		<li><a href="${pageContext.request.contextPath }/main/introduce">소개</a></li>
 		<li><a href="${pageContext.request.contextPath }/bookmark">북마크</a></li>
 		<li><a href="${pageContext.request.contextPath }/dictionary">네이버 지식백과 검색</a></li>
+
 	</ul>
 </div>
