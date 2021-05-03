@@ -45,6 +45,7 @@
     <img src="${pageContext.request.contextPath }/assets/images/ERD.png" title="mysql erd"  style="padding-left : 300px;"/>
   <pre><b>
   (4) tools : 이클립스, Maven, Github, JUnit(Spring JUnit)
+ 	※ Github url : <a href="https://github.com/yeaeunJi/Spring_practice/tree/master/mydictionary">https://github.com/yeaeunJi/Spring_practice/tree/master/mydictionary</a> 
   (5) open API : 네이버 지식 백과 API</b>
 </pre>
 </div>
