@@ -1,0 +1,8 @@
+@charset "UTF-8";
+@import "mysite.css";
+
+#profile { width:300px; }
+#site-introduction				{ width:inherit; height:inherit; }
+#site-introduction img#profile	{ display:inline; width:100%; height:450px; margin-top : 10px;}
+#site-introduction h2		   	{ display:block; text-align: center; padding-top : 10px; }
+#site-introduction pre			{ font-size:1.4em; padding:10px 10px; padding-left : 200px;line-height:1.5em ; }

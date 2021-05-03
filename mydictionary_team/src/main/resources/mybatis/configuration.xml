@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<typeAlias type="com.saltlux.mydictionary.vo.UserVo" alias="uservo"/>
+	<typeAlias type="com.saltlux.mydictionary.vo.BookmarkVo" alias="bookmarkvo"/>
+	<typeAlias type="com.saltlux.mydictionary.vo.BoardVo" alias="boardvo"/>
+	<typeAlias type="com.saltlux.mydictionary.vo.ReplyVo" alias="replyvo"/>
+	<typeAlias type="com.saltlux.mydictionary.vo.OneToOneVo" alias="onetoonevo" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/bookmark.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
+		<mapper resource="mybatis/mappers/reply.xml" />
+		<mapper resource="mybatis/mappers/onetoone.xml" />
+	</mappers>
+</configuration>

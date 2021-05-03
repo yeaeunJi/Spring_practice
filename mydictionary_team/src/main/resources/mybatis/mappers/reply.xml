@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+
+    PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="replyMapper">
+
+	<select id="getReplyList" resultType="replyvo">
+
+		SELECT
+
+		RID
+
+		, BID
+
+		, CONTENT
+
+		, REG_ID
+
+		, REG_DT
+
+		, EDIT_DT
+
+		FROM
+
+		TBL_REPLY
+
+		WHERE
+
+		BID = #{bid}
+
+		ORDER BY REG_DT desc
+
+	</select>
+
+
+
+	<insert id="saveReply"
+		parameterType="replyvo">
+
+		INSERT INTO TBL_REPLY(BID, CONTENT, REG_ID, REG_DT,
+		EDIT_DT)
+
+		VALUES (
+
+		#{bid}
+
+		, #{content}
+
+		, #{reg_id}
+
+		, now()
+
+		, now()
+
+		)
+
+	</insert>
+
+
+
+	<update id="updateReply"
+		parameterType="replyvo">
+
+		UPDATE TBL_REPLY SET
+
+		CONTENT = #{content}
+
+		, EDIT_DT =
+		now()
+
+		WHERE
+
+		RID = #{rid}
+
+	</update>
+
+
+
+	<delete id="deleteReply" parameterType="int">
+
+		DELETE FROM TBL_REPLY
+
+		WHERE
+
+		RID = #{rid}
+
+	</delete>
+
+</mapper>

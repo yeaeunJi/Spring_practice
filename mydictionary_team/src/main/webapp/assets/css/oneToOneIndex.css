@@ -1,0 +1,128 @@
+.positionHead{
+    max-width: 1200px;
+    min-width: 1200px;
+    margin:0 auto;
+    margin-top: -15px;
+}
+.positionBody{
+    max-width: 1200px;
+    margin:0 auto;
+}
+a {
+    display: inline-block;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1)   ;
+    text-decoration: underline;
+}
+#titleMenu {
+    display: inline-block;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    text-decoration: none;
+    color: #000000;
+}
+#titleMenu:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+#ulStyle{
+    margin-left: 100px;
+    padding: 20px;
+    width: 1300px;
+    height: 70px;
+}
+#liStyle{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    list-style:none;
+    float: left;
+    padding:0px;
+}
+.jb-text {
+    padding: 5px 20px;
+    text-align: center;
+    position: absolute;
+
+    transform: translate( -50%, -50% );
+    font-size: 50px;
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#up {
+    display: inline-block;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    text-decoration: none;
+    color: #000000;
+}
+#up:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    text-decoration: underline;
+
+}
+#menuUp {
+    text-decoration:none;
+    color: black;
+}
+#menuUp:hover{
+    color: #4a94f2;
+}
+#defaultUp{
+    text-decoration:none;
+    color: black;
+}
+#defaultUp:hover{
+    text-decoration:underline;
+}
+#btn{
+    background-color: #5892f9;
+    width: 80px;
+    height: 40px;
+    border: 1px solid darkgray;
+    outline: none;
+    color: white;
+    font-weight: bold;
+
+}
+#btn:hover{
+    text-decoration:none;
+    background: white;
+    color: #5892f9;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+td{
+    padding:5px;
+}
+
+
+div.pager {
+	width:100%;
+	text-align:center;
+}
+div.pager  ul {
+	height:20px;
+	margin:10px auto;
+}
+div.pager  ul li 			{ color:#ddd; display:inline-block; margin:5px 0; width:20px ; font-weight:bold; }
+div.pager  ul li.selected	{ font-size:16px; text-decoration: underline; color:#f40808 }
+div.pager  ul li a,
+div.pager  ul li a:visited,
+div.pager  ul li a:link,
+div.pager  ul li a:active	{ text-decoration: none; color:#555 }
+div.pager  ul li a:hover	{ text-decoration: none; color:#f00 }

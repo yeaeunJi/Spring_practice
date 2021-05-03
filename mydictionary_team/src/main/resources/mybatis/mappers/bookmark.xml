@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookmark">
+<select id="findAll" resultType="bookmarkvo" parameterType="map">
+	<![CDATA[
+	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
+	 from bookmark where userno = #{userNo} order by wordNo desc limit #{startRow},#{showNum} 
+	]]>
+</select>
+
+<select id="findBySelectCondition" resultType="bookmarkvo" parameterType="map">
+	<choose>
+		<when test='selectCondition.equals("total")'>
+<![CDATA[
+	select userno, wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description from bookmark 
+	where userno = #{userNo} and  (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' )  order by wordNo desc limit #{startRow},#{showNum} 
+]]>
+		</when>
+		<when test='selectCondition.equals("keyword")'>
+				<![CDATA[
+				 select userno, wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description from bookmark 
+				 where userno = #{userNo} and  keyword like '%${keyword}%' order by wordNo desc limit #{startRow},#{showNum} 
+		]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+			 select userno, wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description from bookmark 
+				 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' ) order by wordNo desc limit #{startRow},#{showNum} 
+		]]>
+		</otherwise>
+	</choose>
+</select>
+
+<select id="getCountBySelectCondition" resultType="int" parameterType="map">
+	<choose>
+		<when test='selectCondition.equals("total")'>
+				<![CDATA[
+				 select count(wordNo) from bookmark 
+				 where userno = #{userNo} and  (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) 
+		]]>
+		</when>
+		<when test='selectCondition.equals("keyword")'>
+				<![CDATA[
+				 select count(wordNo)  from bookmark 
+				 where userno = #{userNo} and  keyword like '%${keyword}%' 
+		]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+			 select count(wordNo) from bookmark 
+				 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' ) 
+		]]>
+		</otherwise>
+	</choose>
+</select>
+		
+<select id="findLinkByUserNoAndKeyword" resultType="string" parameterType="map">
+		<![CDATA[
+	 select link
+	 from bookmark 
+	 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) 
+	]]>
+</select>
+
+<select id="getCountByUserNoAndKeyword" resultType="int" parameterType="map">
+		<![CDATA[
+	 select count(*)
+	 from bookmark 
+	 where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) 
+	]]>
+</select>
+
+	
+	<select id="findByWordNo" resultType="bookmarkvo" parameterType="long">
+<![CDATA[
+	select wordno, title, userNo, date_format(regDate, '%Y-%m-%d') as regDate,  link, keyword, thumbnail, description 
+	from bookmark 
+ 	where wordNo = #{wordNo}
+]]>
+	</select>
+	
+	<select id="findByLink" resultType="int" parameterType="bookmarkvo">
+<![CDATA[
+	select count(*)
+	from bookmark 
+ 	where link = #{link} and userNo=#{userNo}
+]]>
+	</select>
+		<select id="getCount" resultType="int" >
+<![CDATA[
+	SELECT count(*) FROM bookmark
+]]>
+	</select>
+	
+<select id="getCountByUserNo" resultType="int" parameterType="long" >
+<![CDATA[
+	SELECT count(*) FROM bookmark where userNo = #{userNo}
+]]>
+</select>
+	
+<insert id="insert" parameterType="bookmarkvo" >
+	<![CDATA[
+	insert into bookmark (wordno, title,  regDate, link, keyword, thumbnail, description, userno )
+	 values (null, #{title}, date_format(now(), '%Y-%m-%d') , #{link}, #{keyword}, #{thumbnail} , #{description}, #{userNo})
+	]]>
+	<selectKey keyProperty="wordNo" order="AFTER" resultType="long"> 
+	<![CDATA[
+	select last_insert_id()
+	]]>
+	</selectKey>
+	</insert>
+
+<delete id="delete" parameterType="bookmarkvo">
+
+	<choose>
+		<when test='link == null'>
+				<![CDATA[
+			delete from bookmark where wordNo = #{wordNo} and userNo=#{userNo}
+		]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+			delete from bookmark where  link=#{link} and userNo=#{userNo}
+		]]>
+		</otherwise>
+	</choose>
+</delete>
+
+
+
+<delete id="deleteByLinkAndUserNo" parameterType="bookmarkvo">
+	<![CDATA[
+	delete from bookmark where link = #{link} and userNo = #{userNo}
+	]]>
+</delete>
+
+
+<delete id="deleteAll"  >
+	<![CDATA[
+	delete from bookmark 
+	]]>
+</delete>
+</mapper> 

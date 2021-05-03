@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="onetoone">
+	<select id="findOne" parameterType="String" resultType="onetoonevo">
+		<![CDATA[
+			select no, title, content, writer, regdate
+			from onetoone
+			where no = #{no }
+		]]>
+	</select>
+	<select id="findAll" parameterType="map" resultType="onetoonevo">
+		<![CDATA[
+			select N2.no, N2.title, N2.content, N2.writer, N2.regdate from 
+				( select @ROWNUM:=@ROWNUM+1 num, N1.* 
+					from (
+							select * 
+						from onetoone
+						order by regdate desc 
+						) as N1
+					WHERE (@rownum:=0)=0 and writer= #{name }
+				) as N2
+			where num between #{start } and #{end }
+		]]>
+	</select>
+	<select id="searchTitleContent" parameterType="map" resultType="onetoonevo">
+			<![CDATA[
+				select N2.no, N2.title, N2.content, N2.writer, N2.regdate from 
+					( select @ROWNUM:=@ROWNUM+1 num, N1.* 
+						from (
+								select * 
+								from onetoone
+								order by regdate desc 
+							) as N1
+						WHERE (@rownum:=0)=0 and title like concat('%',#{keyword },'%') or content like concat('%',#{keyword },'%')
+					) as N2
+				where num between #{start } and #{end } 
+			]]>
+	</select>
+	<select id="searchTitle" parameterType="map" resultType="onetoonevo">
+			<![CDATA[
+				select N2.no, N2.title, N2.content, N2.writer, N2.regdate from 
+					( select @ROWNUM:=@ROWNUM+1 num, N1.* 
+						from (
+								select * 
+							from onetoone
+							order by regdate desc 
+							) as N1
+						WHERE (@rownum:=0)=0 and title like concat('%',#{keyword},'%')
+					) as N2
+				where num between #{start } and #{end }
+			]]>
+	</select>
+	
+	<insert id="write" parameterType="onetoonevo">
+		<![CDATA[
+			insert into bitcomplain24.onetoone
+			values(null, #{title }, #{content }, #{writer }, now())
+		]]>
+	</insert>
+	
+	
+</mapper>
