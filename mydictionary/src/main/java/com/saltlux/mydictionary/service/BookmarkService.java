@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.saltlux.mydictionary.repository.BookmarkRepository;
 import com.saltlux.mydictionary.vo.BookmarkVo;
-import com.saltlux.mydictionary.vo.PageVo;
-import com.saltlux.mydictionary.vo.UserVo;
 
 @Service
 public class BookmarkService {
@@ -29,8 +27,9 @@ public class BookmarkService {
 		return bookmarkrepository.getCountByUserNo(userNo);
 	}
 
-	public List<BookmarkVo> findAll(PageVo pagevo, UserVo authUser) {
-		return bookmarkrepository.findAll(pagevo, authUser);
+	public List<BookmarkVo> findAll(Map<String, Object> map) {
+
+		return bookmarkrepository.findAll(map);
 	}
 	
 	public int getCountByUserNoAndKeyword(Map<String, Object> map) {
@@ -45,12 +44,8 @@ public class BookmarkService {
 		return bookmarkrepository.findBySelectCondition(map);
 	}
 
-	public List<BookmarkVo> findAllByKeyword(PageVo pagevo, UserVo authUser) {
-		return bookmarkrepository.findAllByKeyword(pagevo, authUser);
-	}
-
-	public List<String> findLinkByUserNoAndKeyword(String keyword, UserVo authUser) {
-		return bookmarkrepository.findLinkByUserNoAndKeyword(keyword,  authUser);
+	public List<String> findLinkByUserNoAndKeyword(Map<String, Object> map) {
+		return bookmarkrepository.findLinkByUserNoAndKeyword(map);
 	}
 
 	public boolean insert(BookmarkVo bookmarkVo) {

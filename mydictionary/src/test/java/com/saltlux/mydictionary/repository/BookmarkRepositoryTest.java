@@ -104,28 +104,15 @@ public class BookmarkRepositoryTest {
 		assertThat(bookmarkRepository.getCount(), is(4));
 
 		PageVo pagevo = new PageVo(0, 5);
-
-		List<BookmarkVo> list = bookmarkRepository.findAll(pagevo, user1);
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRow", pagevo.getStartRow());
+		map.put("showNum", pagevo.getShowNum());
+		map.put("userNo", user1.getUserNo());
+		List<BookmarkVo> list = bookmarkRepository.findAll(map);
 		assertThat(list.size(), is(2));
 	}
 
-	@Test 
-	public void findAllByKeyword() throws SQLException {
-		bookmarkRepository.deleteAll();
-		assertThat(bookmarkRepository.getCount(), is(0));
 
-		bookmarkRepository.insert(board1);
-		bookmarkRepository.insert(board2);			
-		bookmarkRepository.insert(board3);
-		bookmarkRepository.insert(board4);
-		assertThat(bookmarkRepository.getCount(), is(4));
-
-		PageVo pagevo = new PageVo(0, 5);
-		pagevo.setKeyword("");
-		List<BookmarkVo> list = bookmarkRepository.findAllByKeyword(pagevo, user1);
-		assertThat(list.size(), is(2));
-	}
-	
 	@Test 
 	public void findLinkByUserNoAndKeyword() throws SQLException {
 		bookmarkRepository.deleteAll();
@@ -134,8 +121,10 @@ public class BookmarkRepositoryTest {
 		bookmarkRepository.insert(board1);
 		bookmarkRepository.insert(board2);			
 		assertThat(bookmarkRepository.getCount(), is(2));
-
-		List<String> list = bookmarkRepository.findLinkByUserNoAndKeyword("keyword", user1);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", "keyword");
+		map.put("userNo", user1.getUserNo());
+		List<String> list = bookmarkRepository.findLinkByUserNoAndKeyword(map);
 		assertThat(list.size(), is(1));
 	}
 	

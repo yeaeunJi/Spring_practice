@@ -1,6 +1,5 @@
 package com.saltlux.mydictionary.repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.saltlux.mydictionary.vo.BookmarkVo;
-import com.saltlux.mydictionary.vo.PageVo;
-import com.saltlux.mydictionary.vo.UserVo;
 
 @Repository
 public class BookmarkRepository {
@@ -45,23 +42,9 @@ public class BookmarkRepository {
 		return (int)sqlSession.selectOne("bookmark.findByLink", bookmarkVo)==1;
 	}
 	
-	public List<BookmarkVo> findAll(PageVo pagevo, UserVo userVo) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("startRow", pagevo.getStartRow());
-		map.put("showNum", pagevo.getShowNum());
-		map.put("userNo", userVo.getUserNo());
+	public List<BookmarkVo> findAll(Map<String, Object> map) {
 		return sqlSession.selectList("bookmark.findAll", map);
 	}	
-	
-	
-	public List<BookmarkVo> findAllByKeyword(PageVo pagevo, UserVo userVo) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("keyword", pagevo.getKeyword());
-		map.put("startRow", pagevo.getStartRow());
-		map.put("showNum", pagevo.getShowNum());
-		map.put("userNo", userVo.getUserNo());
-		return sqlSession.selectList("bookmark.findAllByKeyword", map);
-	}
 	
 	public boolean delete(BookmarkVo bookmarkVo) {
 		return sqlSession.delete("bookmark.delete", bookmarkVo)==1;
@@ -71,10 +54,8 @@ public class BookmarkRepository {
 		return sqlSession.delete("bookmark.deleteByLinkAndUserNo", bookmarkVo)==1;
 	}
 	
-	public List<String> findLinkByUserNoAndKeyword(String keyword, UserVo userVo) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("keyword", keyword);
-		map.put("userNo", userVo.getUserNo());
+	public List<String> findLinkByUserNoAndKeyword(Map<String, Object> map) {
+
 		return sqlSession.selectList("bookmark.findLinkByUserNoAndKeyword", map);
 	}
 

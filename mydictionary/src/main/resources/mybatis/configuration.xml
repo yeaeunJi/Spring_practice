@@ -3,7 +3,7 @@
 <configuration>
 	<typeAliases>
 	<typeAlias type="com.saltlux.mydictionary.vo.UserVo" alias="uservo"/>
-	<typeAlias type="com.saltlux.mydictionary.vo.PageVo" alias="pagevo"/>
+	<!-- <typeAlias type="com.saltlux.mydictionary.vo.PageVo" alias="pagevo"/> -->
 	<typeAlias type="com.saltlux.mydictionary.vo.BookmarkVo" alias="bookmarkvo"/>
 	</typeAliases>
 	<mappers>

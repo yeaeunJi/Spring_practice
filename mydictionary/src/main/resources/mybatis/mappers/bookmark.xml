@@ -55,15 +55,6 @@
 	</choose>
 </select>
 		
-
-		
-<select id="findAllByKeyword" resultType="bookmarkvo" parameterType="map">
-		<![CDATA[
-	 select wordno, title, date_format(regDate, '%Y-%m-%d') as regDate, link, keyword, thumbnail, description 
-	 from bookmark where userno = #{userNo} and (title like  '%${keyword}%' or description like '%${keyword}%' or keyword like '%${keyword}%' ) order by wordNo desc limit #{startRow},#{showNum} 
-	]]>
-</select>
-
 <select id="findLinkByUserNoAndKeyword" resultType="string" parameterType="map">
 		<![CDATA[
 	 select link

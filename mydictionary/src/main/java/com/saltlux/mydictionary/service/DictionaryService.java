@@ -34,23 +34,16 @@ public class DictionaryService {
 	
 	
 	public List<DictionaryVo> search(PageVo pagevo) {
-//		System.out.println("================= DictionaryService search ");
 		String response = getResponseBody(pagevo);
-//		System.out.println("================= (1) "+response);
 		Map<String, Object> responseMap = convertJSONstringToMap(response);
 		List<DictionaryVo> list = convertMapToDictionaryVo(responseMap);
 		return list;
 	}
 	
 	public String getResponseBody(PageVo pagevo) {
-//		System.out.println("================= DictionaryService getResponseBody ");
-		
 		String apiURL = makeURL(pagevo);
-//		System.out.println("================= (1) "+apiURL);
 		Map<String, String> requestHeaders = makeRequestHeader();
-//		System.out.println("================= (2) "+requestHeaders);
 		String responseBody = get(apiURL,requestHeaders);
-//		System.out.println("================= (3) "+responseBody);
 		return responseBody;
 	}
 	

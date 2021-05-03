@@ -1,6 +1,8 @@
 package com.saltlux.mydictionary.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,10 @@ public class DictionaryController {
 	@RequestMapping("/search")
 	public String search(PageVo vo, @AuthUser UserVo authUser, Model model){	
 		List<DictionaryVo> list = dictionaryService.search(vo);
-		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(vo.getKeyword(), authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", vo.getKeyword());
+		map.put("userNo", authUser.getUserNo());
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(map);
 		list = dictionaryService.markingBookmarkFlag(compareList, list);
 	
 		PageVo page = null;
@@ -56,7 +61,10 @@ public class DictionaryController {
 //		System.out.println("dictionary.search : "+ page);
 		
 		List<DictionaryVo> list = dictionaryService.search(page);
-		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(page.getKeyword(), authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", page.getKeyword());
+		map.put("userNo", authUser.getUserNo());
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(map);
 		list = dictionaryService.markingBookmarkFlag(compareList, list);
 
 		model.addAttribute("list", list);
@@ -74,7 +82,10 @@ public class DictionaryController {
 //		System.out.println("dictionary.search : "+ page);
 		
 		List<DictionaryVo> list = dictionaryService.search(page);
-		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(page.getKeyword(), authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", page.getKeyword());
+		map.put("userNo", authUser.getUserNo());
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(map);
 		list = dictionaryService.markingBookmarkFlag(compareList, list);
 
 		model.addAttribute("list", list);
@@ -92,7 +103,10 @@ public class DictionaryController {
 //		System.out.println("dictionary.search : "+ page);
 		
 		List<DictionaryVo> list = dictionaryService.search(page);
-		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(page.getKeyword(), authUser);
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", page.getKeyword());
+		map.put("userNo", authUser.getUserNo());
+		List<String> compareList = bookmarkService.findLinkByUserNoAndKeyword(map);
 		list = dictionaryService.markingBookmarkFlag(compareList, list);
 		
 		model.addAttribute("list", list);
