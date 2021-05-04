@@ -21,6 +21,7 @@
 	]]>
 </select>
 
+
 <select id="getCount" resultType="int">
 	<![CDATA[
 	 select count(*) from dictuser 
