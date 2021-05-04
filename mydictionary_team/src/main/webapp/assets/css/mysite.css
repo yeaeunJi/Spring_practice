@@ -26,7 +26,7 @@ div#header	li a { color:#4F4F4F; font-weight:bold; margin-left:10px; text-decora
 
 /* navigation */
 div#navigation ul	{ height:30px; margin-top:10px; width: 100%; padding-left: 150px; }
-div#navigation li			{ width:110px; background-color:rgb(255,255,255); float:left; margin-left:80px;}
+div#navigation li			{ width:110px; background-color:rgb(255,255,255); float:left; margin-left:80px; }
 div#navigation li a			{ color:rgb(255,255,255); width:110px; font-weight:bold;  font-size:1.2em }
 div#navigation li.selected	{ background:#E0E0E0 }
 div#navigation li a:link	{ color:#4F4F4F; text-decoration:none; }
