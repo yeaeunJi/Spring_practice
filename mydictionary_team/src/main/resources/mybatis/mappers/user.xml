@@ -9,6 +9,7 @@
 	]]>
 </select>
 
+
 <select id="findByIdAndPassword" resultType="uservo" parameterType="uservo">
 	<![CDATA[
 	 select userno, name, id  from dictuser where id= #{id} and password=#{password}
