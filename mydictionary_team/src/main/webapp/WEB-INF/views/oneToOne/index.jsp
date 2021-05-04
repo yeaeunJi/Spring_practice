@@ -70,7 +70,7 @@
 		                    <td><a id = "defaultUp" href="${pageContext.request.contextPath }/oneToOne/detail/${vo.no }">${vo.title }</a></td>
 		                    <td style="text-align:center;">${vo.writer}</td>
 		                    <td style="text-align:center;">${vo.regdate }</td>
-		                    <td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modify'" style="background-color: red;"></td>
+		                    <td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modifyForm/${vo.no}'" style="background-color: red;"></td>
 		                </tr>  
 	                </c:forEach>
                 </tbody>             
@@ -113,7 +113,7 @@
 							</c:otherwise>
 						</c:choose>
 						</li>
-						<c:forEach var="i" begin="0" end="4">
+						<c:forEach var="i" begin="0" end="${lastNum-1 }">
 							<li>
 								<a href="${pageContext.request.contextPath }/oneToOne/${startNum+i}">${startNum+i}</a>
 							</li>

@@ -34,4 +34,13 @@ public class OneToOneService {
 
 	}
 
+	public boolean update(String no, String title, String content) {
+		return oneToOneRepository.update(no, title, content);
+		
+	}
+
+	public int findAllCnt(String nickname) {
+		
+		return oneToOneRepository.findAllCnt(nickname);
+	}
 }

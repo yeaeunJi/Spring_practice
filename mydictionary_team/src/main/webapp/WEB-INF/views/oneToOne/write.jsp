@@ -56,7 +56,7 @@
     <div class="body" style="margin-left:20px;">
         <div class="body_border">
             <div class="form_div">
-                <h3 id="h3"> <span class="font_dohyun"> 1:1 문의/건의 </span><img src="${pageContext.servletContext.contextPath}/assets/img/pencil.png" width="25" height="25"> </h3>
+                <h3 id="h3"> <span class="font_dohyun"> 1:1 문의/건의 </span><img src="${pageContext.servletContext.contextPath}/assets/images/pencil.png" width="25" height="25"> </h3>
                 <hr>
     <form action="${pageContext.request.contextPath }/oneToOne/write" method="post" name="sub1">
                 <div class="title_line">

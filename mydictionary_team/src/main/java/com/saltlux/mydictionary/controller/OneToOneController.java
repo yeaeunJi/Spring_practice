@@ -27,23 +27,27 @@ public class OneToOneController {
 	@RequestMapping("")
 	public String index(HttpSession session, Model model) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		int totalCnt = oneToOneService.findAllCnt(authUser.getId());
 		
 		int page = 1;
 		List<OneToOneVo> list = oneToOneService.findAll(page, authUser.getName());
 		model.addAttribute("list", list);
 		model.addAttribute("p", page);
-
+		model.addAttribute("totalCnt", totalCnt);
+		
 		return "oneToOne/index";
 	}
 
 	@RequestMapping(value = "/{page}")
 	public String index(HttpSession session, @PathVariable("page") int page, Model model) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		int totalCnt = oneToOneService.findAllCnt(authUser.getId());
 		
 		List<OneToOneVo> list = oneToOneService.findAll(page, authUser.getName());
 		model.addAttribute("list", list);
 		model.addAttribute("p", page);
-
+		model.addAttribute("totalCnt", totalCnt);
+		
 		return "oneToOne/index";
 	}
 
@@ -60,7 +64,7 @@ public class OneToOneController {
 		OneToOneVo vo = new OneToOneVo();
 		vo.setTitle(title);
 		vo.setContent(content);
-		vo.setWriter(authUser.getName());
+		vo.setWriter(authUser.getId());
 		oneToOneService.write(vo);
 		
 		return "redirect:/oneToOne/";
@@ -75,10 +79,22 @@ public class OneToOneController {
 		return "oneToOne/detail";
 	}
 
-	@RequestMapping("/modify")
-	public String modify() {
-
+	@RequestMapping("/modifyForm/{no}")
+	public String modifyForm(@PathVariable("no") String no, Model model) {
+		OneToOneVo vo = oneToOneService.findOne(no);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("no", no);
+		
 		return "oneToOne/modify";
+	}
+	
+	@RequestMapping("/modify/{no}")
+	public String modify(@PathVariable("no") String no, @RequestParam String title, @RequestParam String content) {
+		
+		oneToOneService.update(no, title, content);
+		
+		return "redirect:/oneToOne/";
 	}
 
 	@RequestMapping("/search")

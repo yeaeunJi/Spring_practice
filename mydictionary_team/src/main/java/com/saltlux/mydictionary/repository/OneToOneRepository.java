@@ -57,4 +57,21 @@ public class OneToOneRepository {
 		}
 	}
 
+	public boolean update(String no, String title, String content) {
+		Map params = new HashMap();
+		params.put("no", no);
+		params.put("title", title);
+		params.put("content", content);
+		int result = sqlSession.update("onetoone.update", params);
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+	public int findAllCnt(String nickname) {
+		return sqlSession.selectOne("onetoone.findAllCnt", nickname);
+	}
 }
