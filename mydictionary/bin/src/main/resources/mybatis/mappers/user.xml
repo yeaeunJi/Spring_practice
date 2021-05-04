@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+<select id="findByNo" resultType="uservo" parameterType="long">
+	<![CDATA[
+	 select userno, name, id, password from dictuser where userno = #{userNo}
+	]]>
+</select>
+
+<select id="findByIdAndPassword" resultType="uservo" parameterType="uservo">
+	<![CDATA[
+	 select userno, name from dictuser where id= #{id} and password=#{password}
+	 ]]>
+</select>
+
+<select id="findById" resultType="string" parameterType="string">
+	<![CDATA[
+	 select id from dictuser where id= #{id}
+	]]>
+</select>
+
+<select id="getCount" resultType="int">
+	<![CDATA[
+	 select count(*) from dictuser 
+	]]>
+</select>
+
+<insert id="insert" parameterType="uservo">
+	<![CDATA[
+	  insert  
+	  into dictuser  ( userno, name, id, password,  joinDate) 
+	  values (null,  #{name}, #{id}, #{password},  now() )
+	]]>
+	
+	<selectKey keyProperty="userNo" order="AFTER" resultType="long"> <!-- 트랜잭션 보장해줌 : 쿼리 실행 후 -->
+		<![CDATA[
+		select last_insert_id()
+		]]>
+	</selectKey>
+</insert>
+
+
+<update id="update" parameterType="uservo">
+	<choose>
+		<when test='password!=""'>
+			<![CDATA[
+			update dictuser set name = #{name}, password=#{password} where userno = #{userNo}
+			]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+			update dictuser set name = #{name} where userno = #{userNo}
+			]]>
+		</otherwise>
+	</choose>
+</update>
+
+<delete id="deleteAll">
+<![CDATA[
+delete from dictuser
+]]>
+</delete>
+
+</mapper>
