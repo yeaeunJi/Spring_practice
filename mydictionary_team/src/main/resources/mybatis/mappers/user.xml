@@ -11,7 +11,7 @@
 
 <select id="findByIdAndPassword" resultType="uservo" parameterType="uservo">
 	<![CDATA[
-	 select userno, name from dictuser where id= #{id} and password=#{password}
+	 select userno, name, id  from dictuser where id= #{id} and password=#{password}
 	 ]]>
 </select>
 
