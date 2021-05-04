@@ -3,11 +3,12 @@
 <mapper namespace="onetoone">
 	<select id="findOne" parameterType="String" resultType="onetoonevo">
 		<![CDATA[
-			select no, title, content, writer, regdate
+			select no, title, content, writer, regdate, reply
 			from onetoone
 			where no = #{no }
 		]]>
 	</select>
+	
 	<select id="findAll" parameterType="map" resultType="onetoonevo">
 		<![CDATA[
 			select N2.no, N2.title, N2.content, N2.writer, N2.regdate from 
@@ -22,6 +23,30 @@
 			where num between #{start } and #{end }
 		]]>
 	</select>
+	
+	<select id="adminFindAll" parameterType="map" resultType="onetoonevo">
+		<![CDATA[
+			select N2.no, N2.title, N2.content, N2.writer, N2.regdate from 
+				( select @ROWNUM:=@ROWNUM+1 num, N1.* 
+					from (
+							select * 
+						from onetoone
+						order by regdate desc 
+						) as N1
+					WHERE (@rownum:=0)=0
+				) as N2
+			where num between #{start } and #{end }
+		]]>
+	</select>
+	
+	<select id="findAllCnt" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from onetoone
+			where writer = #{nickname }
+		]]>
+	</select>
+	
 	<select id="searchTitleContent" parameterType="map" resultType="onetoonevo">
 			<![CDATA[
 				select N2.no, N2.title, N2.content, N2.writer, N2.regdate from 
@@ -53,10 +78,25 @@
 	
 	<insert id="write" parameterType="onetoonevo">
 		<![CDATA[
-			insert into bitcomplain24.onetoone
-			values(null, #{title }, #{content }, #{writer }, now())
+			insert into onetoone
+			values(null, #{title }, #{content }, #{writer }, now(), null)
 		]]>
 	</insert>
 	
+	<update id="update" parameterType="map">
+		<![CDATA[
+			update onetoone
+			set title=#{title }, content=#{content } 
+			where no=#{no }
+		]]>
+	</update>
+	
+	<update id="insertReply" parameterType="map">
+		<![CDATA[
+			update onetoone
+			set reply=#{reply }
+			where no=#{no }
+		]]>
+	</update>
 	
 </mapper>

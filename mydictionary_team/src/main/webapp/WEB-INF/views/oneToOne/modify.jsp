@@ -56,16 +56,16 @@
     <div class="body" style="margin-left:20px;">
         <div class="body_border">
             <div class="form_div">
-                <h3 id="h3"> <span class="font_dohyun"> 1:1 문의/건의 </span><img src="${pageContext.servletContext.contextPath}/assets/img/pencil.png" width="25" height="25"> </h3>
+                <h3 id="h3"> <span class="font_dohyun"> 1:1 문의/건의 </span><img src="${pageContext.servletContext.contextPath}/assets/images/pencil.png" width="25" height="25"> </h3>
                 <hr>
-    <form action="${pageContext.request.contextPath }/oneToOne/write" method="post" name="sub1">
+    <form action="${pageContext.request.contextPath }/oneToOne/modify/${no }" method="post" name="sub1">
                 <div class="title_line">
-                <label><span class="font_jua" style="margin-right:7.5px";> 제목 </span><input type="text" placeholder="제목을 입력하세요" id="title_text" name="title"></label>
+                <label><span class="font_jua" style="margin-right:7.5px"> 제목 </span><input type="text" value="${vo.title }" id="title_text" name="title"></label>
                 </div>
                 <div class="main_line">
                     <label>
                         <div id="main_text_word"><span class="font_jua">본문</span></div>
-                        <div id="main_text"> <textarea name="editor1" id="editor1"></textarea>
+                        <div id="main_text"> <textarea name="content" id="editor1">${vo.content }</textarea>
                             <script> CKEDITOR.replace('editor1'); </script>
                         </div>
                     </label>

@@ -100,28 +100,29 @@
 				<c:set var="page" value="${(empty p)?1:p}" />
 				<c:set var="startNum" value="${page-(page-1)%5}" />
 				<c:set var="lastNum" value="${fn:substringBefore(Math.ceil(count/10), '.') }" />
+				<c:set var="end" value="${totalCnt/10 > 4 ? 4:totalCnt/10 }" />  
 				<!-- ****************************************************** -->
 				<div class="pager">
 					<ul>
 						<li>
 						<c:choose>
 							<c:when test="${startNum > 1}">
-								<a href="${pageContext.request.contextPath }/oneToOne/search/${startNum-1}" >◀</a>
+								<a href="${pageContext.request.contextPath }/oneToOne/${startNum-1}" >◀</a>
 							</c:when>
 							<c:otherwise>
 								<span onclick="alert('이전 페이지가 없습니다.');">◀</span>
 							</c:otherwise>
 						</c:choose>
 						</li>
-						<c:forEach var="i" begin="0" end="4">
+						<c:forEach var="i" begin="0" end="${end }">
 							<li>
-								<a href="${pageContext.request.contextPath }/oneToOne/search/${startNum+i}">${startNum+i}</a>
+								<a href="${pageContext.request.contextPath }/oneToOne/${startNum+i}">${startNum+i}</a>
 							</li>
 						</c:forEach>
 						<li>
 							<c:choose>
 								<c:when test="${startNum+4<lastNum}">
-									<a href="${pageContext.request.contextPath }/oneToOne/search/${startNum+i}">▶</a>
+									<a href="${pageContext.request.contextPath }/oneToOne/${startNum+i}">▶</a>
 								</c:when>
 								<c:otherwise>
 									<span onclick="alert('다음 페이지가 없습니다.');">▶</span>
@@ -134,6 +135,7 @@
 
 
 				<!-- pager 추가 -->
+				
 				
        
        

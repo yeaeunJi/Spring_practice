@@ -19,6 +19,11 @@ public class OneToOneService {
 		
 	}
 	
+	public List<OneToOneVo> findAll(int page) {
+		return oneToOneRepository.findAll(page);
+		
+	}
+	
 	public List<OneToOneVo> search(String searchOption, String keyword, int page) {
 		return oneToOneRepository.search(searchOption, keyword, page);
 		
@@ -34,4 +39,17 @@ public class OneToOneService {
 
 	}
 
+	public boolean update(String no, String title, String content) {
+		return oneToOneRepository.update(no, title, content);
+		
+	}
+
+	public int findAllCnt(String nickname) {
+		
+		return oneToOneRepository.findAllCnt(nickname);
+	}
+
+	public boolean insertReply(String no, String reply) {
+		return oneToOneRepository.updateReply(no, reply);
+	}
 }

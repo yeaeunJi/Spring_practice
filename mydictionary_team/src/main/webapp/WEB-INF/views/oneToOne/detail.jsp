@@ -13,7 +13,18 @@
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap&subset=korean" rel="stylesheet">
         <link href="${pageContext.servletContext.contextPath}/assets/css/oneToOneDetail.css" type = "text/css" rel = "stylesheet">
-
+		<script language="javascript">
+			//댓글 수정 폼 보여주는 자바스크립트 함수
+			function view(str) {
+			 var obj = document.getElementById(str);
+			
+			 if (obj.style.display=="")
+			  obj.style.display="none";
+			 else
+			  obj.style.display="";
+			}
+		
+		</script>
     </head>
     <body style="background:#edf1f8; margin-top:3rem;">
         <header class = "positionHead">
@@ -50,11 +61,11 @@
                 <tr><td style="font-size:30px; font-weight: bold; color:#3493ff;">1:1 문의/건의</td></tr>
                 <tr><td style="height:30px;">&nbsp;</td></tr>
                 <tr><td style="font-weight: bold; font-size:25px;">${vo.title }</td></tr>
-                <tr><td style="border-top:2px solid #2e4361; background:#f1f7ff; padding:10px 0px 10px 0px;">&nbsp;닉네임 : <span style="font-size:13px;">${vo.writer }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <tr><td style="border-top:2px solid #2e4361; background:#f1f7ff; padding:10px 0px 10px 0px;">&nbsp;작성자 ID : <span style="font-size:13px;">${vo.writer }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;작성일 : <span style="font-size:13px; margin-left:1;">${vo.regdate }</span>&nbsp;&nbsp;</td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    작성일 : <span style="font-size:13px; margin-left:1;">${vo.regdate }</span>&nbsp;&nbsp;</td>
                 </tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
@@ -70,23 +81,45 @@
 
             
             <div style="height:40px;">&nbsp;</div>
-            <hr style="border: solid 0.5px gray; width:900px;">         
-            
-            <table style="margin:18px; width:900px;">
-                <tr><td style="background:#f1f1f1; font-size:13px; padding:10px 0 10px 0;">지나가던웹개발자</td></tr>
-                <tr><td style="padding:10px 0 10px 10px; font-size:15px;">토비의 스프링</td></tr>
-              
-            </table>
-            
-            <table style="margin:30px;">
-                <tr>
-                    <td>
-                        <textarea cols="90" rows="5" onclick="this.value=''" style="width:48rem;">댓글을 남겨주세요.</textarea>
-                    </td>
-                    <td><input type="submit" value="댓글남기기" id="writeCommentBtn"></td>
-                </tr>
-            </table>
-
+            <hr style="border: solid 0.5px gray; width:900px;">      
+               
+            <c:if test="${not empty vo.reply }" >
+	            <table style="margin:18px; width:900px;" border="1">
+	                <tr>
+	                	<td style="background:#f1f1f1; font-size:13px; padding:10px 0 10px 0;">
+	                		작성자: 관리자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                		<a href="javascript:view('viewcode');" >[댓글 수정]</a>
+	                	</td>
+	                </tr>
+	                <tr><td style="padding:10px 0 10px 10px; font-size:15px;">${vo.reply }</td></tr>
+	              
+	            </table>
+	        </c:if>
+	        
+            <c:if test="${'admin' == authUser.name }" >
+	            <form action="${pageContext.servletContext.contextPath}/oneToOne/reply/${no }" method="post">
+		            <table style="margin:30px;">
+		                <tr>
+		                	 <c:if test="${empty vo.reply }" >
+			                    <td>
+			                        <textarea  name="reply" cols="90" rows="5" onclick="this.value=''" style="width:48rem;">댓글을 남겨주세요.</textarea>
+			                    </td>
+			                    <td><input type="submit" value="댓글남기기" id="writeCommentBtn"></td>
+			                 </c:if> 
+		                </tr>
+		                <tr id="viewcode" style="display:none;">
+  							<td>
+			                    <textarea  name="reply" cols="90" rows="5" onclick="this.value=''" style="width:48rem;">댓글을 남겨주세요.</textarea>
+			                    </td>
+			                    <td><input type="submit" value="댓글 수정" id="writeCommentBtn"></td>
+  						</tr>
+		            </table>
+	         	</form>
+			</c:if>
         </div>
 
         <footer class="positionBody" >
