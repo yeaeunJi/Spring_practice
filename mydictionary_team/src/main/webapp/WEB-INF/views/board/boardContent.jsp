@@ -28,14 +28,15 @@
 					function() {
 						location.href = "${pageContext.request.contextPath}/board/getBoardList";
 					});
+	
 	//수정 버튼 클릭 이벤트
 	$(document).on('click', '#btnUpdate', function() {
 		var url = "${pageContext.request.contextPath}/board/editForm";
-		url = url + "?bid=" + ${boardContent.bid}
-		;
+		url = url + "?bid=" + ${boardContent.bid};
 		url = url + "&mode=edit";
 		location.href = url;
 	});
+	
 	//삭제 버튼 클릭 이벤트
 	$(document).on('click', '#btnDelete', function() {
 		var url = "${pageContext.request.contextPath}/board/deleteBoard";
@@ -44,39 +45,69 @@
 	});
 </script>
 
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.11.3.js">
-	
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js">
+
+	//댓글 리스트
 	$(document).ready(function() {
+	
+		showReplyList();
+	
+	});
+	
+	function showReplyList(){ 
+
 		var url = "${pageContext.request.contextPath}/restBoard/getReplyList";
+
 		var paramData = {
 			"bid" : "${boardContent.bid}"
 		};
+
 		$.ajax({
+
 					type : 'POST',
+
 					url : url,
+
 					data : paramData,
+
 					dataType : 'json',
+
 					success : function(result) {
+
 						var htmls = "";
+
 						if (result.length < 1) {
+
 							htmls.push("등록된 댓글이 없습니다.");
+
 						} else {
+
 							$(result)
 									.each(
 											function() {
+
 												htmls += '<div class="media text-muted pt-3" id="rid' + this.rid + '">';
+
 												htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
+
 												htmls += '<title>Placeholder</title>';
+
 												htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+
 												htmls += '<text x="50%" fill="#007bff" dy=".3em">32x32</text>';
+
 												htmls += '</svg>';
+
 												htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+
 												htmls += '<span class="d-block">';
+
 												htmls += '<strong class="text-gray-dark">'
 														+ this.reg_id
 														+ '</strong>';
+
 												htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+
 												htmls += '<a href="javascript:void(0)" onclick="fn_editReply('
 														+ this.rid
 														+ ', \''
@@ -84,21 +115,35 @@
 														+ '\', \''
 														+ this.content
 														+ '\' )" style="padding-right:5px">수정</a>';
+
 												htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply('
 														+ this.rid
 														+ ')" >삭제</a>';
+
 												htmls += '</span>';
+
 												htmls += '</span>';
+
 												htmls += this.content;
+
 												htmls += '</p>';
+
 												htmls += '</div>';
+
 											}); //each end
+
 						}
+
 						$("#replyList").html(htmls);
+
 					} // Ajax success end
+
 				}); // Ajax end
+
+
 	}
 </script>
+
 </head>
 <body>
 	<article>
