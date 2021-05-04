@@ -16,7 +16,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<link href="${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet"	href="${pageContext.request.contextPath}/assets/css/common.css">	
 
 <c:url var="getBoardListURL" value="/board/getBoardList"></c:url>
