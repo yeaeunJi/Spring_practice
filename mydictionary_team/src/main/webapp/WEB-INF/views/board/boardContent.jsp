@@ -48,7 +48,7 @@
 	src="http://code.jquery.com/jquery-1.11.3.js">
 	
 	$(document).ready(function() {
-		var url = "${pageContext.request.contextPath}/restBoard/getReqlyList";
+		var url = "${pageContext.request.contextPath}/restBoard/getReplyList";
 		var paramData = {
 			"bid" : "${boardContent.bid}"
 		};
