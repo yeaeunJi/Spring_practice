@@ -46,10 +46,13 @@
 	        </nav>
         </header>
         <div style="font-size:30px; font-weight: bold; margin-left:29rem;">1:1 문의/건의</div>
-        <div style="margin-bottom:10px; margin-left:1380px;">
-            <input id = "btn" type="button" value="글쓰기" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/writeForm'">
-         </div>
-
+        <div style="heigth:r]"></div>
+        <c:if test="${'admin' != authUser.name }" >
+	        <div style="margin-bottom:10px; margin-left:1380px;">
+	            <input id = "btn" type="button" value="글쓰기" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/writeForm'">
+	         </div>
+		</c:if>
+		
          <section class = "positionBody">
             <form name='my_form'>
             <table style="margin-left:40px; border-collapse: collapse;">
@@ -70,7 +73,9 @@
 		                    <td><a id = "defaultUp" href="${pageContext.request.contextPath }/oneToOne/detail/${vo.no }">${vo.title }</a></td>
 		                    <td style="text-align:center;">${vo.writer}</td>
 		                    <td style="text-align:center;">${vo.regdate }</td>
-		                    <td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modifyForm/${vo.no}'" style="background-color: red;"></td>
+		                    <c:if test="${vo.writer == authUser.name }" >
+		                    	<td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modifyForm/${vo.no}'" style="background-color: red;"></td>
+		                    </c:if>
 		                </tr>  
 	                </c:forEach>
                 </tbody>             
@@ -100,6 +105,7 @@
 				<c:set var="page" value="${(empty p)?1:p}" />
 				<c:set var="startNum" value="${page-(page-1)%5}" />
 				<c:set var="lastNum" value="${fn:substringBefore(Math.ceil(count/10), '.') }" />
+				<c:set var="end" value="${totalCnt/10 > 4 ? 4:totalCnt/10 }" />  
 				<!-- ****************************************************** -->
 				<div class="pager">
 					<ul>
@@ -113,7 +119,7 @@
 							</c:otherwise>
 						</c:choose>
 						</li>
-						<c:forEach var="i" begin="0" end="${lastNum-1 }">
+						<c:forEach var="i" begin="0" end="${end }">
 							<li>
 								<a href="${pageContext.request.contextPath }/oneToOne/${startNum+i}">${startNum+i}</a>
 							</li>

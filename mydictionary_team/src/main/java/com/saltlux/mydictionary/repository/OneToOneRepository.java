@@ -27,6 +27,18 @@ public class OneToOneRepository {
 
 		return sqlSession.selectList("onetoone.findAll", params);
 	}
+	
+	public List<OneToOneVo> findAll(int page) {
+		int start = 1 + (page-1) * 10; //1, 11, 21, 31
+		int end = page * 10; //10, 20, 30, 40
+		Map params = new HashMap();
+		params.put("start", start);
+		params.put("end", end);
+		
+
+		return sqlSession.selectList("onetoone.adminFindAll", params);
+	}
+
 
 	public List<OneToOneVo> search(String searchOption, String keyword, int page) {
 		int start = 1 + (page-1) * 10; //1, 11, 21, 31
@@ -73,5 +85,17 @@ public class OneToOneRepository {
 
 	public int findAllCnt(String nickname) {
 		return sqlSession.selectOne("onetoone.findAllCnt", nickname);
+	}
+
+	public boolean updateReply(String no, String reply) {
+		Map params = new HashMap();
+		params.put("no", no);
+		params.put("reply", reply);
+		int result = sqlSession.update("onetoone.insertReply", params);
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
