@@ -18,7 +18,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/common.css">
-<link href="${pageContext.request.contextPath }/assets/css/main.css"
 	rel="stylesheet" type="text/css">
 <title>board</title>
 <script>
