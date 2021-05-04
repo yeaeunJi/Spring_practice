@@ -20,7 +20,6 @@
 	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/common.css">
 	
-<link href="${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">	
 <script>
 	//목록으로 이동 이벤트
 	$(document).on(
