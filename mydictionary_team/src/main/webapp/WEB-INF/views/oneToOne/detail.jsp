@@ -57,26 +57,25 @@
 		    </ul>
 		</nav>
         <div style="margin-left:140px; border: 1px solid white; width:937px; background: white">
-            <table>
-                <tr><td style="font-size:30px; font-weight: bold; color:#3493ff;">1:1 문의/건의</td></tr>
-                <tr><td style="height:30px;">&nbsp;</td></tr>
-                <tr><td style="font-weight: bold; font-size:25px;">${vo.title }</td></tr>
-                <tr><td style="border-top:2px solid #2e4361; background:#f1f7ff; padding:10px 0px 10px 0px;">&nbsp;작성자 ID : <span style="font-size:13px;">${vo.writer }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    작성일 : <span style="font-size:13px; margin-left:1;">${vo.regdate }</span>&nbsp;&nbsp;</td>
+            <table style="width:58.5rem;">
+                <tr ><td colspan="2" style="font-size:30px; font-weight: bold; color:#3493ff;">1:1 문의/건의</td></tr>
+                <tr><td colspan="2" style="height:30px;">&nbsp;</td></tr>
+                <tr><td colspan="2" style="font-weight: bold; font-size:25px; border-bottom:2px solid #2e4361;">${vo.title }</td></tr>
+                <tr style="background-color:#f1f7ff; ">
+                	<td style="padding:10px 0px 10px 0px; width:45.5rem;">
+                		&nbsp;작성자 ID : <span style="font-size:13px;">${vo.writer }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td style="padding:10px 0px 10px 0px;">
+                    	작성일 : <span style="font-size:13px; margin-left:1;">${vo.regdate }</span>&nbsp;&nbsp;
+                    </td>
                 </tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
+                <tr><td colspan="2" >&nbsp;</td></tr>
                 <tr name = "contents">
-                    <td>
+                    <td colspan="2" >
                        	${fn:replace(vo.content, newline, "<br/>") }
                     </td>
                 </tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
+                
             </table>
 
             
