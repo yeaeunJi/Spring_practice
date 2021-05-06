@@ -362,8 +362,13 @@
 				</div>
 			</div>
 			<div style="margin-top: 20px">
-				<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
+				<c:if test="${authUser.id == boardContent.reg_id}">
+					<div>
+						<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+						<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
+						<p>
+					</div>
+				</c:if>
 				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 			</div>
 			<!-- Reply Form {s} -->
@@ -379,7 +384,7 @@
 						</div>
 						<div class="col-sm-2">
 							<form:input path="reg_id" class="form-control" id="reg_id"
-								placeholder="댓글 작성자"></form:input>
+								value="${authUser.id }" readonly = "true"></form:input>
 							<button type="button" class="btn btn-sm btn-primary"
 								id="btnReplySave" style="width: 100%; margin-top: 10px">
 								저 장</button>

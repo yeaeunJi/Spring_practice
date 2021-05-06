@@ -123,7 +123,7 @@
 					<label for="reg_id">작성자</label>
 
 					<form:input path="reg_id" id="reg_id" class="form-control"
-						placeholder="이름을 입력해 주세요" />
+					 value="${authUser.id }" readonly="true"/>
 
 				</div>
 

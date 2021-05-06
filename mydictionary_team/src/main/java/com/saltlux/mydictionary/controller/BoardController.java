@@ -1,5 +1,7 @@
 package com.saltlux.mydictionary.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,34 +12,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.saltlux.mydictionary.common.Search;
+import com.saltlux.mydictionary.security.Auth;
 import com.saltlux.mydictionary.service.BoardService;
 import com.saltlux.mydictionary.vo.BoardVo;
 import com.saltlux.mydictionary.vo.ReplyVo;
+import com.saltlux.mydictionary.vo.UserVo;
 
 @Controller
 @RequestMapping(value = "/board")
+@Auth
 public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping(value = {"/getBoardList", ""}, method = RequestMethod.GET)
-	public String getBoardList(Model model, @RequestParam(required = false, defaultValue = "1") int page,
+	@RequestMapping(value = { "/getBoardList", "" }, method = RequestMethod.GET)
+	public String getBoardList(HttpSession session, Model model,
+			@RequestParam(required = false, defaultValue = "1") int page,
 			@RequestParam(required = false, defaultValue = "1") int range,
 			@RequestParam(required = false, defaultValue = "title") String searchType,
 			@RequestParam(required = false) String keyword) throws Exception {
 
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		model.addAttribute("authUser", authUser);
+		
 		Search search = new Search();
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
-		
+
 		// 전체 게시글 개수
 		int listCnt = boardService.getBoardListCnt(search);
 		search.pageInfo(page, range, listCnt);
 
 		// Pagination 객체생성
-		/* Pagination pagination = new Pagination();
-		pagination.pageInfo(page, range, listCnt);*/
+		/*
+		 * Pagination pagination = new Pagination(); pagination.pageInfo(page, range,
+		 * listCnt);
+		 */
 
 		model.addAttribute("pagination", search);
 		model.addAttribute("boardList", boardService.getBoardList(search));
@@ -45,20 +56,27 @@ public class BoardController {
 	}
 
 	@RequestMapping("/boardForm")
-	public String boardForm(@ModelAttribute("boardVO") BoardVo vo, Model model) {
+	public String boardForm(@ModelAttribute("boardVO") BoardVo vo, Model model, HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		model.addAttribute("authUser", authUser);
+
 		return "board/boardForm";
 	}
 
 	@RequestMapping(value = "/saveBoard", method = RequestMethod.POST)
-	public String saveBoard(@ModelAttribute("boardVO") BoardVo boardVO
-			, @RequestParam("mode") String mode
-			, RedirectAttributes rttr) throws Exception {
+	public String saveBoard(HttpSession session, @ModelAttribute("boardVO") BoardVo boardVO,
+			@RequestParam("mode") String mode, RedirectAttributes rttr, Model model) throws Exception {
+
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+
+		boardVO.setReg_id(authUser.getId());
 
 		if (mode.equals("edit")) {
 			boardService.updateBoard(boardVO);
 		} else {
 			boardService.insertBoard(boardVO);
 		}
+
 		return "redirect:/board/getBoardList";
 	}
 

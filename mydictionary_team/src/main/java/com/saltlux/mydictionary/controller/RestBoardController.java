@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.saltlux.mydictionary.dto.JsonResult;
 import com.saltlux.mydictionary.service.BoardService;
 import com.saltlux.mydictionary.vo.ReplyVo;
+import com.saltlux.mydictionary.vo.UserVo;
 
 @RestController
 
@@ -43,11 +45,14 @@ public class RestBoardController {
 
 	@RequestMapping(value = "/saveReply", method = RequestMethod.POST)
 
-	public JsonResult saveReply(@RequestBody ReplyVo replyVO) throws Exception {
+	public JsonResult saveReply(HttpSession session, @RequestBody ReplyVo replyVO) throws Exception {
 
 		Map<String, Object> result = new HashMap<>();
 
 		try {
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
+			
+			replyVO.setReg_id(authUser.getId());
 
 			boardService.saveReply(replyVO);
 
