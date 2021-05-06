@@ -7,7 +7,7 @@ public class OneToOneVo {
 	private String content;
 	private String writer;
 	private String regdate;
-	
+	private String reply;
 	
 	public int getNo() {
 		return no;
@@ -39,12 +39,18 @@ public class OneToOneVo {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	
-	
+	public String getReply() {
+		return reply;
+	}
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
 	@Override
 	public String toString() {
 		return "OneToOneVo [no=" + no + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regdate=" + regdate + "]";
+				+ ", regdate=" + regdate + ", reply=" + reply + "]";
 	}
+	
+	
 	
 }

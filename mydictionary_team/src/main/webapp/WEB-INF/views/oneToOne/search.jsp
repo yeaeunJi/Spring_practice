@@ -46,10 +46,12 @@
 	        </nav>
         </header>
         <div style="font-size:30px; font-weight: bold; margin-left:29rem;">1:1 문의/건의</div>
-        <div style="margin-bottom:10px; margin-left:1380px;">
-            <input id = "btn" type="button" value="글쓰기" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/writeForm'">
-         </div>
-
+        
+        <c:if test="${'admin' != authUser.name }" >
+	        <div style="margin-bottom:10px; margin-left:1380px;">
+	            <input id = "btn" type="button" value="글쓰기" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/writeForm'">
+	         </div>
+		</c:if>
          <section class = "positionBody">
             <form name='my_form'>
             <table style="margin-left:40px; border-collapse: collapse;">
@@ -67,17 +69,19 @@
                 	<c:forEach items="${list }" var="vo" varStatus="status">
 		                <tr style="border-bottom:1px solid #d3d3d3;">
 		                    <td style="text-align:center; padding-left:-5px; width:68px">${vo.no }</td>
-		                    <td><a id = "defaultUp" href="postForm.html">${vo.title }</a></td>
+		                    <td><a id = "defaultUp" href="${pageContext.request.contextPath }/oneToOne/detail/${vo.no }">${vo.title }</a></td>
 		                    <td style="text-align:center;">${vo.writer}</td>
 		                    <td style="text-align:center;">${vo.regdate }</td>
-		                    <td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modify'" style="background-color: red;"></td>
+		                    <c:if test="${vo.writer == authUser.name }" >
+		                    	<td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modify'" style="background-color: red;"></td>
+		                    </c:if>
 		                </tr>  
 	                </c:forEach>
                 </tbody>             
             </table>
         </form>
         </section>
-       <form name="search" method="post" action="${pageContext.servletContext.contextPath}/oneToOne/search">
+       <form name="search" method="post" action="${pageContext.servletContext.contextPath}/oneToOne/search/">
 	       <table style="margin-left:67rem; margin: top 0.5em;">
 	            <tr>
 	                <td>                	
@@ -86,7 +90,9 @@
 		                    <option value="title">제목만</option>
 		                </select>
 	                </td>
-	                <td><input class="searchInput" type="text" placeholder="  검색" name="keyword" style="height:23px;"></td>
+	                <td>
+	        			<input class="searchInput" type="text" value="${keyword }" name="keyword" style="height:23px;">	                	              
+	                </td>
 	                <td><input type="submit" id='btn' value ="검색" style="height:30px;"></td>
 	            </tr>
 	            <tr></tr>
@@ -100,28 +106,29 @@
 				<c:set var="page" value="${(empty p)?1:p}" />
 				<c:set var="startNum" value="${page-(page-1)%5}" />
 				<c:set var="lastNum" value="${fn:substringBefore(Math.ceil(count/10), '.') }" />
+				<c:set var="end" value="${totalCnt/10 > 4 ? 4:totalCnt/10 }" />  
 				<!-- ****************************************************** -->
 				<div class="pager">
 					<ul>
 						<li>
 						<c:choose>
 							<c:when test="${startNum > 1}">
-								<a href="${pageContext.request.contextPath }/oneToOne/search/${startNum-1}" >◀</a>
+								<a href="${pageContext.request.contextPath }/oneToOne/search/${keyword }/${startNum-1}" >◀</a>
 							</c:when>
 							<c:otherwise>
 								<span onclick="alert('이전 페이지가 없습니다.');">◀</span>
 							</c:otherwise>
 						</c:choose>
 						</li>
-						<c:forEach var="i" begin="0" end="4">
+						<c:forEach var="i" begin="0" end="${end }">
 							<li>
-								<a href="${pageContext.request.contextPath }/oneToOne/search/${startNum+i}">${startNum+i}</a>
+								<a href="${pageContext.request.contextPath }/oneToOne/search/${keyword }/${startNum+i}">${startNum+i}</a>
 							</li>
 						</c:forEach>
 						<li>
 							<c:choose>
 								<c:when test="${startNum+4<lastNum}">
-									<a href="${pageContext.request.contextPath }/oneToOne/search/${startNum+i}">▶</a>
+									<a href="${pageContext.request.contextPath }/oneToOne/search/${keyword }/${startNum+i}">▶</a>
 								</c:when>
 								<c:otherwise>
 									<span onclick="alert('다음 페이지가 없습니다.');">▶</span>
@@ -134,6 +141,7 @@
 
 
 				<!-- pager 추가 -->
+				
 				
        
        
