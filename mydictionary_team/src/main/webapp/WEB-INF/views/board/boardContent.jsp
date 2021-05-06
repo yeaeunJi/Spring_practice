@@ -80,8 +80,7 @@
 
 						} else {
 
-							$(result.data)
-									.each(
+							$(result.data).each(
 											function() {
 
 												htmls += '<div class="media text-muted pt-3" id="rid' + this.rid + '">';
@@ -105,6 +104,8 @@
 														+ '</strong>';
 
 												htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+												
+												htmls += '<c:if test="${authUser.id == boardContent.reg_id}">';
 
 												htmls += '<a href="javascript:void(0)" onclick="fn_editReply('
 														+ this.rid
@@ -117,7 +118,9 @@
 												htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply('
 														+ this.rid
 														+ ')" >삭제</a>';
-
+												
+												htmls += '</c:if>';
+														
 												htmls += '</span>';
 
 												htmls += '</span>';
@@ -341,10 +344,10 @@
 
 </head>
 <body>
-	<article>
-		<div class="container" role="main">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+	<article>
+		<div class="container" role="main" style="margin-left:35rem; margin-top:4rem;">
 			<h2>게시글</h2>
 			<div class="bg-white rounded shadow-sm">
 				<div class="board_title">
@@ -362,8 +365,13 @@
 				</div>
 			</div>
 			<div style="margin-top: 20px">
-				<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
+				<c:if test="${authUser.id == boardContent.reg_id}">
+					<div>
+						<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+						<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
+						<p>
+					</div>
+				</c:if>
 				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 			</div>
 			<!-- Reply Form {s} -->
@@ -379,7 +387,7 @@
 						</div>
 						<div class="col-sm-2">
 							<form:input path="reg_id" class="form-control" id="reg_id"
-								placeholder="댓글 작성자"></form:input>
+								value="${authUser.id }" readonly = "true"></form:input>
 							<button type="button" class="btn btn-sm btn-primary"
 								id="btnReplySave" style="width: 100%; margin-top: 10px">
 								저 장</button>
@@ -395,8 +403,8 @@
 				<div id="replyList"></div>
 			</div>
 			<!-- Reply List {e}-->
-			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 		</div>
 	</article>
+			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 </body>
 </html>
