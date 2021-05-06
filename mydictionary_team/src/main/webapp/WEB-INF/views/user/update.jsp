@@ -30,7 +30,7 @@ $(function(){
 		<c:import url ="/WEB-INF/views/includes/header.jsp"/>
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp"/>
 		<div id="content">
-			<div id="user">
+			<div id="user" style="margin-left:35rem">
 				<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/update">
 				<input type="hidden" name="userNo" value="${userVo.userNo}"/>				
 					<label class="block-label" for="name">이름 : <input id="name" name="name" type="text" value="${ userVo.name}" style="margin-left:30px;"/> </label>

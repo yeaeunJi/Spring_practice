@@ -111,7 +111,7 @@ public class OneToOneController {
 	public String modify(@PathVariable("no") String no, @RequestParam String title, @RequestParam String content) {
 		
 		oneToOneService.update(no, title, content);
-		//
+		
 		return "redirect:/oneToOne/";
 	}
 
