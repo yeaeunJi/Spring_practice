@@ -80,8 +80,7 @@
 
 						} else {
 
-							$(result.data)
-									.each(
+							$(result.data).each(
 											function() {
 
 												htmls += '<div class="media text-muted pt-3" id="rid' + this.rid + '">';
@@ -105,6 +104,8 @@
 														+ '</strong>';
 
 												htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+												
+												htmls += '<c:if test="${authUser.id == boardContent.reg_id}">';
 
 												htmls += '<a href="javascript:void(0)" onclick="fn_editReply('
 														+ this.rid
@@ -117,7 +118,9 @@
 												htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply('
 														+ this.rid
 														+ ')" >삭제</a>';
-
+												
+												htmls += '</c:if>';
+														
 												htmls += '</span>';
 
 												htmls += '</span>';
@@ -341,10 +344,10 @@
 
 </head>
 <body>
-	<article>
-		<div class="container" role="main">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+	<article>
+		<div class="container" role="main" style="margin-left:35rem; margin-top:4rem;">
 			<h2>게시글</h2>
 			<div class="bg-white rounded shadow-sm">
 				<div class="board_title">
@@ -400,8 +403,8 @@
 				<div id="replyList"></div>
 			</div>
 			<!-- Reply List {e}-->
-			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 		</div>
 	</article>
+			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 </body>
 </html>
