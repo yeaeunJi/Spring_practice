@@ -16,7 +16,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<link rel="stylesheet"	href="${pageContext.request.contextPath}/assets/css/common.css">	
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/common.css">
 
 <c:url var="getBoardListURL" value="/board/getBoardList"></c:url>
 
@@ -78,107 +79,115 @@
 <body>
 	<article>
 		<div class="container">
-			<c:import url ="/WEB-INF/views/includes/header.jsp" />
-			<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
+			<c:import url="/WEB-INF/views/includes/header.jsp" />
+			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 			<div id="content">
-			<div id="board">
-			<h2>게시판</h2>
-			<div class="table-responsive">
-				<table class="table table-striped table-sm">
-					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: auto;" />
-						<col style="width: 15%;" />
-						<col style="width: 10%;" />
-						<col style="width: 10%;" />
-					</colgroup>
+				<div id="board">
+					<h2>게시판</h2>
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<colgroup>
+								<col style="width: 5%;" />
+								<col style="width: auto;" />
+								<col style="width: 15%;" />
+								<col style="width: 10%;" />
+								<col style="width: 10%;" />
+							</colgroup>
 
-					<thead>
-						<tr>
-							<th>NO</th>
-							<th>글제목</th>
-							<th>작성자</th>
-							<th>조회수</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<c:choose>
-							<c:when test="${empty boardList }">
+							<thead>
 								<tr>
-									<td colspan="5" align="center">데이터가 없습니다.</td>
+									<th>NO</th>
+									<th>글제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>작성일</th>
 								</tr>
-							</c:when>
+							</thead>
 
-							<c:when test="${!empty boardList}">
-								<c:forEach var="list" items="${boardList}">
-									<tr>
-										<td><c:out value="${list.bid}" /></td>
-										<td>
-											<a href="#"	onClick="fn_contentView(<c:out value="${list.bid}"/>)"> <c:out value="${list.title}" />	</a>
-										</td>
-										<td><c:out value="${list.reg_id}" /></td>
-										<td><c:out value="${list.view_cnt}" /></td>
-										<td><c:out value="${list.reg_dt}" /></td>
-									</tr>
-								</c:forEach>
-							</c:when>
-						</c:choose>
-					</tbody>
-				</table>
-			</div>
-			<div>
+							<tbody>
+								<c:choose>
+									<c:when test="${empty boardList }">
+										<tr>
+											<td colspan="5" align="center">데이터가 없습니다.</td>
+										</tr>
+									</c:when>
 
-				<button type="button" class="btn btn-sm btn-primary" id="btnWriteForm">글쓰기</button>
-			</div>
+									<c:when test="${!empty boardList}">
+										<c:forEach var="list" items="${boardList}">
+											<tr>
+												<td><c:out value="${list.bid}" /></td>
+												<td><a href="#"
+													onClick="fn_contentView(<c:out value="${list.bid}"/>)">
+														<c:out value="${list.title}" />
+												</a></td>
+												<td><c:out value="${list.reg_id}" /></td>
+												<td><c:out value="${list.view_cnt}" /></td>
+												<td><c:out value="${list.reg_dt}" /></td>
+											</tr>
+										</c:forEach>
+									</c:when>
+								</c:choose>
+							</tbody>
+						</table>
+					</div>
+					<div>
 
-			<!-- pagination{s} -->
-			<div id="paginationBox">
-				<ul class="pagination">
-					<c:if test="${pagination.prev}">
-						<li class="page-item"><a class="page-link" href="#"
-							onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></li>
-					</c:if>
+						<button type="button" class="btn btn-sm btn-primary"
+							id="btnWriteForm">글쓰기</button>
+					</div>
 
-					<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
-						<li	class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
-							<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')">
-								${idx} 
-							</a>
-						</li>
-					</c:forEach>
+					<!-- pagination{s} -->
+					<div id="paginationBox">
+						<ul class="pagination">
+							<c:if test="${pagination.prev}">
+								<li class="page-item"><a class="page-link" href="#"
+									onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></li>
+							</c:if>
 
-					<c:if test="${pagination.next}">
-						<li class="page-item"><a class="page-link" href="#"	onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')">Next</a></li>
-					</c:if>
-				</ul>
-			</div>
+							<c:forEach begin="${pagination.startPage}"
+								end="${pagination.endPage}" var="idx">
+								<li
+									class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
+									<a class="page-link" href="#"
+									onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')">
+										${idx} </a>
+								</li>
+							</c:forEach>
 
-			<!-- pagination{e} -->
-			<!-- search{s} -->
+							<c:if test="${pagination.next}">
+								<li class="page-item"><a class="page-link" href="#"
+									onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')">Next</a></li>
+							</c:if>
+						</ul>
+					</div>
 
-			<div class="form-group row justify-content-center">
-				<div class="w100" style="padding-right: 10px">
-					<select class="form-control form-control-sm" name="searchType"	id="searchType">
-						<option value="title">제목</option>
-						<option value="Content">본문</option>
-						<option value="reg_id">작성자</option>
-					</select>
+					<!-- pagination{e} -->
+					<!-- search{s} -->
+
+					<div class="form-group row justify-content-center">
+						<div class="w100" style="padding-right: 10px">
+							<select class="form-control form-control-sm" name="searchType"
+								id="searchType">
+								<option value="title">제목</option>
+								<option value="Content">본문</option>
+								<option value="reg_id">작성자</option>
+							</select>
+						</div>
+
+						<div class="w300" style="padding-right: 10px">
+							<input type="text" class="form-control form-control-sm"
+								name="keyword" id="keyword">
+						</div>
+
+						<div>
+							<button class="btn btn-sm btn-primary" name="btnSearch"
+								id="btnSearch">검색</button>
+						</div>
+					</div>
 				</div>
-				
-				<div class="w300" style="padding-right: 10px">
-					<input type="text" class="form-control form-control-sm"	name="keyword" id="keyword">
-				</div>
-
-				<div>
-					<button class="btn btn-sm btn-primary" name="btnSearch"	id="btnSearch">검색</button>
-				</div>
-			</div>
-			</div>
 			</div>
 			<!-- search{e} -->
-			<c:import url ="/WEB-INF/views/includes/footer.jsp" />
+			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 		</div>
 	</article>
 </body>

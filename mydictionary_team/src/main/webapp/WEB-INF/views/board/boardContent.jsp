@@ -7,11 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>board</title>
+<
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.6.0.js"  ></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -43,9 +44,6 @@
 		url = url + "?bid=" + ${boardContent.bid};
 		location.href = url;
 	});
-</script>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js">
 
 	//댓글 리스트
 	$(document).ready(function() {
@@ -55,15 +53,15 @@
 	});
 	
 	function showReplyList(){ 
-
 		var url = "${pageContext.request.contextPath}/restBoard/getReplyList";
-
+		
+		
 		var paramData = {
 			"bid" : "${boardContent.bid}"
 		};
 
 		$.ajax({
-
+		
 					type : 'POST',
 
 					url : url,
@@ -73,16 +71,14 @@
 					dataType : 'json',
 
 					success : function(result) {
-
 						var htmls = "";
 
-						if (result.length < 1) {
-
-							htmls.push("등록된 댓글이 없습니다.");
+						if (result.data.length < 1) {
+							htmls = "등록된 댓글이 없습니다.";
 
 						} else {
 
-							$(result)
+							$(result.data)
 									.each(
 											function() {
 
@@ -136,8 +132,11 @@
 
 						$("#replyList").html(htmls);
 
-					} // Ajax success end
-
+					}, // Ajax success end
+	error:function(xhr, status, e){
+		console.error(status+", "+e);
+		
+	}
 				}); // Ajax end
 
 

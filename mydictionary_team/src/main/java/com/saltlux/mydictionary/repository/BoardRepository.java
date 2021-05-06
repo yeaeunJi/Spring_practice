@@ -75,9 +75,7 @@ public class BoardRepository implements BoardDao{
 	@Override
 
 	public List<ReplyVo> getReplyList(int bid) throws Exception {
-
-		return sqlSession.selectList("boardgetReplyList", bid);
-
+		return sqlSession.selectList("replyMapper.getReplyList", bid);
 	}
 
 	@Override
