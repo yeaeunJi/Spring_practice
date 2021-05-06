@@ -82,7 +82,7 @@ public class BoardRepository implements BoardDao{
 
 	public int saveReply(ReplyVo replyVO) throws Exception {
 
-		return sqlSession.insert("board.saveReply", replyVO);
+		return sqlSession.insert("replyMapper.saveReply", replyVO);
 
 	}
 
@@ -90,7 +90,7 @@ public class BoardRepository implements BoardDao{
 
 	public int updateReply(ReplyVo replyVO) throws Exception {
 
-		return sqlSession.update("board.updateReply", replyVO);
+		return sqlSession.update("replyMapper.updateReply", replyVO);
 
 	}
 
@@ -98,7 +98,7 @@ public class BoardRepository implements BoardDao{
 
 	public int deleteReply(int rid) throws Exception {
 
-		return sqlSession.delete("board.deleteReply", rid);
+		return sqlSession.delete("replyMapper.deleteReply", rid);
 
 	}
 }
