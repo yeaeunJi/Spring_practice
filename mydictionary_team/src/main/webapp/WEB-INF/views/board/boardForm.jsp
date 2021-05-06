@@ -92,9 +92,9 @@
 
 	<article>
 
-		<div class="container" role="main">
-			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<div class="container" role="main" style="margin-left:27rem; margin-top:4rem;">
 			<h2>글쓰기</h2>
 
 			<form:form name="form" id="form" role="form" modelAttribute="boardVO"
@@ -159,12 +159,12 @@
 
 			</div>
 
-			<c:import url="/WEB-INF/views/includes/footer.jsp" />
-			
 		</div>
 
 	</article>
-
+	
+	<c:import url="/WEB-INF/views/includes/footer.jsp" />
+			
 </body>
 
 </html>

@@ -81,7 +81,7 @@
 		<div class="container">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
-			<div id="content">
+			<div id="content" style="margin-left:22rem; margin-top:4rem;">
 				<div id="board">
 					<h2>게시판</h2>
 					<div class="table-responsive">

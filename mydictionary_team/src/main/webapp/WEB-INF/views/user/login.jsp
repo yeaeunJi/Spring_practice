@@ -16,7 +16,7 @@
 		<c:import url ="/WEB-INF/views/includes/header.jsp" />
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
 		<div id="content">
-			<div id="user">
+			<div id="user" style="margin-left:33rem;">
 				<form id="login-form" name="loginform" method="post"
 					action="${pageContext.request.contextPath }/user/auth">
 					<h3>Login</h3>

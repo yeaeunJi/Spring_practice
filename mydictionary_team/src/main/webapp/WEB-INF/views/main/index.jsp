@@ -10,11 +10,11 @@
 <link href="${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div id="container">
+	<div id="container" style="margin:0 auto;">
 		<c:import url ="/WEB-INF/views/includes/header.jsp" />
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
-			<div id="content">
-				<div id="site-introduction">
+			<div id="content" style="margin-left:18rem;">
+				<div id="site-introduction" >
 						<h2 >안녕하세요. mydictionary에 오신 것을 환영합니다.</h2>
 					<img id="profile"
 						src="${pageContext.request.contextPath }/assets/images/images.jpeg">
@@ -23,3 +23,4 @@
 			<c:import url ="/WEB-INF/views/includes/footer.jsp" />
 		</div>
 </body>
+</html>
