@@ -58,7 +58,10 @@
 		</nav>
         <div style="margin-left:140px; border: 1px solid white; width:937px; background: white">
             <table style="width:58.5rem;">
-                <tr ><td colspan="2" style="font-size:30px; font-weight: bold; color:#3493ff;">1:1 문의/건의</td></tr>
+                <tr >
+                	<td style="font-size:30px; font-weight: bold; color:#3493ff;">1:1 문의/건의</td>
+                	<td><input id = "btn" type="button" value="목록" style="margin-left:7rem"onclick="history.back(-1);"></td> 
+                </tr>
                 <tr><td colspan="2" style="height:30px;">&nbsp;</td></tr>
                 <tr><td colspan="2" style="font-weight: bold; font-size:25px; border-bottom:2px solid #2e4361;">${vo.title }</td></tr>
                 <tr style="background-color:#f1f7ff; ">
@@ -82,42 +85,59 @@
             <div style="height:40px;">&nbsp;</div>
             <hr style="border: solid 0.5px gray; width:900px;">      
                
-            <c:if test="${not empty vo.reply }" >
-	            <table style="margin:18px; width:900px;" border="1">
-	                <tr>
-	                	<td style="background:#f1f1f1; font-size:13px; padding:10px 0 10px 0;">
-	                		작성자: 관리자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                		<a href="javascript:view('viewcode');" >[댓글 수정]</a>
-	                	</td>
+	            <table style="margin:18px; width:900px;">
+		            <c:if test="${not empty vo.reply }" >
+		                <tr>
+		                	<td style="background:#f1f1f1; font-size:13px; padding:10px 0 10px 0;">
+		                		작성자: 관리자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                		<c:if test="${'admin' == authUser.name }" ><a href="javascript:view('viewcode');" >[댓글 수정]</a></c:if>
+		                	</td>
+		                </tr>
+		                <tr>
+			                <td style="padding:10px 0 10px 10px; font-size:15px;">
+			                		${vo.reply }
+			                </td>
+			        </c:if>
+		                <c:if test="${empty vo.reply }">
+		                	<td style="padding:10px 0 10px 10px; font-size:15px;">
+		                		[ 관리자가 답변을 곧 작성할 예정입니다. ]
+		                	</td>
+		                </c:if>
 	                </tr>
-	                <tr><td style="padding:10px 0 10px 10px; font-size:15px;">${vo.reply }</td></tr>
 	              
 	            </table>
-	        </c:if>
+	     
+	        
 	        
             <c:if test="${'admin' == authUser.name }" >
 	            <form action="${pageContext.servletContext.contextPath}/oneToOne/reply/${no }" method="post">
 		            <table style="margin:30px;">
-		                <tr>
-		                	 <c:if test="${empty vo.reply }" >
-			                    <td>
-			                        <textarea  name="reply" cols="90" rows="5" onclick="this.value=''" style="width:48rem;">댓글을 남겨주세요.</textarea>
-			                    </td>
-			                    <td><input type="submit" value="댓글남기기" id="writeCommentBtn"></td>
-			                 </c:if> 
-		                </tr>
-		                <tr id="viewcode" style="display:none;">
-  							<td>
-			                    <textarea  name="reply" cols="90" rows="5" onclick="this.value=''" style="width:48rem;">댓글을 남겨주세요.</textarea>
-			                    </td>
-			                    <td><input type="submit" value="댓글 수정" id="writeCommentBtn"></td>
-  						</tr>
+			                <tr>
+				            	<c:if test="${empty vo.reply }">
+				                    <td>
+				                        <textarea name="reply" cols="90" rows="5" onclick="this.value=''" style="width:48rem;"></textarea>
+				                    </td>
+				                    <td><input type="submit" value="댓글남기기" id="writeCommentBtn"></td>
+				                </c:if>	
+		                	</tr>
+		                	<tr id="viewcode" style="display:none;">
+		                		<c:if test="${not empty vo.reply }">
+					                <td>
+					                    <textarea  name="reply" cols="90" rows="5" style="width:48rem;" placeholder="댓글을 남겨주세요."></textarea>
+					                    
+						            </td>
+					                <td>
+					                	<input type="submit" value="댓글 수정" id="writeCommentBtn">
+					                </td>
+					            </c:if>
+		                	</tr>
+		                
 		            </table>
-	         	</form>
+		         </form>
 			</c:if>
         </div>
 

@@ -87,11 +87,13 @@ public class OneToOneController {
 	}
 
 	@RequestMapping(value = "/detail/{no}")
-	public String detail(@PathVariable("no") String no, Model model) {
+	public String detail(@PathVariable("no") String no, Model model, HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		OneToOneVo vo = oneToOneService.findOne(no);
-
+		
 		model.addAttribute("vo", vo);
 		model.addAttribute("no", no);
+		model.addAttribute("authUser", authUser);
 		return "oneToOne/detail";
 	}
 
