@@ -19,7 +19,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<div id="content">
-			<div id="board">
+			<div id="board" style="margin-left:18rem">
 				<form id="search_form"	action="${pageContext.request.contextPath }/dictionary/search" method="post">
 					<input type="hidden" id="showNum" name="showNum" value="${page.showNum}"/>
 					<input type="hidden" id="startPage" name="startPage" value="${page.startPage}"/>

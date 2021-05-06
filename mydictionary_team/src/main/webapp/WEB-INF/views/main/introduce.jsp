@@ -14,7 +14,7 @@
 	<div id="container">
 		<c:import url ="/WEB-INF/views/includes/header.jsp" />
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
-			<div id="content">
+			<div id="content" style="margin-left:23rem;">
 				<div id="site-introduction">					
 					<pre><b>[프로젝트명] My Dictionary
 					
@@ -47,8 +47,8 @@
   (2) Front-end : JQuery, JavaScript, css3, HTML5, Bootstrap
   (3) Back-end : Java 1.8, ApacheTomcat 8.5, Srping4.3, MySql 8.0, mybatis 3.2.2/spring mybatis 1.2.0
   </b></pre>
-    <img src="${pageContext.request.contextPath }/assets/images/ERD.png" title="mysql erd"  style="padding-left : 300px;"/>
-    <p>***** 위에 작성된 ERD는 추후 수정 예정 *****  </p>
+    <img src="${pageContext.request.contextPath }/assets/images/ERD.png" title="mysql erd"  style="padding-left : 300px;"/><br /><br />
+    <p style="margin-left:25rem;">***** 위에 작성된 ERD는 추후 수정 예정 *****  </p>
   <pre><b>
   (4) tools : 이클립스, Maven, Github, JUnit(Spring JUnit)
  	※ Github url : <a href="https://github.com/yeaeunJi/Spring_practice/tree/master/mydictionary">https://github.com/yeaeunJi/Spring_practice/tree/master/mydictionary_team</a> 
