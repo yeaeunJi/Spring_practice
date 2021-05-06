@@ -79,25 +79,9 @@
 <body>
 	<article>
 		<div class="container">
-<<<<<<< HEAD
-			<c:import url ="/WEB-INF/views/includes/header.jsp" />
-			<c:import url ="/WEB-INF/views/includes/navigation.jsp" />
-			<div id="content" style="margin-left:25rem; margin-top:4rem;">
-			<div id="board">
-			<h2>게시판</h2>
-			<div class="table-responsive">
-				<table class="table table-striped table-sm">
-					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: auto;" />
-						<col style="width: 15%;" />
-						<col style="width: 10%;" />
-						<col style="width: 10%;" />
-					</colgroup>
-=======
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
-			<div id="content">
+			<div id="content" style="margin-left:22rem; margin-top:4rem;">
 				<div id="board">
 					<h2>게시판</h2>
 					<div class="table-responsive">
@@ -109,7 +93,6 @@
 								<col style="width: 10%;" />
 								<col style="width: 10%;" />
 							</colgroup>
->>>>>>> branch 'dev' of https://github.com/yeaeunJi/Spring_practice.git
 
 							<thead>
 								<tr>
