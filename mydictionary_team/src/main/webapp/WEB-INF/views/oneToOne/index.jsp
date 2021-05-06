@@ -47,7 +47,7 @@
         </header>
         <div style="font-size:30px; font-weight: bold; margin-left:29rem;">1:1 문의/건의</div>
         <div style="heigth:r]"></div>
-        <c:if test="${'admin' != authUser.name }" >
+        <c:if test="${'admin' != authUser.id }" >
 	        <div style="margin-bottom:10px; margin-left:1380px;">
 	            <input id = "btn" type="button" value="글쓰기" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/writeForm'">
 	         </div>
@@ -73,7 +73,7 @@
 		                    <td><a id = "defaultUp" href="${pageContext.request.contextPath }/oneToOne/detail/${vo.no }">${vo.title }</a></td>
 		                    <td style="text-align:center;">${vo.writer}</td>
 		                    <td style="text-align:center;">${vo.regdate }</td>
-		                    <c:if test="${vo.writer == authUser.name }" >
+		                    <c:if test="${vo.writer == authUser.id }" >
 		                    	<td style="text-align:center;"><input id = "btn" type="button" value="수정" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne/modifyForm/${vo.no}'" style="background-color: red;"></td>
 		                    </c:if>
 		                </tr>  
