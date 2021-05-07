@@ -57,11 +57,7 @@ public class BookmarkService {
 	@Transactional
 	public boolean moveToOther(Map<String, Object> map) {
 		boolean result1 = bookmarkrepository.updateBmkListNo(map);
-		
-		System.out.println("result 1 : "+result1);
-		
 		bookmarkListRepository.updateWordCount((long)map.get("userNo"));
-
 		return result1;
 	}
 
