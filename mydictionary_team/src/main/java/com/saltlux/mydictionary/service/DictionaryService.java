@@ -29,8 +29,8 @@ import com.saltlux.mydictionary.vo.PageVo;
 public class DictionaryService {
 	
 	private String searchUrl = "https://openapi.naver.com/v1/search/encyc";
-	private String clientId = "FwGUdeuCXwzcKsGaoB09";
-	private String clientSecret = "utQrw2h1R8";
+	private String clientId = "";
+	private String clientSecret = "";
 	
 	
 	public List<DictionaryVo> search(PageVo pagevo) {
