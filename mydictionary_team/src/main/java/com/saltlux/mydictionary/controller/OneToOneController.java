@@ -76,6 +76,7 @@ public class OneToOneController {
 	@RequestMapping("/write")
 	public String write(HttpSession session, @RequestParam String title, 
 			@RequestParam String content) {
+		
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		OneToOneVo vo = new OneToOneVo();
