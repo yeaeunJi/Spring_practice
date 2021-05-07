@@ -25,11 +25,7 @@
 <script>
 
 	//목록으로 이동 이벤트
-	$(document)
-			.on(
-					'click',
-					'#btnList',
-					function() {
+	$(document).on('click','#btnList',function() {
 						location.href = "${pageContext.request.contextPath}/board/getBoardList";
 					});
 

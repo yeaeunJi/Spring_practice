@@ -49,7 +49,6 @@
 						e.preventDefault();
 
 						location.href = "${pageContext.request.contextPath}/board/getBoardList";
-
 					});
 
 	$(document)
