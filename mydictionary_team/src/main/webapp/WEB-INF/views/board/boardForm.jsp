@@ -28,6 +28,8 @@
 
 <title>board</title>
 
+<script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
+
 <script>
 	$(document).on('click', '#btnSave', function(e) {
 
@@ -84,8 +86,6 @@
 					});
 </script>
 
-
-
 </head>
 
 <body>
@@ -133,7 +133,7 @@
 
 					<label for="content">내용</label>
 
-					<form:textarea path="content" id="content" class="form-control"
+					<form:textarea path="content" id="content" class="ckeditor"
 						rows="5" placeholder="내용을 입력해 주세요" />
 
 				</div>
@@ -163,8 +163,12 @@
 
 	</article>
 	
+
+	
 	<c:import url="/WEB-INF/views/includes/footer.jsp" />
+					
 			
 </body>
 
 </html>
+
