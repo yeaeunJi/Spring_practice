@@ -28,10 +28,10 @@
 
 <title>board</title>
 
-<script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
+<script
+	src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
 
 <script>
-	
 	$(document).on('click', '#btnSave', function(e) {
 		e.preventDefault();
 		$("#form").submit();
@@ -114,7 +114,7 @@
 
 					<label for="content">내용</label>
 
-					<form:textarea path="content" id="content" class="ckeditor"
+					<form:textarea path="content" id="content" class="form-control"
 						rows="5" placeholder="내용을 입력해 주세요" />
 
 				</div>
