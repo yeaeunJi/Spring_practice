@@ -31,6 +31,7 @@
 <script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
 
 <script>
+	
 	$(document).on('click', '#btnSave', function(e) {
 
 		e.preventDefault();
@@ -48,7 +49,6 @@
 						e.preventDefault();
 
 						location.href = "${pageContext.request.contextPath}/board/getBoardList";
-
 					});
 
 	$(document)
