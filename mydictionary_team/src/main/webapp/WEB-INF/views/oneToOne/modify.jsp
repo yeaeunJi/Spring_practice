@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap&subset=korean" rel="stylesheet">
-    <link href="${pageContext.servletContext.contextPath}/assets/css/oneToOneWrite.css" type = "text/css" rel = "stylesheet">
+    <link href="${pageContext.servletContext.contextPath}/assets/css/oneToOneModify.css" type = "text/css" rel = "stylesheet">
   
     <script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
     <script>
@@ -24,35 +24,40 @@
 
     <title> 1:1 문의/건의 </title>
 </head>
-<body style="background:#edf1f8; margin-top:3rem;">
-    <header class = "positionHead">
-        <table>
-            <tr>
-                <td colspan="2" style="width:300px;height:100px;font-size:60px;font-family: 'Jua', sans-serif"><a title="메인페이지로 가기" href="${pageContext.request.contextPath }" style="text-decoration:none;">Bit민원24</a></td>
-
-                <td width="600" style="font-size:30px;font-family: 'Jua', sans-serif">만사소통 모두에 의한, 모두를 위한, 모든 소통</td>
-                <td style="width:250px;font-size:15px;text-align:right; height:80px;font-family:'Noto Sans KR', sans-serif;">
+<body style="background:#ffffff; margin-top:3rem;">       
+        <header class = "positionHead">
+            <table>
+                <tr>
+                    <td width="600" style="width:40rem"><a href="${pageContext.request.contextPath }"><img id="logo" src="${pageContext.request.contextPath }/assets/images/text-1619752983255.png" style="margin-right:25rem; margin-left:28rem"/></a></td>
+                </tr>
+                <tr>    
+                    <td style="width:250px;font-size:15px;text-align:right; font-family:'Noto Sans KR', sans-serif;">
                     	<c:choose>
 							<c:when test="${empty authUser }">
-								<a id = "up" href="${pageContext.request.contextPath }/login" title="마이페이지 이동">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a id = "up" href="${pageContext.servletContext.contextPath}/createId" title="로그아웃 하기">회원가입</a>&nbsp;&nbsp;
+								<a id = "up" href="${pageContext.request.contextPath }/login" title="마이페이지 이동">♬로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a id = "up" href="${pageContext.servletContext.contextPath}/createId" title="로그아웃 하기">♩회원가입</a>&nbsp;&nbsp;
 							</c:when>
 							<c:otherwise>
-								<a id = "up" href="${pageContext.request.contextPath }/user/update">회원정보수정</a> &nbsp;&nbsp;&nbsp;
-								<a id = "up" href="${pageContext.request.contextPath }/user/logout">로그아웃</a> <br/><br/>
-								${authUser.name }님 안녕하세요 ^^;
+								${authUser.name }님 안녕하세요 :)&nbsp;
+								<a id = "up" href="${pageContext.request.contextPath }/user/logout">♪♪로그아웃</a> 
+								<a id = "up" href="${pageContext.request.contextPath }/user/update">♪회원정보수정</a> &nbsp;&nbsp;&nbsp;
+								
 							</c:otherwise>
 						</c:choose>                    	
                     </td>
-            </tr>
-        </table>
-	<nav>
-	    <ul id="ulStyle" style="margin-left:27rem;">
-	        <li id="liStyle" title="1:1 문의/건의" style="margin-left: -30px;"><a href="${pageContext.servletContext.contextPath}/oneToOne">1:1 문의/건의</a></li>
-	        <li id="liStyle" title="강사/매니저 평가" style="margin-left: 100px;"><a href="${pageContext.servletContext.contextPath}/staffEval">강사/매니저 평가</a></li>
-	        <!-- <li id="liStyle" title="소통 게시판" style="margin-left: 100px;"><a href="${pageContext.servletContext.contextPath}/community">소통 게시판</a></li> -->
-	    </ul>
-	</nav>
+                </tr>
+            </table>
+            <nav>
+	            <ul id="ulStyle" style="margin-left:18rem; width:60rem">
+	                <li id="liStyle" title="1:1 문의/건의" style="margin-left: -30px; font-size:20px;"><a href="${pageContext.request.contextPath }/main/introduce">소개</a></li>
+	                <li id="liStyle" title="강사/매니저 평가" style="margin-left: 100px; font-size:20px;"><a href="${pageContext.request.contextPath }/bookmark">내 즐겨찾기</a></li>
+	                <li id="liStyle" title="소통 게시판" style="margin-left: 100px; font-size:20px;"><a href="${pageContext.request.contextPath }/dictionary">검색</a></li>
+	                <li id="liStyle" title="소통 게시판" style="margin-left: 100px; font-size:20px;"><a href="${pageContext.request.contextPath }/board" >자유게시판</a></li>
+	                <li id="liStyle" title="소통 게시판" style="margin-left: 100px; font-size:20px;"><a href="${pageContext.request.contextPath }/oneToOne" >1:1 문의</a></li> 
+	            </ul>
+	        </nav>
+        </header>
+        
     <div class="body" style="margin-left:20px;">
         <div class="body_border">
             <div class="form_div">
