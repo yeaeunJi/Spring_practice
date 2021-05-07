@@ -73,19 +73,19 @@
 														+ '</strong>';
 												htmls += '<span style="padding-left: 7px; font-size: 9pt">';
 												
-												htmls += '<c:if test="${authUser.id == boardContent.reg_id}">';
-												htmls += '<a href="javascript:void(0)" onclick="fn_editReply('
-														+ this.rid
-														+ ', \''
-														+ this.reg_id
-														+ '\', \''
-														+ this.content
-														+ '\' )" style="padding-right:5px">수정</a>';
-												htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply('
-														+ this.rid
-														+ ')" >삭제</a>';
-												
-												htmls += '</c:if>';
+												 if('${authUser.id}' == this.reg_id){
+				                                       htmls += '<a href="javascript:void(0)" onclick="fn_editReply('
+				                                          + this.rid
+				                                          + ', \''
+				                                          + this.reg_id
+				                                          + '\', \''
+				                                          + this.content
+				                                          + '\' )" style="padding-right:5px">수정</a>';
+				                                    htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply('
+				                                          + this.rid
+				                                          + ')" >삭제</a>';
+				                                    }
+
 														
 												htmls += '</span>';
 												htmls += '</span>';

@@ -85,8 +85,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/getBoardContent", method = RequestMethod.GET)
-	public String getBoardContent(Model model, @RequestParam("bid") int bid) throws Exception {
+	public String getBoardContent(HttpSession session, Model model, @RequestParam("bid") int bid) throws Exception {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
 		model.addAttribute("boardContent", boardService.getBoardContent(bid));
+		model.addAttribute("authUser", authUser);
 		model.addAttribute("replyVO", new ReplyVo());
 		return "board/boardContent";
 
