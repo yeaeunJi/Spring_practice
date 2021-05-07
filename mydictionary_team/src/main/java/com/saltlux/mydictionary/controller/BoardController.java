@@ -31,12 +31,13 @@ public class BoardController {
 			@RequestParam(required = false, defaultValue = "1") int page,
 			@RequestParam(required = false, defaultValue = "1") int range,
 			@RequestParam(required = false, defaultValue = "title") String searchType,
-			@RequestParam(required = false) String keyword) throws Exception {
+			@RequestParam(required = false) String keyword, @ModelAttribute("search") Search search) throws Exception {
 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		model.addAttribute("authUser", authUser);
-		
-		Search search = new Search();
+
+		// 검색
+		model.addAttribute("search", search);
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 
@@ -50,7 +51,10 @@ public class BoardController {
 		 * listCnt);
 		 */
 
+		// 페이징
 		model.addAttribute("pagination", search);
+
+		// 게시글 화면 출력
 		model.addAttribute("boardList", boardService.getBoardList(search));
 		return "board/index";
 	}

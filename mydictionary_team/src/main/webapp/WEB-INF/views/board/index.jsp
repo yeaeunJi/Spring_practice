@@ -40,7 +40,9 @@
 			var url = "${pageContext.request.contextPath}/board/getBoardList";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
-			
+			url = url + "&searchType=" + $('#searchType').val();
+			url = url + "&keyword=" + keyword;
+
 			location.href = url;
 		}
 	  //페이지 번호 클릭
@@ -48,6 +50,8 @@
 			var url = "${pageContext.request.contextPath}/board/getBoardList";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
+			url = url + "&searchType=" + $('#searchType').val();
+			url = url + "&keyword=" + keyword;
 			location.href = url;	
 		}
 		//다음 버튼 이벤트
@@ -58,7 +62,9 @@
 			var url = "${pageContext.request.contextPath}/board/getBoardList";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
-			
+			url = url + "&searchType=" + $('#searchType').val();
+			url = url + "&keyword=" + keyword;
+
 			location.href = url;
 		}
 		
@@ -81,7 +87,7 @@
 		<div class="container">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
-			<div id="content" style="margin-left:22rem; margin-top:4rem;">
+			<div id="content" style="margin-left: 22rem; margin-top: 4rem;">
 				<div id="board">
 					<h2>게시판</h2>
 					<div class="table-responsive">
@@ -137,7 +143,7 @@
 					</div>
 					<p>
 
-					<!-- pagination{s} -->
+						<!-- pagination{s} -->
 					<div id="paginationBox">
 						<ul class="pagination">
 							<c:if test="${pagination.prev}">
@@ -150,7 +156,7 @@
 								<li
 									class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
 									<a class="page-link" href="#"
-									onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')">
+									onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}','${search.searchType}','${search.keyword}')">
 										${idx} </a>
 								</li>
 							</c:forEach>
