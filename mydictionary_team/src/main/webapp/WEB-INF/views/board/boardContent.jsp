@@ -20,7 +20,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/common.css">
-	
+<script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
 
 <script>
 
