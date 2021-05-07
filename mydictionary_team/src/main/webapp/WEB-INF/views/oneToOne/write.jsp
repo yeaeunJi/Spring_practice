@@ -22,7 +22,7 @@
 
     </script>
 
-    <title> 1:1 문의/건의 </title>
+    
 </head>
 <body style="background:#ffffff; margin-top:3rem;">       
         <header class = "positionHead">
