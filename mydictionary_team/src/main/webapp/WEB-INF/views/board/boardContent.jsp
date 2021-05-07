@@ -386,8 +386,8 @@
 								rows="3" placeholder="댓글을 입력해 주세요"></form:textarea>
 						</div>
 						<div class="col-sm-2">
-							<form:input path="reg_id" class="form-control" id="reg_id"
-								value="${authUser.id }" readonly = "true"></form:input>
+							<%-- <form:input path="reg_id" class="form-control" id="reg_id"
+								value="${authUser.id }" readonly = "true"></form:input> --%>
 							<button type="button" class="btn btn-sm btn-primary"
 								id="btnReplySave" style="width: 100%; margin-top: 10px">
 								저 장</button>
