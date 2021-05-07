@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -38,8 +39,11 @@ public class RestBoardController {
 
 	@RequestMapping(value = "/getReplyList", method = RequestMethod.POST)
 	@ResponseBody
-	public JsonResult getReplyList(@RequestParam("bid") int bid) throws Exception {
+	public JsonResult getReplyList(Model model,@RequestParam("bid") int bid) throws Exception {
 		List<ReplyVo> list = boardService.getReplyList(bid);
+		
+		model.addAttribute("replyG", list);
+		
 		return JsonResult.success(list);
 	}
 
