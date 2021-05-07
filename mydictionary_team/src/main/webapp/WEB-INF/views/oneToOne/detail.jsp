@@ -116,7 +116,7 @@
 	     
 	        
 	        
-            <c:if test="${'admin' == authUser.name }" >
+            <c:if test="${'admin' == authUser.id }" >
 	            <form action="${pageContext.servletContext.contextPath}/oneToOne/reply/${no }" method="post">
 		            <table style="margin:30px;">
 			                <tr>
