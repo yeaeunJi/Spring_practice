@@ -35,10 +35,10 @@
   
 [현재 구현된 기능]
 	1. 네이버 지식 백과 API 연동(검색)  
-	2. 즐겨찾기(DB 저장, 검색, 추가/삭제)  
+	2. 즐겨찾기(DB 저장, 검색, 추가/삭제, 카테고리분류 가능/이동 가능)  
 	3. 회원가입, 로그인	
-	4. 자유 게시판(회원만 사용가능)
-	5. 1:1 문의(회원만 사용 가능, 관리자만 답장 가능)
+	4. 자유 게시판(회원만 사용가능, 게시물/댓글 작성, 본인 게시물/댓글만 수정/삭제))
+	5. 1:1 문의(회원만 사용 가능, 관리자가 댓글로 답장, 본인 게시글만 수정)
 	
 	※ 즐겨찾기, 네이버 검색, 자유 게시판 작성, 1:1문의는 로그인 후에 사용 가능합니다.  
   
@@ -48,10 +48,9 @@
   (3) Back-end : Java 1.8, ApacheTomcat 8.5, Srping4.3, MySql 8.0, mybatis 3.2.2/spring mybatis 1.2.0
   </b></pre>
     <img src="${pageContext.request.contextPath }/assets/images/ERD.png" title="mysql erd"  style="padding-left : 300px;"/><br /><br />
-    <p style="margin-left:25rem;">***** 위에 작성된 ERD는 추후 수정 예정 *****  </p>
   <pre><b>
   (4) tools : 이클립스, Maven, Github, JUnit(Spring JUnit)
- 	※ Github url : <a href="https://github.com/yeaeunJi/Spring_practice/tree/master/mydictionary">https://github.com/yeaeunJi/Spring_practice/tree/master/mydictionary_team</a> 
+ 	※ Github url : <a href="https://github.com/yeaeunJi/MyDictionary.git">https://github.com/yeaeunJi/MyDictionary.git</a> 
   (5) open API : 네이버 지식 백과 API</b>
 </pre>
 </div>
