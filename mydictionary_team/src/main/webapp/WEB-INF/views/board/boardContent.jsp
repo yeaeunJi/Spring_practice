@@ -20,8 +20,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/common.css">
-<script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
-
 <script>
 	//목록으로 이동 이벤트
 	$(document).on('click','#btnList',function() {
