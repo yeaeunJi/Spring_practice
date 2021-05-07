@@ -28,6 +28,7 @@ public class OneToOneRepository {
 		return sqlSession.selectList("onetoone.findAll", params);
 	}
 	
+	//admin일때 전체 글 가져오는 sql문
 	public List<OneToOneVo> findAll(int page) {
 		int start = 1 + (page-1) * 10; //1, 11, 21, 31
 		int end = page * 10; //10, 20, 30, 40
@@ -38,8 +39,34 @@ public class OneToOneRepository {
 
 		return sqlSession.selectList("onetoone.adminFindAll", params);
 	}
+	
+	public int findAllCnt(String nickname) {
+		return sqlSession.selectOne("onetoone.findAllCnt", nickname);
+	}
 
+	public int adminFindAllCnt() {
+		return sqlSession.selectOne("onetoone.adminFindAllCnt");
+	}
+	
 
+	public List<OneToOneVo> search(String searchOption, String keyword, int page, String userId) {
+		int start = 1 + (page-1) * 10; //1, 11, 21, 31
+		int end = page * 10; //10, 20, 30, 40
+		Map params = new HashMap();
+		params.put("start", start);
+		params.put("end", end);
+		params.put("keyword", keyword);
+		params.put("userId", userId);
+		
+		if(searchOption.equals("titleContent")) {
+			return sqlSession.selectList("onetoone.searchTitleContent", params);
+		}
+		else
+			return sqlSession.selectList("onetoone.searchTitle", params);
+		
+	}
+	
+	//admin일때 search 해당 키워드의 전체 게시물을 가져오는 sql문
 	public List<OneToOneVo> search(String searchOption, String keyword, int page) {
 		int start = 1 + (page-1) * 10; //1, 11, 21, 31
 		int end = page * 10; //10, 20, 30, 40
@@ -48,11 +75,11 @@ public class OneToOneRepository {
 		params.put("end", end);
 		params.put("keyword", keyword);
 		
-		if(searchOption.equals("titleContent")) {
-			return sqlSession.selectList("onetoone.searchTitleContent", params);
+		if(searchOption.equals("titleContent")) {			
+			return sqlSession.selectList("onetoone.adminSearchTitleContent", params);
 		}
 		else
-			return sqlSession.selectList("onetoone.searchTitle", params);
+			return sqlSession.selectList("onetoone.adminSearchTitle", params);
 		
 	}
 
@@ -83,9 +110,28 @@ public class OneToOneRepository {
 		
 	}
 
-	public int findAllCnt(String nickname) {
-		return sqlSession.selectOne("onetoone.findAllCnt", nickname);
+	
+	
+	public int findAllSearchCnt(String searchOption, String keyword, String userId) {
+		Map params = new HashMap();
+		params.put("keyword", keyword);
+		params.put("userId", userId);
+		
+		if(searchOption.equals("titleContent")) {
+			return sqlSession.selectOne("onetoone.searchTitleContentCnt", params);
+		}
+		else
+			return sqlSession.selectOne("onetoone.searchTitleCnt", params);
 	}
+	
+	public int adminFindAllSearchCnt(String searchOption, String keyword) {
+		
+		if(searchOption.equals("titleContent")) {
+			return sqlSession.selectOne("onetoone.adminSearchTitleContentCnt", keyword);
+		}
+		else
+			return sqlSession.selectOne("onetoone.adminSearchTitleCnt", keyword);
+		}
 
 	public boolean updateReply(String no, String reply) {
 		Map params = new HashMap();
@@ -98,4 +144,11 @@ public class OneToOneRepository {
 			return false;
 		}
 	}
+
+	
+
+
+	
+
+	
 }

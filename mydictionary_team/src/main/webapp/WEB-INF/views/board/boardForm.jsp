@@ -28,6 +28,8 @@
 
 <title>board</title>
 
+<script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
+
 <script>
 	$(document).on('click', '#btnSave', function(e) {
 
@@ -84,17 +86,15 @@
 					});
 </script>
 
-
-
 </head>
 
 <body>
 
 	<article>
 
-		<div class="container" role="main">
-			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<div class="container" role="main" style="margin-left:27rem; margin-top:4rem;">
 			<h2>글쓰기</h2>
 
 			<form:form name="form" id="form" role="form" modelAttribute="boardVO"
@@ -123,7 +123,7 @@
 					<label for="reg_id">작성자</label>
 
 					<form:input path="reg_id" id="reg_id" class="form-control"
-						placeholder="이름을 입력해 주세요" />
+					 value="${authUser.id }" readonly="true"/>
 
 				</div>
 
@@ -133,7 +133,7 @@
 
 					<label for="content">내용</label>
 
-					<form:textarea path="content" id="content" class="form-control"
+					<form:textarea path="content" id="content" class="ckeditor"
 						rows="5" placeholder="내용을 입력해 주세요" />
 
 				</div>
@@ -159,12 +159,16 @@
 
 			</div>
 
-			<c:import url="/WEB-INF/views/includes/footer.jsp" />
-			
 		</div>
 
 	</article>
+	
 
+	
+	<c:import url="/WEB-INF/views/includes/footer.jsp" />
+					
+			
 </body>
 
 </html>
+

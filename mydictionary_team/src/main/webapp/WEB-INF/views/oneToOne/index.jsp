@@ -102,7 +102,7 @@
 
 				<!-- 현재 page와 시작 page, 마지막 page 값을 구해서 각각의 변수에 담았다. -->
 				<!-- ****************************************************** -->
-				<c:set var="page" value="${(empty p)?1:p}" />
+				<c:set var="page" value="${(empty page)?1:page}" />
 				<c:set var="startNum" value="${page-(page-1)%5}" />
 				<c:set var="lastNum" value="${fn:substringBefore(Math.ceil(count/10), '.') }" />
 				<c:set var="end" value="${totalCnt/10 > 4 ? 4:totalCnt/10 }" />  

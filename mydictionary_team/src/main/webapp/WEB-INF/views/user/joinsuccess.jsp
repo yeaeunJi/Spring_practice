@@ -16,10 +16,12 @@
 			<c:import url ="/WEB-INF/views/includes/navigation.jsp"/>
 		
 		<div id="content">
-			<div id="user">
+			<div id="user" style="margin-left:30rem;">
 				<p class="jr-success">
-					회원가입을 축하합니다.
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원가입을 축하합니다. <br><br>
+					<img src="${pageContext.request.contextPath }/assets/images/createIdSuccess.jpg" style="margin-left:5rem" alt="회원가입 성공이미지">
 					<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath }/user/login">로그인하기</a>
 				</p>				
 			</div>

@@ -67,7 +67,7 @@ $(function(){
 		<c:import url ="/WEB-INF/views/includes/header.jsp"/>
 		<c:import url ="/WEB-INF/views/includes/navigation.jsp"/>
 		<div id="content">
-			<div id="user">
+			<div id="user" style="margin-left:35rem;">
 
 				<form id="join-form" name="join" method="post" action="${pageContext.request.contextPath }/user/join">
 					<label class="block-label" for="name">＊ 이름 (필수)</label>
@@ -87,7 +87,7 @@ $(function(){
 						<label>서비스 약관에 동의합니다.</label>
 					</fieldset>
 					
-					<input type="submit" value="가입하기" id="join_btn" disabled="disabled"> 
+					<input type="submit" style="margin-left:6rem;" value="가입하기" id="join_btn" disabled="disabled"> 
 					
 				</form>
 			</div>
