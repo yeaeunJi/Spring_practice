@@ -39,9 +39,8 @@ public class DictionaryController {
 		list = dictionaryService.markingBookmarkFlag(compareList, list);
 	
 		PageVo page = null;
-	
+
 		if(list.size() != 0) {
-//			System.out.println("total Row : "+list.get(0).getTotal()+", list.size() : "+list.size());
 			page = new PageVo(list.get(0).getTotal(), vo.getStartRow(), vo.getKeyword());
 		}else {
 			page = vo;
@@ -51,14 +50,9 @@ public class DictionaryController {
 		return "dictionary/index";
 	}
 	
-	/*
-	 * Get : PageVo Parameter: curPage=${page.curPage}&startPage=${page.startPage}&totalRow=${page.totalRow}&endPage=${page.endPage}&totalPage=${page.totalPage}&keyword=${keyword}
-	 * */
 	@RequestMapping("/search/onePageNext")
 	public String onePageNext( PageVo page, @AuthUser UserVo authUser, Model model){	
-//		System.out.println("================= onePageNext");
 		page.nextPage(1);
-//		System.out.println("dictionary.search : "+ page);
 		
 		List<DictionaryVo> list = dictionaryService.search(page);
 		Map<String, Object> map = new HashMap<>();
@@ -72,14 +66,9 @@ public class DictionaryController {
 		return "dictionary/index";
 	}
 	
-	/*
-	 * Get : PageVo Parameter: selectPage=${showNum}&curPage=${page.curPage}&startPage=${page.startPage}&totalRow=${page.totalRow}&endPage=${page.endPage}&totalPage=${page.totalPage}&keyword=${keyword}
-	 * */	
 	@RequestMapping("/search/selectPage")
 	public String onePageNext(int selectPage, PageVo page, @AuthUser UserVo authUser, Model model){	
-//		System.out.println("================= onePageNext");
 		page.selectPage(selectPage, 1);
-//		System.out.println("dictionary.search : "+ page);
 		
 		List<DictionaryVo> list = dictionaryService.search(page);
 		Map<String, Object> map = new HashMap<>();
@@ -92,15 +81,10 @@ public class DictionaryController {
 		model.addAttribute("page", page);
 		return "dictionary/index";
 	}
-	
-	/*
-	 * Get : PageVo Parameter: curPage=${page.curPage}&startPage=${page.startPage}&totalRow=${page.totalRow}&endPage=${page.endPage}&totalPage=${page.totalPage}&keyword=${keyword}
-	 * */
+
 	@RequestMapping("/search/onePagePrev")
 	public String onePagePrev(PageVo page, @AuthUser UserVo authUser, Model model){	
-//		System.out.println("================= onePagePrev");
 		page.prevPage(1);
-//		System.out.println("dictionary.search : "+ page);
 		
 		List<DictionaryVo> list = dictionaryService.search(page);
 		Map<String, Object> map = new HashMap<>();

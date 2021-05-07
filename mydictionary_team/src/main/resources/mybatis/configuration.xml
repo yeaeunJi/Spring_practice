@@ -4,6 +4,7 @@
 	<typeAliases>
 	<typeAlias type="com.saltlux.mydictionary.vo.UserVo" alias="uservo"/>
 	<typeAlias type="com.saltlux.mydictionary.vo.BookmarkVo" alias="bookmarkvo"/>
+	<typeAlias type="com.saltlux.mydictionary.vo.BookmarkListVo" alias="bookmarklistvo"/>
 	<typeAlias type="com.saltlux.mydictionary.vo.BoardVo" alias="boardvo"/>
 	<typeAlias type="com.saltlux.mydictionary.vo.ReplyVo" alias="replyvo"/>
 	<typeAlias type="com.saltlux.mydictionary.vo.OneToOneVo" alias="onetoonevo" />
@@ -11,6 +12,7 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/bookmark.xml" />
+		<mapper resource="mybatis/mappers/bookmarkList.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
 		<mapper resource="mybatis/mappers/reply.xml" />
 		<mapper resource="mybatis/mappers/onetoone.xml" />

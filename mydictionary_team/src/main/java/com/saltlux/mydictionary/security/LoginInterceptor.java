@@ -3,16 +3,22 @@ package com.saltlux.mydictionary.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.saltlux.mydictionary.service.BookmarkListService;
 import com.saltlux.mydictionary.service.UserService;
+import com.saltlux.mydictionary.vo.BookmarkListVo;
 import com.saltlux.mydictionary.vo.UserVo;
 
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BookmarkListService bookmarkListService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -28,6 +34,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			response.sendRedirect(request.getContextPath()+"/user/login?result=fail");
 			return false;
 		}
+
+		long basicBookmark  = bookmarkListService.getBasicBookmarkListNo(authUser.getUserNo());
+		authUser.setBasicBookmarkListNo(basicBookmark);
 		
 		/* session 처리 */
 		HttpSession session = request.getSession(true);

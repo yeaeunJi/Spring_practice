@@ -2,6 +2,7 @@ package com.saltlux.mydictionary.vo;
 
 public class UserVo {
 	private long userNo;
+	private long basicBookmarkListNo ;
 	private String name;
 	private String id;
 	private String password;
@@ -18,6 +19,16 @@ public class UserVo {
 	public UserVo(String name, String id, String password, long userNo) {
 		this(name, id, password);
 		this.userNo = userNo;
+	}
+
+	
+	
+	public long getBasicBookmarkListNo() {
+		return basicBookmarkListNo;
+	}
+
+	public void setBasicBookmarkListNo(long basicBookmarkListNo) {
+		this.basicBookmarkListNo = basicBookmarkListNo;
 	}
 
 	public long getUserNo() {
@@ -62,9 +73,11 @@ public class UserVo {
 
 	@Override
 	public String toString() {
-		return "UserVo [userNo=" + userNo + ", name=" + name + ", id=" + id + ", password=" + password + ", joinDate="
-				+ joinDate + "]";
+		return "UserVo [userNo=" + userNo + ", basicBookmarkListNo=" + basicBookmarkListNo + ", name=" + name + ", id="
+				+ id + ", password=" + password + ", joinDate=" + joinDate + "]";
 	}
+
+	
 
 
 }

@@ -25,9 +25,8 @@ public class UserRepository {
 		return count==1;
 	}
 
-	public boolean insert(UserVo vo) {
-		int count =  sqlSession.insert("user.insert",vo); // 삽입 후 no를 받아오기
-		return count==1;
+	public int insert(UserVo vo) {
+		return sqlSession.insert("user.insert",vo);
 	}
 
 	public String findById(String id) {

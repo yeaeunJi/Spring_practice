@@ -12,8 +12,8 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository; 
 	
-	public void join(UserVo vo ) {
-		userRepository.insert(vo)	;		
+	public boolean join(UserVo vo ) {
+		return userRepository.insert(vo) ==1;	
 	}
 
 	public UserVo getUser(UserVo vo) {
