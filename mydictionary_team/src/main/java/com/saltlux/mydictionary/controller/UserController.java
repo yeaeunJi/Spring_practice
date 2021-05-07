@@ -2,13 +2,16 @@ package com.saltlux.mydictionary.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.saltlux.mydictionary.security.Auth;
 import com.saltlux.mydictionary.security.AuthUser;
+import com.saltlux.mydictionary.service.BookmarkListService;
 import com.saltlux.mydictionary.service.UserService;
+import com.saltlux.mydictionary.vo.BookmarkListVo;
 import com.saltlux.mydictionary.vo.UserVo;
 
 @Controller
@@ -18,17 +21,19 @@ public class UserController {
 	@Autowired
 	private UserService userService ;
 
+	@Autowired 
+	private BookmarkListService bookmarkListService;
+	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
 		return "user/join";
 	}
 
 	@RequestMapping(value="/join", method=RequestMethod.POST)
+	@Transactional
 	public String join(UserVo vo) {
-		// service를 불러서 회원가입 비즈니스 로직을 처리
-		// service에서 repository 의존(사용)
-
 		userService.join(vo);
+		bookmarkListService.addBmkList(new BookmarkListVo(vo.getUserNo()));
 		return "redirect:/user/joinsuccess";
 	}
 

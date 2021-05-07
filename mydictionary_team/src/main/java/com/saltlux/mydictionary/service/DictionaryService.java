@@ -60,7 +60,7 @@ public class DictionaryService {
 		return list;
 	}
 
-	/* open api 연결 관련 메서드  */
+	/* open api 연결 관련 메서드  Methods  */
 	private String makeURL(PageVo pagevo) {
 		String url = searchUrl;
 		Map<String, Object> urlParam = new HashMap<>();
@@ -131,7 +131,7 @@ public class DictionaryService {
 		}
 	}
 
-	/* 응답 결과 처리 */
+	/* 응답 결과 처리 Methods  */
 
 	private static String readBody(InputStream body){
 		InputStreamReader streamReader = new InputStreamReader(body);

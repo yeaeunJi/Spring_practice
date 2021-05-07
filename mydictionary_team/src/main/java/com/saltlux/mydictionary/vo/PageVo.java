@@ -1,13 +1,13 @@
 package com.saltlux.mydictionary.vo;
 
 public class PageVo {
-	private int totalPage = 1; 	// 전체 페이지 수
-	private int curPage = 1;  	// 현재 페이지
-	private int startRow = 0; // start row. mysql은 limit 사용시 0부터 사용 
-	private int showNum = 20; // 한 페이지에 보여줄 게시물 수
-	private int startPage = 1; // 시작 페이지 (1, 1+showNum, ... )
-	private int endPage = 1; // 마지막 페이징 (showNum, showNum*2, ... )
-	private int totalRow = 0; // 조회된 전체 행 수
+	private int totalPage = 1; 	
+	private int curPage = 1;  
+	private int startRow = 0; 
+	private int showNum = 10; 
+	private int startPage = 1; 
+	private int endPage = 1; 
+	private int totalRow = 0; 
 	private int pageShowNum = 10; 
 	private String keyword = "";
 	private String selectCondition = "total";
@@ -28,10 +28,12 @@ public class PageVo {
 		this.startRow = startRow;
 		this.showNum = showNum;
 	}
+	
 	public PageVo(int totalRow, int startRow, String keyword, String selectCondition) {
 		this(totalRow, startRow, keyword);
 		this.selectCondition = selectCondition;
 	}
+	
 	public PageVo(int totalRow, int startRow, String keyword) {
 		this.startRow = startRow;
 		this.keyword = keyword;

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookmarkList">
+
+<insert id="insertBmkList" parameterType="bookmarklistvo" >
+	<![CDATA[
+	  insert  
+	  into bookmarklist  ( userNo, bmkListNo, title, wordCount) 
+	  values (#{userNo}, null, #{title},  0)
+	]]>
+	
+	<selectKey keyProperty="bmkListNo" order="AFTER" resultType="long"> 
+		<![CDATA[ select last_insert_id() ]]>
+	</selectKey>
+</insert>
+
+<select id="selectByUserNo" resultType="bookmarklistvo" parameterType="long">
+	<![CDATA[
+		select userNo, bmkListNo, title, wordCount from bookmarkList 
+		where userNo=#{userNo} order by bmkListNo desc
+	]]>
+</select>
+
+<select id="selectByTitleAndUserNo" resultType="int" parameterType="bookmarklistvo" >
+	<![CDATA[
+		select count(*) from bookmarkList 
+		where userNo=#{userNo} and title = #{title}
+	]]>
+</select>
+
+<select id="getBasicBookmarkListNo" resultType="long" parameterType="long">
+	<![CDATA[
+		select bmkListNo from bookmarkList 
+		where userNo=#{userNo} and title='기본'
+	]]>
+</select>
+
+
+<update id="updateWordCount" parameterType="long" >
+	<![CDATA[
+		update bookmarklist set wordcount = (select count(*) from bookmark where userNo=#{userNo} and  bmkListNo=bookmarklist.bmkListNo )  
+		where userNo=#{userNo}
+	]]>
+</update>
+
+
+
+<!-- 테스트용 SQL -->
+<delete id="deleteAll" >
+<![CDATA[ delete from bookmarkList ]]>
+</delete>
+
+
+
+<select id="getCount" resultType="int">
+<![CDATA[ select count(*) from bookmarkList ]]>
+</select>
+
+</mapper>

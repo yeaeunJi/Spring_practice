@@ -158,12 +158,10 @@ window.onload = function() {
 				
 				if (response.result !='success'){
 					console.error(response.message);
-					console.log("response.result !='success'");
-					
 					return;
 				}
 				if(response.data == false){
-					console.log("response.data == false");
+					console.error("즐겨찾기 추가 실패");
 					return;
 				}	
 				
@@ -182,7 +180,7 @@ window.onload = function() {
 				}
 			},
 			error : function(xhr, status, e){
-				console.log(e);
+				console.error(e);
 			}
 		}); // ajax
 	
