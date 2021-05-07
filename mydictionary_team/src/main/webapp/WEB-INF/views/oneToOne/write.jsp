@@ -14,12 +14,19 @@
   
     <script src="${pageContext.servletContext.contextPath}/assets/ckeditor/ckeditor.js"></script>
     <script>
-        function complete(){
-            
-            alert('글이 등록되었습니다.');
-            
-        }
-
+	    function check(){
+	        
+	        var title = document.getElementById('title_text');
+	        var content = document.getElementById('editor1');
+	         
+	        if( title.value == '' || title.value == null ){
+	            alert( '제목을 입력하세요.' );
+	            title.focus();
+	            return false;
+	        }
+	       
+	     }
+    	
     </script>
 
     
@@ -79,7 +86,7 @@
                 </div>
                 <hr>
                 <div class="final_line">
-                    <input type="submit" id="write_button" value="글쓰기" />
+                    <input type="submit" id="write_button" value="글쓰기" onClick="return check();" />
                     <input type="button" id="list_button" name="cancel" value="글목록" onclick="location.href='${pageContext.servletContext.contextPath}/oneToOne'" />
                 </div>
     </form>

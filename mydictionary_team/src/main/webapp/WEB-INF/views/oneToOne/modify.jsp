@@ -84,7 +84,7 @@
                 </div>
                 <hr>
                 <div class="final_line">
-                    <input type="submit" id="write_button" name="write" value="글쓰기">
+                    <input type="submit" id="write_button" name="write" value="수정하기">
                     <input type="button" id="list_button" name="cancel" value="글목록" onclick="location.href = '${pageContext.request.contextPath }/oneToOne/'">
                 </div>
     </form>
